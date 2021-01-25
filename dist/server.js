@@ -4,7 +4,7 @@ const app_1 = require("./app");
 const bodyParser = require("body-parser");
 const user_controller_1 = require("./controllers/user.controller");
 const app = new app_1.default({
-    port: 5000,
+    port: parseInt(process.env.PORT) || 5000,
     controllers: [
         new user_controller_1.default()
     ],

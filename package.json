@@ -1,0 +1,22 @@
+{
+  "name": "intern-task-winter",
+  "version": "1.0.0",
+  "description": "Sprint 01",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denys-bobrovnykov/intern-task-winter.git"
+  },
+  "author": "Denys",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/denys-bobrovnykov/intern-task-winter/issues"
+  },
+  "homepage": "https://github.com/denys-bobrovnykov/intern-task-winter#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

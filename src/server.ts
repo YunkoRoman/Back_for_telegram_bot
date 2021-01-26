@@ -1,18 +1,7 @@
-import App from './app'
+import app from './app';
 
-import * as bodyParser from 'body-parser'
+const PORT = process.env.PORT || 5000;
 
-import UserController from './controllers/user.controller'
-
-const app = new App({
-    port: parseInt(process.env.PORT) || 5000,
-    controllers: [
-        new UserController()
-    ],
-    middleWares: [
-        bodyParser.json(),
-        bodyParser.urlencoded({ extended: true }),
-    ]
-})
-
-app.listen()
+app.listen(PORT, () => {
+  console.log(`Server running on port: ${PORT}`);
+});

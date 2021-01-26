@@ -2,9 +2,12 @@
   "compilerOptions": {
       "sourceMap": true,
       "target": "es6",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
       "module": "commonjs",
+      "rootDir": "./src",
       "outDir": "./dist",
-      "baseUrl": "./src"
+      "baseUrl": "./src",
   },
   "include": [
       "src/**/*.ts"

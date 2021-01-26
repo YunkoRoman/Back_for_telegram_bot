@@ -53,6 +53,8 @@ web_modules/
 
 # Optional eslint cache
 .eslintcache
+.eslintrc.*
+.eslintignore
 
 # Microbundle cache
 .rpt2_cache/
@@ -104,6 +106,7 @@ out
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+.vscode
 
 # yarn v2
 .yarn/cache

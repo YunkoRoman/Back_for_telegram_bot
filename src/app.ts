@@ -1,34 +1,11 @@
-import * as express from 'express'
-import { Application } from 'express'
+import express from 'express';
+import bodyparser from 'body-parser';
+import users from './routes/users.route';
 
-class App {
-    public app: Application
-    public port: number
+const app = express();
 
-    constructor(appInit: { port: number; middleWares: any; controllers: any; }) {
-        this.app = express()
-        this.port = appInit.port
-        this.middlewares(appInit.middleWares)
-        this.routes(appInit.controllers)
-    }
+app.use(bodyparser.json());
 
-    private middlewares(middleWares: { forEach: (arg0: (middleWare: any) => void) => void; }) {
-        middleWares.forEach(middleWare => {
-            this.app.use(middleWare)
-        })
-    }
+app.use('/users', users);
 
-    private routes(controllers: { forEach: (arg0: (controller: any) => void) => void; }) {
-        controllers.forEach(controller => {
-            this.app.use('/', controller.router)
-        })
-    }
-
-    public listen() {
-        this.app.listen(this.port, () => {
-            console.log(`App listening on the http://localhost:${this.port}`)
-        })
-    }
-}
-
-export default App
+export default app;

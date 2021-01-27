@@ -1,4 +1,5 @@
 import express from 'express';
+import logger from '../utils/logger';
 
 const users = express.Router();
 
@@ -7,6 +8,11 @@ users.get('/', (req:express.Request, res:express.Response): void => {
 });
 
 users.get('/:id', (req:express.Request, res:express.Response): void => {
+  try {
+    throw new Error('TEST');
+  } catch (e) {
+    logger.error(e.message);
+  }
   res.send(`GET /users${req.params.id}`);
 });
 

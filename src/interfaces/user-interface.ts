@@ -1,3 +1,9 @@
+export enum UserRole {
+  regular = 'regular',
+  admin = 'admin',
+  superAdmin = 'superAdmin'
+}
+
 export interface User {
   id: number;
   userName: string;
@@ -7,10 +13,4 @@ export interface User {
   city: string;
   role: UserRole;
   state: string;
-}
-
-export enum UserRole {
-  regular = 'regular',
-  admin = 'admin',
-  superAdmin = 'superAdmin'
 }

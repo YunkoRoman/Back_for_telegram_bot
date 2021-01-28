@@ -51,11 +51,20 @@ usersRoute.get('/:id', (req:express.Request, res:express.Response): void => {
 
 // PUT user by id
 usersRoute.put('/:id', (req:express.Request, res:express.Response): void => {
-  res.status(200).send(req.query);
+  res.status(200).send({
+    message: 'received query params',
+    id: req.params.id,
+    query: req.query,
+  });
 });
 
+// DELETE user by id
 usersRoute.delete('/:id', (req:express.Request, res:express.Response): void => {
-  res.send(200).send(`User with id: ${req.params.id} and params ${req.query} has been deleted.a`);
+  res.send(200).send({
+    message: 'user deleted',
+    id: req.params.id,
+    query: req.query,
+  });
 });
 
 export default usersRoute;

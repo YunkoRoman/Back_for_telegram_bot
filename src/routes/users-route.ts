@@ -7,7 +7,7 @@ const usersRoute = express.Router();
 const usersList: User[] = [
   {
     id: 1,
-    userName: 'User1',
+    name: 'User1',
     telegramName: '@user1',
     telegramId: 11,
     phoneNumber: 555555,
@@ -17,7 +17,7 @@ const usersList: User[] = [
   },
   {
     id: 2,
-    userName: 'User2',
+    name: 'User2',
     telegramName: '@user2',
     telegramId: 22,
     phoneNumber: 666666,
@@ -27,7 +27,7 @@ const usersList: User[] = [
   },
   {
     id: 3,
-    userName: 'User4',
+    name: 'User4',
     telegramName: '@user3',
     telegramId: 33,
     phoneNumber: 777777,

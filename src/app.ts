@@ -1,11 +1,16 @@
 import express from 'express';
 import bodyparser from 'body-parser';
-import users from './routes/users-route';
+import users from './routes/users.route';
+import { db } from './sequelize/models/index';
 
-const app = express();
+export default function appFunc() {
+  const app = express();
 
-app.use(bodyparser.json());
+  db.sequelize.sync({ force: true });
 
-app.use('/users', users);
+  app.use(bodyparser.json());
 
-export default app;
+  app.use('/users', users);
+
+  return app;
+}

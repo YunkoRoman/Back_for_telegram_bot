@@ -6,8 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const users_route_1 = __importDefault(require("./routes/users.route"));
-const app = express_1.default();
-app.use(body_parser_1.default.json());
-app.use('/users', users_route_1.default);
-exports.default = app;
+const index_1 = require("./sequelize/models/index");
+function appFunc() {
+    const app = express_1.default();
+    index_1.db.sequelize.authenticate();
+    app.use(body_parser_1.default.json());
+    app.use('/users', users_route_1.default(index_1.db));
+    return app;
+}
+exports.default = appFunc;
 //# sourceMappingURL=app.js.map

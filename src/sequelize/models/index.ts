@@ -29,7 +29,8 @@ const env = process.env.NODE_ENV || 'development';
 
 const params: any = config[env];
 
-const sequelize = new Sequelize(params.database, params.username, params.password, params);
+const sequelize = new Sequelize(params.url, params);
+// const sequelize = new Sequelize(params.database, params.username, params.password, params);
 
 const User = initUser(sequelize);
 const Roles = initRole(sequelize);

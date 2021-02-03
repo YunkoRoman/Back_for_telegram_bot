@@ -11,6 +11,7 @@ const config = {
         password: process.env.DB_PASSWORD_DEV,
         database: process.env.DB_NAME_DEV,
         host: '127.0.0.1',
+        url: process.env.DATABASE_URL,
         port: process.env.DB_PORT_DEV,
         dialect: process.env.DB_DIALECT_DEV,
     },
@@ -26,6 +27,7 @@ const config = {
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
         host: process.env.DB_HOST,
+        url: process.env.DATABASE_URL,
         dialectOptions: {
             ssl: true,
         },

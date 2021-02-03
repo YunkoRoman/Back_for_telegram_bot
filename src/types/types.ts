@@ -1,7 +1,10 @@
 export const applicationJson = 'application/json';
 
-export const PHONE_REGEX = '';
-
+// eslint-disable-next-line no-useless-escape
+// Ukraine phone number
+// export const PHONE_REGEX = '^\\+?3?8?(0\\d{9})$';
+// Stub expression
+export const PHONE_REGEX = '.*';
 export interface UserAddToChat {
   id: number;
   telegramId: string;

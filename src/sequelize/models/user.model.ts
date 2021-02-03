@@ -5,6 +5,7 @@ import {
   Optional,
   BuildOptions,
 } from 'sequelize';
+import { PHONE_REGEX } from '../../types/types';
 
 export interface UserAttributes {
   id: number;
@@ -12,7 +13,7 @@ export interface UserAttributes {
   telegramName: string | null;
   name: string;
   phoneNumber: string | null;
-  city: string;
+  city: string | null;
   step: JSON
 }
 
@@ -35,7 +36,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 
     public phoneNumber!: string | null;
 
-    public city!: string;
+    public city!: string | null;
 
     public step!: JSON;
 }
@@ -49,23 +50,28 @@ export function initUser(sequelize: Sequelize) {
         primaryKey: true,
       },
       telegramId: {
-        type: new DataTypes.STRING(128),
+        type: new DataTypes.STRING(32),
+        unique: true,
         allowNull: false,
       },
       telegramName: {
-        type: new DataTypes.STRING(128),
+        type: new DataTypes.STRING(32),
         allowNull: true,
       },
       name: {
-        type: new DataTypes.STRING(128),
+        type: new DataTypes.STRING(32),
         allowNull: false,
       },
       phoneNumber: {
-        type: new DataTypes.STRING(128),
+        type: new DataTypes.STRING(64),
         allowNull: true,
+        validate: {
+          is: PHONE_REGEX,
+        },
       },
       city: {
-        type: new DataTypes.STRING(128),
+        type: new DataTypes.STRING(32),
+        allowNull: true,
       },
       step: {
         type: DataTypes.JSON,

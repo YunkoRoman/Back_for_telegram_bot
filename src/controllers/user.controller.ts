@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Request, Response, NextFunction } from 'express';
 import {
   getReasonPhrase, StatusCodes,
@@ -34,17 +35,57 @@ export default class UserController {
     }
   }
 
-  public createUser = async (
+  public getUserById = async (
     req: Request,
     res: Response,
     next: NextFunction): Promise<Response> => {
-    const user = <UserAddToChat><unknown>req.params;
+    throw new Error('Method not implemented.');
+  }
+
+  public createNewUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response> => {
+    const user: UserAddToChat = req.body;
     try {
       logger.info('save new user');
       const result = await this.userService.createUser(user);
       return apiResponse(res, successResponse(result), StatusCodes.CREATED);
     } catch (error) {
       logger.error('error while saving user', { meta: { ...error } });
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  public updateUserById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ):Promise<Response> => {
+    const user: UserAddToChat = { id: req.params.id, ...req.body };
+    try {
+      logger.info('update user by id');
+      const result = await this.userService.updateUser(user);
+      return apiResponse(res, successResponse(result), StatusCodes.CREATED);
+    } catch (error) {
+      logger.error('error while updating user');
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.NOT_MODIFIED)),
+        StatusCodes.NOT_MODIFIED);
+    }
+  }
+
+  public deleteUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response> => {
+    const { id } = req.params;
+    try {
+      logger.info('delete user by id');
+      const result = await this.userService.deleteUser(id);
+      return apiResponse(res, successResponse(result), StatusCodes.GONE);
+    } catch (error) {
+      logger.error('error while deleting user', { meta: { ...error } });
       return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
         StatusCodes.INTERNAL_SERVER_ERROR);
     }

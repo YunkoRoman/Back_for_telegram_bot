@@ -8,7 +8,20 @@ export default function usersRoute(db: DB) {
 
   const userController = new UserController(new UserService(db));
 
+  // GET all users
   api.get('/', userController.getAllUsers);
+
+  // GET user by id
+  api.get('/:id', userController.getUserById);
+
+  // CREATE new user
+  api.post('/', userController.createNewUser);
+
+  // UPDATE user
+  api.put('/:id', userController.updateUserById);
+
+  // DELETE user by ID
+  api.delete('/:id', userController.deleteUser);
 
   return api;
 }

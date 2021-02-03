@@ -10,6 +10,7 @@ export default function appFunc() {
   // db.sequelize.sync({ force: true });
 
   app.use(bodyparser.json());
+  app.use(bodyparser.urlencoded({ extended: true }));
 
   app.use('/users', users(db));
 

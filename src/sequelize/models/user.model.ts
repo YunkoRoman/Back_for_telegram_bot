@@ -3,6 +3,7 @@ import {
   Model,
   DataTypes,
   Optional,
+  BuildOptions,
 } from 'sequelize';
 
 export interface UserAttributes {
@@ -14,6 +15,13 @@ export interface UserAttributes {
   city: string;
   step: JSON
 }
+
+export interface UserModel extends Model<UserAttributes>, UserAttributes {}
+
+export type UserStatic = typeof Model & {
+  new (values?: object, options?: BuildOptions): UserModel;
+};
+
 export interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
@@ -33,7 +41,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 }
 
 export function initUser(sequelize: Sequelize) {
-  return sequelize.define('chat_bot_users',
+  return <UserStatic>sequelize.define('chat_bot_users',
     {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,

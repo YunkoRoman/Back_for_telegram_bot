@@ -3,12 +3,20 @@ import {
   Model,
   DataTypes,
   Optional,
+  BuildOptions,
 } from 'sequelize';
 
 export interface UserTypeAttributes {
   id: number;
   userType: string;
 }
+
+export interface UserTypeModel extends Model<UserTypeAttributes>, UserTypeAttributes {}
+
+export type UserTypeStatic = typeof Model & {
+  new (values?: object, options?: BuildOptions): UserTypeModel;
+};
+
 export interface UserTypeCreationAttributes extends Optional<UserTypeAttributes, 'id'> {}
 
 export class UserRole extends Model<UserTypeAttributes, UserTypeCreationAttributes>
@@ -19,7 +27,7 @@ export class UserRole extends Model<UserTypeAttributes, UserTypeCreationAttribut
 }
 
 export function initUserType(sequelize: Sequelize) {
-  return sequelize.define('chat_bot_user_type', {
+  return <UserTypeStatic>sequelize.define('chat_bot_user_type', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

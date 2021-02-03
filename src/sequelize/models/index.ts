@@ -10,21 +10,26 @@ import {
   HasManyCountAssociationsMixin,
   HasManyCreateAssociationMixin,
   Optional,
+  Config,
 } from 'sequelize';
-// eslint-disable-next-line import/no-cycle
-import { initUser } from './user.model';
-import { initRole } from './user.role.model';
-import { initUserType } from './user.type';
+
+import { initUser, UserStatic } from './user.model';
+import { initRole, UserRoleStatic } from './user.role.model';
+import { initUserType, UserTypeStatic } from './user.type';
+import config from '../config/config';
 
 export interface DB {
   sequelize: Sequelize;
+  User: UserStatic;
+  Roles: UserRoleStatic;
+  Types: UserTypeStatic;
 }
 
 const env = process.env.NODE_ENV || 'development';
-// eslint-disable-next-line import/no-dynamic-require
-const config = require(`${__dirname}/../config/config.json`)[env];
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const params: any = config[env];
+
+const sequelize = new Sequelize(params.database, params.username, params.password, params);
 
 const User = initUser(sequelize);
 const Roles = initRole(sequelize);
@@ -33,7 +38,9 @@ const Types = initUserType(sequelize);
 User.belongsToMany(Roles, { through: 'chat_bot_users_has_roles' });
 Roles.belongsToMany(User, { through: 'chat_bot_users_has_roles' });
 Types.belongsTo(User);
-
 export const db: DB = {
   sequelize,
+  User,
+  Roles,
+  Types,
 };

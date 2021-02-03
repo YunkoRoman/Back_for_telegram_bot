@@ -6,11 +6,11 @@ import { db } from './sequelize/models/index';
 export default function appFunc() {
   const app = express();
 
-  db.sequelize.sync({ force: true });
+  db.sequelize.authenticate();
 
   app.use(bodyparser.json());
 
-  app.use('/users', users);
+  app.use('/users', users(db));
 
   return app;
 }

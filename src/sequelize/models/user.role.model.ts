@@ -3,6 +3,7 @@ import {
   Model,
   DataTypes,
   Optional,
+  BuildOptions,
 } from 'sequelize';
 
 export enum Role {
@@ -17,6 +18,12 @@ export interface UserRoleAttributes {
 }
 export interface UserRoleCreationAttributes extends Optional<UserRoleAttributes, 'id'> {}
 
+export interface UserRoleModel extends Model<UserRoleAttributes>, UserRoleAttributes {}
+
+export type UserRoleStatic = typeof Model & {
+  new (values?: object, options?: BuildOptions): UserRoleModel;
+};
+
 export class UserRole extends Model<UserRoleAttributes, UserRoleCreationAttributes>
   implements UserRoleAttributes {
     public id!: number;
@@ -25,7 +32,7 @@ export class UserRole extends Model<UserRoleAttributes, UserRoleCreationAttribut
 }
 
 export function initRole(sequelize: Sequelize) {
-  return sequelize.define('chat_bot_roles', {
+  return <UserRoleStatic>sequelize.define('chat_bot_roles', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

@@ -67,11 +67,11 @@ export default class UserController {
     try {
       logger.info('update user by id');
       const result = await this.userService.updateUser(user);
-      return apiResponse(res, successResponse(result), StatusCodes.CREATED);
+      return apiResponse(res, successResponse(result), StatusCodes.NO_CONTENT);
     } catch (error) {
       logger.error('error while updating user');
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.NOT_MODIFIED)),
-        StatusCodes.NOT_MODIFIED);
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -83,7 +83,7 @@ export default class UserController {
     try {
       logger.info('delete user by id');
       const result = await this.userService.deleteUser(id);
-      return apiResponse(res, successResponse(result), StatusCodes.GONE);
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while deleting user', { meta: { ...error } });
       return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),

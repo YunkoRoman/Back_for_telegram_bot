@@ -12,8 +12,8 @@ const config: Params = {
     password: process.env.DB_PASSWORD_DEV,
     database: process.env.DB_NAME_DEV,
     host: '127.0.0.1',
-    port: '3306',
-    dialect: 'mysql',
+    port: process.env.DB_PORT_DEV,
+    dialect: process.env.DB_DIALECT_DEV,
   },
   test: {
     username: 'root',

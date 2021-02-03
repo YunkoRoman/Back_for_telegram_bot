@@ -37,6 +37,7 @@
     "sequelize": "^6.5.0",
     "sequelize-cli-typescript": "^3.2.0-c",
     "sequelize-typescript": "^2.0.0",
+    "validator": "^13.5.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {

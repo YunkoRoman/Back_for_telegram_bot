@@ -6,7 +6,8 @@ import { db } from './sequelize/models/index';
 export default function appFunc() {
   const app = express();
 
-  db.sequelize.authenticate();
+  db.sequelize.authenticate().then(() => console.log('Authenticated'));
+  // db.sequelize.sync({ force: true });
 
   app.use(bodyparser.json());
 

@@ -35,9 +35,8 @@ const User = initUser(sequelize);
 const Roles = initRole(sequelize);
 const Types = initUserType(sequelize);
 
-User.belongsToMany(Roles, { through: 'chat_bot_users_has_roles' });
-Roles.belongsToMany(User, { through: 'chat_bot_users_has_roles' });
-Types.belongsTo(User);
+User.belongsTo(Roles);
+User.belongsTo(Types);
 export const db: DB = {
   sequelize,
   User,

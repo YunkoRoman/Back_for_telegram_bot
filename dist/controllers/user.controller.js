@@ -30,6 +30,45 @@ class UserController {
                 return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
+        this.getUserById = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            throw new Error('Method not implemented.');
+        });
+        this.createNewUser = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const user = req.body;
+            try {
+                logger_1.default.info('save new user');
+                const result = yield this.userService.createUser(user);
+                return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.CREATED);
+            }
+            catch (error) {
+                logger_1.default.error('error while saving user', { meta: Object.assign({}, error) });
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
+        this.updateUserById = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const user = Object.assign({ id: req.params.id }, req.body);
+            try {
+                logger_1.default.info('update user by id');
+                const result = yield this.userService.updateUser(user);
+                return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.CREATED);
+            }
+            catch (error) {
+                logger_1.default.error('error while updating user');
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.NOT_MODIFIED)), http_status_codes_1.StatusCodes.NOT_MODIFIED);
+            }
+        });
+        this.deleteUser = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                logger_1.default.info('delete user by id');
+                const result = yield this.userService.deleteUser(id);
+                return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.GONE);
+            }
+            catch (error) {
+                logger_1.default.error('error while deleting user', { meta: Object.assign({}, error) });
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
         this.userService = userService;
     }
 }

@@ -29,9 +29,11 @@ const config = {
         host: process.env.DB_HOST,
         url: process.env.DATABASE_URL,
         dialectOptions: {
-            ssl: true,
+            ssl: {
+                rejectUnauthorized: false,
+            },
         },
-        dialect: 'postgres',
+        dialect: process.env.DB_DIALECT,
     },
 };
 exports.default = config;

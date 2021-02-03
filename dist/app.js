@@ -9,7 +9,7 @@ const users_route_1 = __importDefault(require("./routes/users.route"));
 const index_1 = require("./sequelize/models/index");
 function appFunc() {
     const app = express_1.default();
-    index_1.db.sequelize.authenticate().then(() => console.log('Authenticated'));
+    index_1.db.sequelize.sync({ force: true }).then(() => console.log('Authenticated'));
     // db.sequelize.sync({ force: true });
     app.use(body_parser_1.default.json());
     app.use(body_parser_1.default.urlencoded({ extended: true }));

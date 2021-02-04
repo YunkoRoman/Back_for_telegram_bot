@@ -24,6 +24,11 @@ export default class FaqsService {
     return result;
   }
 
+  public getFaqById = async (faqId: number) : Promise<FaqModel | null> => {
+    const result = await this.DB.Faqs.findOne({ where: { id: faqId } });
+    return result;
+  }
+
   public addNewFaq = async (faq: FaqModel) : Promise<FaqModel> => {
     const result = await this.DB.Faqs.create(faq);
     return result;
@@ -31,5 +36,10 @@ export default class FaqsService {
 
   public updateFaqById = async (faq: FaqModel) : Promise<FaqModel | any> => {
     await this.DB.Faqs.update(faq, { where: { id: faq.id } });
+  }
+
+  public deleteFaqById = async (faqId: number) : Promise<number> => {
+    const result = await this.DB.Faqs.destroy({ where: { id: faqId } });
+    return result;
   }
 }

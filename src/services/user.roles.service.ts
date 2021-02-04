@@ -11,12 +11,12 @@ export default class UserRolesService {
 
   // ============ CRUD ==============
 
-  public getAllFaqs = async () : Promise<UserRoleModel[]> => {
+  public getAllRoles = async () : Promise<UserRoleModel[]> => {
     const result = await this.DB.Roles.findAll();
     return result;
   }
 
-  public updateFaqById = async (userRole: UserRoleModel) : Promise<FaqModel | any> => {
+  public updateRoleById = async (userRole: UserRoleModel) : Promise<UserRoleModel | any> => {
     await this.DB.Roles.update(userRole, { where: { id: userRole.id } });
   }
 }

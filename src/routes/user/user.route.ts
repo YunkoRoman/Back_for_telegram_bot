@@ -8,6 +8,7 @@ export default function usersRoute(db: DB) {
 
   const userController = new UserController(new UserService(db));
 
+  // ========== CRUD ====================
   // GET all users
   api.get('/', userController.getAllUsers);
 

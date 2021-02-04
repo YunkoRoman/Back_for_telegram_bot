@@ -48,6 +48,7 @@ export default class UserController {
     next: NextFunction): Promise<Response> => {
     const user: UserAddToChat = req.body;
     user.roleId = 1;
+    user.typeId = 1;
     try {
       logger.info('save new user');
       const result = await this.userService.createUser(user);

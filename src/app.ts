@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyparser from 'body-parser';
-import users from './routes/users.route';
+import users from './routes/user.crud.route';
 import { db } from './sequelize/models/index';
 
 export default function appFunc() {

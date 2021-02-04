@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert('chat_bot_user_types', [
     {

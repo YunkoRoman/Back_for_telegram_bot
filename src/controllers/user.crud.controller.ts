@@ -4,6 +4,7 @@ import {
   getReasonPhrase, StatusCodes,
 } from 'http-status-codes';
 import { UserAddToChat } from 'types/types';
+import { UserModel } from 'sequelize/models/user.model';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
 import logger from '../utils/logger';
 import UserService from '../services/user.service';
@@ -39,7 +40,16 @@ export default class UserController {
     req: Request,
     res: Response,
     next: NextFunction): Promise<Response> => {
-    throw new Error('Method not implemented.');
+    const { id } = req.params;
+    try {
+      logger.info('find user by id');
+      const result = await this.userService.getUserById(parseInt(id, 10));
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error while getting user by id', { meta: { ...error } });
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
   }
 
   public createNewUser = async (
@@ -65,13 +75,44 @@ export default class UserController {
     res: Response,
     next: NextFunction,
   ):Promise<Response> => {
-    const user: UserAddToChat = { id: req.params.id, roleId: 0, ...req.body };
+    const user: UserAddToChat = { id: req.params.id, ...req.body };
     try {
       logger.info('update user by id');
       const result = await this.userService.updateUser(user);
-      return apiResponse(res, successResponse(result), StatusCodes.NO_CONTENT);
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while updating user');
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  public countAllUsers = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response> => {
+    try {
+      logger.info('count all users');
+      const result = await this.userService.findAndCountAll();
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error while counting users', { meta: { ...error } });
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  public countByType = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response> => {
+    const { typeId } = req.params;
+    try {
+      logger.info('count all users');
+      const result = await this.userService.findAndCountByType(parseInt(typeId, 10));
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error while counting users by type', { meta: { ...error } });
       return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
         StatusCodes.INTERNAL_SERVER_ERROR);
     }

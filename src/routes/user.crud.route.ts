@@ -1,6 +1,6 @@
 import express from 'express';
 import UserService from '../services/user.service';
-import UserController from '../controllers/user.controller';
+import UserController from '../controllers/user.crud.controller';
 import { DB } from '../sequelize/models/index';
 
 export default function usersRoute(db: DB) {

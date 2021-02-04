@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyparser from 'body-parser';
 import logger from './utils/logger';
-import users from './routes/user.crud.route';
+import users from './routes/user/user.route';
 import admin from './routes/admin/admin.route';
 import { db } from './sequelize/models/index';
 

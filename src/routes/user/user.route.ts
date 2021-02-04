@@ -1,7 +1,7 @@
 import express from 'express';
-import UserService from '../services/user.service';
-import UserController from '../controllers/user.crud.controller';
-import { DB } from '../sequelize/models/index';
+import UserService from '../../services/user.service';
+import UserController from '../../controllers/user.crud.controller';
+import { DB } from '../../sequelize/models/index';
 
 export default function usersRoute(db: DB) {
   const api = express.Router();

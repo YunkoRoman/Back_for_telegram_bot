@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const user_service_1 = __importDefault(require("../services/user.service"));
-const user_crud_controller_1 = __importDefault(require("../controllers/user.crud.controller"));
+const user_service_1 = __importDefault(require("../../services/user.service"));
+const user_crud_controller_1 = __importDefault(require("../../controllers/user.crud.controller"));
 function usersRoute(db) {
     const api = express_1.default.Router();
     const userController = new user_crud_controller_1.default(new user_service_1.default(db));

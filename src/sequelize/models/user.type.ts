@@ -4,7 +4,14 @@ import {
   DataTypes,
   Optional,
   BuildOptions,
+  HasManyGetAssociationsMixin,
+  HasManyAddAssociationMixin,
+  HasManyHasAssociationMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  Association,
 } from 'sequelize';
+import { User } from './user.model';
 
 export interface UserTypeAttributes {
   id: number;
@@ -14,6 +21,7 @@ export interface UserTypeAttributes {
 export interface UserTypeModel extends Model<UserTypeAttributes>, UserTypeAttributes {}
 
 export type UserTypeStatic = typeof Model & {
+  // eslint-disable-next-line no-unused-vars
   new (values?: object, options?: BuildOptions): UserTypeModel;
 };
 
@@ -24,6 +32,22 @@ export class UserRole extends Model<UserTypeAttributes, UserTypeCreationAttribut
     public id!: number;
 
     public userType!: string;
+
+    public getUsers!: HasManyGetAssociationsMixin<User>; // Note the null assertions!
+
+    public addUser!: HasManyAddAssociationMixin<User, number>;
+
+    public hasUser!: HasManyHasAssociationMixin<User, number>;
+
+    public countUsers!: HasManyCountAssociationsMixin;
+
+    public createUser!: HasManyCreateAssociationMixin<User>;
+
+    public readonly users?: User[];
+
+    public static associations: {
+      users: Association<UserRole, User>;
+    }
 }
 
 export function initUserType(sequelize: Sequelize) {

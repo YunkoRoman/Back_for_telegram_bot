@@ -14,12 +14,15 @@ export interface UserAttributes {
   name: string;
   phoneNumber: string | null;
   city: string | null;
-  step: JSON
+  step: JSON;
+  roleId: number;
+  typeId: number;
 }
 
 export interface UserModel extends Model<UserAttributes>, UserAttributes {}
 
 export type UserStatic = typeof Model & {
+  // eslint-disable-next-line no-unused-vars
   new (values?: object, options?: BuildOptions): UserModel;
 };
 
@@ -39,6 +42,10 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     public city!: string | null;
 
     public step!: JSON;
+
+    public roleId!: number;
+
+    public typeId!: number;
 }
 
 export function initUser(sequelize: Sequelize) {
@@ -75,6 +82,12 @@ export function initUser(sequelize: Sequelize) {
       },
       step: {
         type: DataTypes.JSON,
+      },
+      roleId: {
+        type: DataTypes.INTEGER,
+      },
+      typeId: {
+        type: DataTypes.INTEGER,
       },
     });
 }

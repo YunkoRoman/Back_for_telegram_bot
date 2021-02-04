@@ -13,6 +13,8 @@ export interface UserAddToChat {
   phoneNumber: string;
   city: string;
   step: JSON;
+  roleId: number;
+  typeId: number;
 }
 
 export interface SuccessResponse<T = any> {

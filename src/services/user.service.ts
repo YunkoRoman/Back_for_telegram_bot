@@ -20,6 +20,7 @@ export default class UserService {
   }
 
   public createUser = async (user: UserAddToChat): Promise<UserModel | any> => {
+    console.log('user role', user.roleId);
     await this.DB.User.create(user);
   }
 

@@ -47,6 +47,7 @@ export default class UserController {
     res: Response,
     next: NextFunction): Promise<Response> => {
     const user: UserAddToChat = req.body;
+    user.roleId = 1;
     try {
       logger.info('save new user');
       const result = await this.userService.createUser(user);
@@ -63,7 +64,7 @@ export default class UserController {
     res: Response,
     next: NextFunction,
   ):Promise<Response> => {
-    const user: UserAddToChat = { id: req.params.id, ...req.body };
+    const user: UserAddToChat = { id: req.params.id, roleId: 0, ...req.body };
     try {
       logger.info('update user by id');
       const result = await this.userService.updateUser(user);

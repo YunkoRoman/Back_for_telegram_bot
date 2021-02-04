@@ -11,7 +11,7 @@ export default class FaqsService {
 
   public getMostPopular = async (): Promise<FaqModel[]> => {
     const result = await this.DB.Faqs.findAll({
-      order: ['stats', 'DESC'],
+      order: [['stats', 'DESC']],
       limit: 10,
     });
     return result;
@@ -21,6 +21,11 @@ export default class FaqsService {
 
   public getAllFaqs = async () : Promise<FaqModel[]> => {
     const result = await this.DB.Faqs.findAll();
+    return result;
+  }
+
+  public addNewFaq = async (faq: FaqModel) : Promise<FaqModel> => {
+    const result = await this.DB.Faqs.create(faq);
     return result;
   }
 

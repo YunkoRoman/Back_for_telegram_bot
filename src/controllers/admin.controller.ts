@@ -7,6 +7,7 @@ import FaqsService from 'services/faqs.service';
 import { FaqModel } from 'sequelize/models/faq.model';
 import UserService from 'services/user.service';
 import UserTypesService from 'services/user.types.service';
+import { UserTypeModel } from 'sequelize/models/user.type.model';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
 import logger from '../utils/logger';
 
@@ -66,6 +67,8 @@ export default class AdminController {
     res: Response,
     next: NextFunction): Promise<Response> => {
     const faqToEdit: FaqModel = req.body;
+    // University qustion id
+    faqToEdit.id = 2;
     try {
       logger.info('edit university info');
       const result = await this.faqsService.updateFaqById(faqToEdit);
@@ -85,6 +88,8 @@ export default class AdminController {
     res: Response,
     next: NextFunction): Promise<Response> => {
     const faqToEdit: FaqModel = req.body;
+    // Faculty qustion id
+    faqToEdit.id = 1;
     try {
       logger.info('edit faculty info');
       const result = await this.faqsService.updateFaqById(faqToEdit);
@@ -141,7 +146,7 @@ export default class AdminController {
     req: Request,
     res: Response,
     next: NextFunction): Promise<Response> => {
-    const { type } = req.body;
+    const type: UserTypeModel = req.body;
     try {
       logger.info('add new category(type)');
       const result = await this.userTypesService.addNewUserType(type);

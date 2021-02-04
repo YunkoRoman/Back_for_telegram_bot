@@ -1,5 +1,5 @@
 import express from 'express';
-import UserTypesService from 'services/user.types.service';
+import UserTypesService from '../../services/user.types.service';
 import AdminController from '../../controllers/admin.controller';
 import FaqsService from '../../services/faqs.service';
 import UserController from '../../controllers/user.crud.controller';
@@ -25,6 +25,16 @@ export default function adminStats(db: DB) {
 
   // Get total users by group(type)
   api.get('/count/:typeId', userController.countByType);
+
+  api.put('/faculty', adminController.editFacultyInfo);
+
+  api.put('/university', adminController.editUniversityInfo);
+
+  api.post('/categories', adminController.addNewType);
+
+  api.get('/faqs', adminController.refreshFaqs);
+
+  api.get('/categories/:typeId', adminController.selectUsersByCategory);
 
   return api;
 }

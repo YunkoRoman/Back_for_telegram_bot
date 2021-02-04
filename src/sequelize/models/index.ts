@@ -40,7 +40,7 @@ Roles.hasMany(User, {
   as: 'users', // this determines the name in `associations`!
 });
 
-User.belongsTo(Roles);
+// User.belongsTo(Roles);
 
 Types.hasMany(User, {
   sourceKey: 'id',
@@ -48,7 +48,7 @@ Types.hasMany(User, {
   as: 'types',
 });
 
-User.belongsTo(Types);
+// User.belongsTo(Types);
 
 export const db: DB = {
   sequelize,

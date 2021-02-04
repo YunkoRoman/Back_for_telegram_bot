@@ -77,6 +77,5 @@ module.exports = {
     queryInterface.dropTable('chat_bot_users', { transaction: t }),
     queryInterface.dropTable('chat_bot_roles', { transaction: t }),
     queryInterface.dropTable('chat_bot_user_types', { transaction: t }),
-    queryInterface.dropTable('chat_bot_answered_questions', { transaction: t }),
   ])),
 };

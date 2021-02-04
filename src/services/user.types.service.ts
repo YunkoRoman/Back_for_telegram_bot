@@ -21,8 +21,8 @@ export default class UserTypesService {
     return result;
   }
 
-  public updateUserTypeById = async (userRole: UserTypeModel) : Promise<UserTypeModel | any> => {
-    const result = await this.DB.Types.update(userRole, { where: { id: userRole.id } });
+  public updateUserTypeById = async (userType: UserTypeModel) : Promise<UserTypeModel | any> => {
+    const result = await this.DB.Types.update(userType, { where: { id: userType.id } });
     return result;
   }
 }

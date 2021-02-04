@@ -34,7 +34,7 @@ export class Faq extends Model<FaqAttributes, FaqCreationAttributes>
 }
 
 export function initFaq(sequelize: Sequelize) {
-  return <FaqStatic>sequelize.define('chat_bot_user_type', {
+  return <FaqStatic>sequelize.define('chat_bot_faq', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

@@ -12,13 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class UnansweredService {
     // eslint-disable-next-line no-shadow
     constructor(db) {
-        this.getMostPopular = () => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.UnanswdQuestions.findAll({
-                order: [['stats', 'DESC']],
-                limit: 10,
-            });
-            return result;
-        });
         // ============ CRUD ==============
         this.getAllUnanswered = () => __awaiter(this, void 0, void 0, function* () {
             const result = yield this.DB.UnanswdQuestions.findAll();

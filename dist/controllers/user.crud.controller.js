@@ -31,10 +31,10 @@ class UserController {
             }
         });
         this.getUserById = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
+            const { telegramId } = req.params;
             try {
                 logger_1.default.info('find user by id');
-                const result = yield this.userService.getUserById(parseInt(id, 10));
+                const result = yield this.userService.getUserById(telegramId);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
@@ -57,7 +57,7 @@ class UserController {
             }
         });
         this.updateUserById = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-            const user = Object.assign({ id: req.params.id }, req.body);
+            const user = Object.assign(Object.assign({}, req.body), { telegramId: req.params.telegramId });
             try {
                 logger_1.default.info('update user by id');
                 const result = yield this.userService.updateUser(user);
@@ -92,10 +92,10 @@ class UserController {
             }
         });
         this.deleteUser = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
+            const { id, telegramId } = req.params;
             try {
                 logger_1.default.info('delete user by id');
-                const result = yield this.userService.deleteUser(id);
+                const result = yield this.userService.deleteUser(telegramId);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {

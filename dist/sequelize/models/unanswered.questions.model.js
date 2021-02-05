@@ -6,7 +6,7 @@ class UnanswdQuestion extends sequelize_1.Model {
 }
 exports.UnanswdQuestion = UnanswdQuestion;
 function initUnansewredQuestions(sequelize) {
-    return sequelize.define('chat_bot_unanswered', {
+    return sequelize.define('chat_bot_unanswereds', {
         id: {
             type: sequelize_1.DataTypes.INTEGER,
             autoIncrement: true,

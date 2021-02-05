@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const sequelize_1 = require("sequelize");
 class UserService {
     // eslint-disable-next-line no-shadow
     constructor(db) {
@@ -28,7 +29,13 @@ class UserService {
         });
         // =============== CRUD =================
         this.getUserById = (userId) => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.User.findOne({ where: { id: userId } });
+            const result = yield this.DB.User.findAll({
+                where: {
+                    telegramId: {
+                        [sequelize_1.Op.eq]: userId,
+                    },
+                },
+            });
             return result;
         });
         this.getAllUsersByType = (typeId) => __awaiter(this, void 0, void 0, function* () {
@@ -41,12 +48,16 @@ class UserService {
         });
         this.updateUser = (user) => __awaiter(this, void 0, void 0, function* () {
             const result = yield this.DB.User.update(user, {
-                where: { id: user.id },
+                where: {
+                    telegramId: {
+                        [sequelize_1.Op.eq]: user.telegramId,
+                    },
+                },
             });
             return result;
         });
         this.deleteUser = (userId) => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.User.destroy({ where: { id: userId } });
+            const result = yield this.DB.User.destroy({ where: { telegramId: userId } });
             return result;
         });
         this.DB = db;

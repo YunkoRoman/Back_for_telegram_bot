@@ -16,7 +16,7 @@ const http_status_codes_1 = require("http-status-codes");
 const response_1 = require("../utils/response");
 const logger_1 = __importDefault(require("../utils/logger"));
 class AdminController {
-    constructor(faqsService, userService, userTypesService) {
+    constructor(faqsService, userService, userTypesService, unansweredService) {
         this.getMostPopularFaqs = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
                 logger_1.default.info('find most popular faqs');
@@ -31,7 +31,7 @@ class AdminController {
         this.getUnanswered = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
                 logger_1.default.info('getting all unanswered questions');
-                const result = yield this.faqsService.getMostPopular();
+                const result = yield this.unansweredService.getAllUnanswered();
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
@@ -91,6 +91,19 @@ class AdminController {
                 return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
+        this.getAllUserTypes = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                logger_1.default.info('get all user types');
+                const faqs = yield this.userTypesService.getAllUserTypes();
+                return response_1.apiResponse(res, response_1.successResponse(faqs), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('error while getting all user types', {
+                    meta: Object.assign({}, error),
+                });
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
         this.addNewType = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const type = req.body;
             try {
@@ -106,6 +119,7 @@ class AdminController {
         this.faqsService = faqsService;
         this.userService = userService;
         this.userTypesService = userTypesService;
+        this.unansweredService = unansweredService;
     }
 }
 exports.default = AdminController;

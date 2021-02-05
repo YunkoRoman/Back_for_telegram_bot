@@ -17,6 +17,14 @@ class UserTypesService {
             const result = yield this.DB.Types.findAll();
             return result;
         });
+        this.getUserTypeById = (typeId) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.Types.findAll({
+                where: {
+                    id: typeId,
+                },
+            });
+            return result;
+        });
         this.addNewUserType = (newType) => __awaiter(this, void 0, void 0, function* () {
             const result = yield this.DB.Types.create(newType);
             return result;

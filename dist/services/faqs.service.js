@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const sequelize_1 = require("sequelize");
 class FaqsService {
     // eslint-disable-next-line no-shadow
     constructor(db) {
@@ -19,6 +20,16 @@ class FaqsService {
             });
             return result;
         });
+        this.getOnlyPopular = () => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.Faqs.findAll({
+                where: {
+                    question: {
+                        [sequelize_1.Op.notIn]: ['faculty', 'university'],
+                    },
+                },
+            });
+            return result;
+        });
         // ============ CRUD ==============
         this.getAllFaqs = () => __awaiter(this, void 0, void 0, function* () {
             const result = yield this.DB.Faqs.findAll();
@@ -26,6 +37,16 @@ class FaqsService {
         });
         this.getFaqById = (faqId) => __awaiter(this, void 0, void 0, function* () {
             const result = yield this.DB.Faqs.findOne({ where: { id: faqId } });
+            return result;
+        });
+        this.getFaqByQuestion = (faq) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.Faqs.findAll({
+                where: {
+                    question: {
+                        [sequelize_1.Op.like]: faq.question,
+                    },
+                },
+            });
             return result;
         });
         this.addNewFaq = (faq) => __awaiter(this, void 0, void 0, function* () {

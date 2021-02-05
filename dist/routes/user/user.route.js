@@ -13,13 +13,13 @@ function usersRoute(db) {
     // GET all users
     api.get('/', userController.getAllUsers);
     // GET user by id
-    api.get('/:id', userController.getUserById);
+    api.get('/:telegramId', userController.getUserById);
     // CREATE new user
     api.post('/', userController.createNewUser);
     // UPDATE user
-    api.put('/:id', userController.updateUserById);
+    api.put('/:telegramId', userController.updateUserById);
     // DELETE user by ID
-    api.delete('/:id', userController.deleteUser);
+    api.delete('/:telegramId', userController.deleteUser);
     return api;
 }
 exports.default = usersRoute;

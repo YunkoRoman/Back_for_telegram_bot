@@ -26,14 +26,19 @@ export default function adminStats(db: DB) {
   // Get total users by group(type)
   api.get('/count/:typeId', userController.countByType);
 
+  // Put faculty answer
   api.put('/faculty', adminController.editFacultyInfo);
 
+  // Put university answer
   api.put('/university', adminController.editUniversityInfo);
 
+  // Create new user category
   api.post('/categories', adminController.addNewType);
 
+  // Get all faqs
   api.get('/faqs', adminController.refreshFaqs);
 
+  // Get users by category
   api.get('/categories/:typeId', adminController.selectUsersByCategory);
 
   return api;

@@ -3,6 +3,7 @@ import bodyparser from 'body-parser';
 import logger from './utils/logger';
 import users from './routes/user/user.route';
 import admin from './routes/admin/admin.route';
+import info from './routes/faqs/faqs.route';
 import { db } from './sequelize/models/index';
 
 export default function appFunc() {
@@ -16,6 +17,8 @@ export default function appFunc() {
   app.use('/users', users(db));
 
   app.use('/admin', admin(db));
+
+  app.use('/info', info(db));
 
   return app;
 }

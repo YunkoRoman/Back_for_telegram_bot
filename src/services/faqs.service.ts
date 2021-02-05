@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import { FaqModel } from '../sequelize/models/faq.model';
 import { DB } from '../sequelize/models/index';
 
@@ -26,6 +27,19 @@ export default class FaqsService {
 
   public getFaqById = async (faqId: number) : Promise<FaqModel | null> => {
     const result = await this.DB.Faqs.findOne({ where: { id: faqId } });
+    return result;
+  }
+
+  public getFaqByQuestion = async (faq:FaqModel) : Promise<FaqModel[]> => {
+    const result = await this.DB.Faqs.findAll(
+      {
+        where: {
+          question: {
+            [Op.like]: faq.question,
+          },
+        },
+      },
+    );
     return result;
   }
 

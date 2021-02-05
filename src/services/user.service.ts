@@ -1,4 +1,5 @@
 import { UserAddToChat } from 'types/types';
+import { Op } from 'sequelize';
 import { UserModel } from '../sequelize/models/user.model';
 import { DB } from '../sequelize/models/index';
 
@@ -30,8 +31,14 @@ export default class UserService {
 
   // =============== CRUD =================
 
-  public getUserById = async (userId: number): Promise<UserModel | null> => {
-    const result = await this.DB.User.findOne({ where: { id: userId } });
+  public getUserById = async (userId: number | string): Promise<UserModel[] | null> => {
+    const result = await this.DB.User.findAll({
+      where: {
+        telegramId: {
+          [Op.eq]: userId,
+        },
+      },
+    });
     return result;
   }
 
@@ -47,13 +54,17 @@ export default class UserService {
 
   public updateUser = async (user: UserAddToChat): Promise<any> => {
     const result = await this.DB.User.update(user, {
-      where: { id: user.id },
+      where: {
+        telegramId: {
+          [Op.eq]: user.telegramId,
+        },
+      },
     });
     return result;
   }
 
-  public deleteUser = async (userId: any): Promise<any> => {
-    const result = await this.DB.User.destroy({ where: { id: userId } });
+  public deleteUser = async (userId: number | string): Promise<any> => {
+    const result = await this.DB.User.destroy({ where: { telegramId: userId } });
     return result;
   }
 }

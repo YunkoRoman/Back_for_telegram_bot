@@ -33,7 +33,7 @@ export class UnanswdQuestion extends Model<UnanswdQuestionAttributes,
 }
 
 export function initUnansewredQuestions(sequelize: Sequelize) {
-  return <UnanswdQuestionStatic>sequelize.define('chat_bot_unanswered', {
+  return <UnanswdQuestionStatic>sequelize.define('chat_bot_unanswereds', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

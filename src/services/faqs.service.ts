@@ -18,6 +18,17 @@ export default class FaqsService {
     return result;
   }
 
+  public getOnlyPopular = async (): Promise<FaqModel[]> => {
+    const result = await this.DB.Faqs.findAll({
+      where: {
+        question: {
+          [Op.notIn]: ['faculty', 'university'],
+        },
+      },
+    });
+    return result;
+  }
+
   // ============ CRUD ==============
 
   public getAllFaqs = async () : Promise<FaqModel[]> => {

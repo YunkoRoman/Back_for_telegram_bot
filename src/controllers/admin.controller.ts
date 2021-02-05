@@ -8,6 +8,7 @@ import { FaqModel } from 'sequelize/models/faq.model';
 import UserService from 'services/user.service';
 import UserTypesService from 'services/user.types.service';
 import { UserTypeModel } from 'sequelize/models/user.type.model';
+import UnansweredService from 'services/unanswered.service';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
 import logger from '../utils/logger';
 
@@ -18,12 +19,16 @@ export default class AdminController {
 
   private userTypesService: UserTypesService;
 
+  private unansweredService: UnansweredService
+
   public constructor(faqsService: FaqsService,
     userService: UserService,
-    userTypesService: UserTypesService) {
+    userTypesService: UserTypesService,
+    unansweredService: UnansweredService) {
     this.faqsService = faqsService;
     this.userService = userService;
     this.userTypesService = userTypesService;
+    this.unansweredService = unansweredService;
   }
 
   public getMostPopularFaqs = async (
@@ -50,7 +55,7 @@ export default class AdminController {
     next: NextFunction): Promise<Response> => {
     try {
       logger.info('getting all unanswered questions');
-      const result = await this.faqsService.getMostPopular();
+      const result = await this.unansweredService.getAllUnanswered();
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('unable to get unanswered');
@@ -134,6 +139,26 @@ export default class AdminController {
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('unable select users by type');
+      return apiResponse(
+        res,
+        failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  public getAllUserTypes = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response> => {
+    try {
+      logger.info('get all user types');
+      const faqs = await this.userTypesService.getAllUserTypes();
+      return apiResponse(res, successResponse(faqs), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error while getting all user types', {
+        meta: { ...error },
+      });
       return apiResponse(
         res,
         failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),

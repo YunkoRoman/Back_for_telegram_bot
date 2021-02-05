@@ -40,10 +40,10 @@ export default class UserController {
     req: Request,
     res: Response,
     next: NextFunction): Promise<Response> => {
-    const { id } = req.params;
+    const { telegramId } = req.params;
     try {
       logger.info('find user by id');
-      const result = await this.userService.getUserById(parseInt(id, 10));
+      const result = await this.userService.getUserById(telegramId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while getting user by id', { meta: { ...error } });
@@ -75,7 +75,10 @@ export default class UserController {
     res: Response,
     next: NextFunction,
   ):Promise<Response> => {
-    const user: UserAddToChat = { id: req.params.id, ...req.body };
+    const user: UserAddToChat = {
+      ...req.body,
+      telegramId: req.params.telegramId,
+    };
     try {
       logger.info('update user by id');
       const result = await this.userService.updateUser(user);
@@ -122,10 +125,10 @@ export default class UserController {
     req: Request,
     res: Response,
     next: NextFunction): Promise<Response> => {
-    const { id } = req.params;
+    const { id, telegramId } = req.params;
     try {
       logger.info('delete user by id');
-      const result = await this.userService.deleteUser(id);
+      const result = await this.userService.deleteUser(telegramId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while deleting user', { meta: { ...error } });

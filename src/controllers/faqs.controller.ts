@@ -104,11 +104,29 @@ export default class FaqsController {
     // University qustion id
     const faqId = 2;
     try {
-      logger.info('get univercity info');
+      logger.info('get university info');
       const result = await this.faqsService.getFaqById(faqId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('unable to get univercity info');
+      logger.error('unable to get university info');
+      return apiResponse(
+        res,
+        failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  public getPopularFaqs = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response> => {
+    try {
+      logger.info('get popular faqs');
+      const result = await this.faqsService.getOnlyPopular();
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.error('unable to get popular faqs');
       return apiResponse(
         res,
         failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),

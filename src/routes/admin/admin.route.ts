@@ -1,4 +1,5 @@
 import express from 'express';
+import UnansweredService from '../../services/unanswered.service';
 import UserTypesService from '../../services/user.types.service';
 import AdminController from '../../controllers/admin.controller';
 import FaqsService from '../../services/faqs.service';
@@ -11,7 +12,8 @@ export default function adminStats(db: DB) {
 
   const adminController = new AdminController(new FaqsService(db),
     new UserService(db),
-    new UserTypesService(db));
+    new UserTypesService(db),
+    new UnansweredService(db));
   const userController = new UserController(new UserService(db));
 
   // Most popular FAQ
@@ -31,6 +33,9 @@ export default function adminStats(db: DB) {
 
   // Put university answer
   api.put('/university', adminController.editUniversityInfo);
+
+  // Get all categories
+  api.get('/categories', adminController.getAllUserTypes);
 
   // Create new user category
   api.post('/categories', adminController.addNewType);

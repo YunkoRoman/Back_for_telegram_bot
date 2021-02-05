@@ -16,6 +16,15 @@ export default class UserTypesService {
     return result;
   }
 
+  public getUserTypeById = async (typeId: number) : Promise<UserTypeModel[]> => {
+    const result = await this.DB.Types.findAll({
+      where: {
+        id: typeId,
+      },
+    });
+    return result;
+  }
+
   public addNewUserType = async (newType: UserTypeModel) : Promise<UserTypeModel> => {
     const result = await this.DB.Types.create(newType);
     return result;

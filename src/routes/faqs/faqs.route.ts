@@ -16,8 +16,11 @@ export default function infoRoute(db: DB) {
 
   api.get('/university', faqsController.getUniversityInfo);
 
-  // GET user faq id
-  api.get('/:id', faqsController.getFaqById);
+  api.get('/popular', faqsController.getPopularFaqs);
+
+  api.get('/faq', faqsController.getFaqByQuestion);
+  // GET faq by id
+  api.get('/faq/:id', faqsController.getFaqById);
 
   return api;
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('chat_bot_unanswered', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('chat_bot_unanswereds', {
     id: {
       type: Sequelize.DataTypes.INTEGER,
       autoIncrement: true,
@@ -18,6 +18,6 @@ module.exports = {
   }),
 
   down: async (queryInterface, Sequelize) => {
-    queryInterface.dropTable('chat_bot_unanswered');
+    queryInterface.dropTable('chat_bot_unanswereds');
   },
 };

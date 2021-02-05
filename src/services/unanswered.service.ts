@@ -9,14 +9,6 @@ export default class UnansweredService {
     this.DB = db;
   }
 
-  public getMostPopular = async (): Promise<UnanswdQuestionModel[]> => {
-    const result = await this.DB.UnanswdQuestions.findAll({
-      order: [['stats', 'DESC']],
-      limit: 10,
-    });
-    return result;
-  }
-
   // ============ CRUD ==============
 
   public getAllUnanswered = async () : Promise<UnanswdQuestionModel[]> => {

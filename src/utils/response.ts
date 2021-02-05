@@ -4,7 +4,6 @@ import {
 import {
   StatusCodes,
   getReasonPhrase,
-  getStatusCode,
 } from 'http-status-codes';
 import { applicationJson, FailedResponse, SuccessResponse } from '../types/types';
 

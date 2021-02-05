@@ -10,10 +10,15 @@ export default function usersRoute(db: DB) {
 
   // ========== CRUD ====================
   // GET all users
-  api.get('/', userController.getAllUsers);
+  api.get('/admins', userController.getAllAdmins);
+  // api.get('/', userController.getAllUsers);
+
+  // GET all admins
 
   // GET user by id
   api.get('/:telegramId', userController.getUserById);
+
+  api.get('/admins', userController.getAllAdmins);
 
   // CREATE new user
   api.post('/', userController.createNewUser);

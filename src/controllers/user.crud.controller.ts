@@ -136,4 +136,25 @@ export default class UserController {
         StatusCodes.INTERNAL_SERVER_ERROR);
     }
   }
+
+  public getAllAdmins = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response> => {
+    const roleId = 2;
+    try {
+      logger.info('get all admins');
+      const users = await this.userService.getAllUsersByRole(roleId);
+      return apiResponse(res, successResponse(users), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error while getting all admins', {
+        meta: { ...error },
+      });
+      return apiResponse(
+        res,
+        failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 }

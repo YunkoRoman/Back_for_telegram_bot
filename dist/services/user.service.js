@@ -42,6 +42,10 @@ class UserService {
             const result = yield this.DB.User.findAll({ where: { typeId } });
             return result;
         });
+        this.getAllUsersByRole = (roleId) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.User.findAll({ where: { roleId } });
+            return result;
+        });
         this.createUser = (user) => __awaiter(this, void 0, void 0, function* () {
             const result = yield this.DB.User.create(user);
             return result;

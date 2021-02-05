@@ -103,6 +103,20 @@ class UserController {
                 return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
+        this.getAllAdmins = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const roleId = 2;
+            try {
+                logger_1.default.info('get all admins');
+                const users = yield this.userService.getAllUsersByRole(roleId);
+                return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('error while getting all admins', {
+                    meta: Object.assign({}, error),
+                });
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
         this.userService = userService;
     }
 }

@@ -11,9 +11,12 @@ function usersRoute(db) {
     const userController = new user_crud_controller_1.default(new user_service_1.default(db));
     // ========== CRUD ====================
     // GET all users
-    api.get('/', userController.getAllUsers);
+    api.get('/admins', userController.getAllAdmins);
+    // api.get('/', userController.getAllUsers);
+    // GET all admins
     // GET user by id
     api.get('/:telegramId', userController.getUserById);
+    api.get('/admins', userController.getAllAdmins);
     // CREATE new user
     api.post('/', userController.createNewUser);
     // UPDATE user

@@ -47,6 +47,11 @@ export default class UserService {
     return result;
   }
 
+  public getAllUsersByRole = async (roleId: number): Promise<UserModel[]> => {
+    const result = await this.DB.User.findAll({ where: { roleId } });
+    return result;
+  }
+
   public createUser = async (user: UserAddToChat): Promise<UserModel | any> => {
     const result = await this.DB.User.create(user);
     return result;

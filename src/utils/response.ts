@@ -10,8 +10,11 @@ import { applicationJson, FailedResponse, SuccessResponse } from '../types/types
 
 export interface ApiResponse {
   <T>(
+      // eslint-disable-next-line no-unused-vars
       res: Response,
+      // eslint-disable-next-line no-unused-vars
       data: T,
+      // eslint-disable-next-line no-unused-vars
       statusCode: number,
   ): Response;
 }

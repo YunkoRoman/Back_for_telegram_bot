@@ -1,4 +1,4 @@
-# Sprint 1
+# Chatbot API
 
 ## Heroku link
 

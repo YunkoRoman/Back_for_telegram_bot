@@ -16,9 +16,6 @@ export default function adminStats(db: DB) {
     new UnansweredService(db));
   const userController = new UserController(new UserService(db));
 
-  api.post('/users', (req:any, res:any) => {
-    res.send({ res: 'ok' });
-  });
   // Most popular FAQ
   api.get('/popular', adminController.getMostPopularFaqs);
 

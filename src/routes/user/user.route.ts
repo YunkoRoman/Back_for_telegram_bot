@@ -9,11 +9,9 @@ export default function usersRoute(db: DB) {
   const userController = new UserController(new UserService(db));
 
   // ========== CRUD ====================
-  // GET all users
+  // GET all admins
   api.get('/admins', userController.getAllAdmins);
   // api.get('/', userController.getAllUsers);
-
-  // GET all admins
 
   // GET user by id
   api.get('/:telegramId', userController.getUserById);

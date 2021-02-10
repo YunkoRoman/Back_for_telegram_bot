@@ -8,6 +8,7 @@ import { UserModel } from 'sequelize/models/user.model';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
 import logger from '../utils/logger';
 import UserService from '../services/user.service';
+import { Role } from '../sequelize/models/user.role.model';
 
 export default class UserController {
   public userService: UserService;
@@ -57,7 +58,7 @@ export default class UserController {
     res: Response,
     next: NextFunction): Promise<Response> => {
     const user: UserAddToChat = req.body;
-    user.roleId = 1;
+    user.roleId = Role.regular;
     user.typeId = 1;
     try {
       logger.info('save new user');
@@ -141,7 +142,7 @@ export default class UserController {
     req: Request,
     res: Response,
     next: NextFunction): Promise<Response> => {
-    const roleId = 2;
+    const roleId = Role.admin;
     try {
       logger.info('get all admins');
       const users = await this.userService.getAllUsersByRole(roleId);

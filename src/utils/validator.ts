@@ -1,13 +1,15 @@
 import validator from 'validator';
-import { UserAddToChat } from '../types/types';
+import logger from './logger';
 
-function validateNewUser(user: UserAddToChat) {
-  const errors: any = [];
-  const { phoneNumber = '' } = user;
-  if (!validator.isMobilePhone(phoneNumber)) {
-    errors.push({ phoneNumber: 'is invalid mobile phone number' });
+// eslint-disable-next-line import/prefer-default-export
+export function isValidTelegramId(telegramId:any) {
+  const errors = [];
+  if (!telegramId) {
+    errors.push('Please provide "X-User-id" in header');
+  }
+  logger.info(Number.isNaN(telegramId));
+  if (Number.isNaN(parseInt(telegramId, 10))) {
+    errors.push('Telegram id is not a number');
   }
   return errors;
 }
-
-export default validateNewUser;

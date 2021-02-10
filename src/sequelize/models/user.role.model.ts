@@ -16,11 +16,11 @@ import { User } from './user.model';
 // eslint-disable-next-line no-shadow
 export enum Role {
   // eslint-disable-next-line no-unused-vars
-  regular = 'regular',
+  regular,
   // eslint-disable-next-line no-unused-vars
-  admin = 'admin',
+  admin,
   // eslint-disable-next-line no-unused-vars
-  superAdmin = 'superAdmin'
+  superAdmin
 }
 
 export interface UserRoleAttributes {
@@ -66,6 +66,6 @@ export function initRole(sequelize: Sequelize) {
       autoIncrement: true,
       primaryKey: true,
     },
-    role: DataTypes.ENUM(Role.regular, Role.admin, Role.superAdmin),
+    role: DataTypes.ENUM(Role[0], Role[1], Role[2]),
   });
 }

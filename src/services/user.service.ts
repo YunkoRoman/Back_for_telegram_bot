@@ -63,6 +63,7 @@ export default class UserService {
           [Op.eq]: user.telegramId,
         },
       },
+      returning: true,
     });
     return result;
   };

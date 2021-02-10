@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_codes_1 = require("http-status-codes");
 const response_1 = require("../utils/response");
 const logger_1 = __importDefault(require("../utils/logger"));
+const redisUser_1 = __importDefault(require("../cache/redisUser"));
 class UserController {
     constructor(userService) {
         this.getAllUsers = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
@@ -34,6 +35,8 @@ class UserController {
             const { telegramId } = req.params;
             try {
                 logger_1.default.info('find user by id');
+                // const cachedResult = await this.redisUserCache.getUser(telegramId);
+                // console.log('cached result: ', cachedResult);
                 const result = yield this.userService.getUserById(telegramId);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
@@ -49,6 +52,15 @@ class UserController {
             try {
                 logger_1.default.info('save new user');
                 const result = yield this.userService.createUser(user);
+                console.log('CREATE RESULT: ', JSON.stringify(result));
+                console.log('before redis');
+                const createdUser = yield this.redisUserCache.setUser(result);
+                // this.redisUserCache.getUser(result.telegramId).then((res) => {
+                //   console.log('getUsers:', res);
+                // });
+                const getUserRedis = yield this.redisUserCache.getUser(result.telegramId);
+                console.log('createdUser: ', createdUser);
+                console.log('getUserRedis: ', getUserRedis);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.CREATED);
             }
             catch (error) {
@@ -61,6 +73,10 @@ class UserController {
             try {
                 logger_1.default.info('update user by id');
                 const result = yield this.userService.updateUser(user);
+                // console.log('CREATE RESULT: ', result);
+                console.log('before redis');
+                yield this.redisUserCache.setUser(result);
+                console.log('after redis');
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
@@ -118,6 +134,7 @@ class UserController {
             }
         });
         this.userService = userService;
+        this.redisUserCache = new redisUser_1.default();
     }
 }
 exports.default = UserController;

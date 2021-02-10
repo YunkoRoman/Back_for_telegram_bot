@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "ts-node ./src/server.ts",
-    "start": "node ./dist/server.js",
+    "start": "npm run build && node ./dist/server.js",
     "lint": "eslint --debug src/ --ext .ts",
     "lint:write": "eslint src/ --ext .ts --debug --fix",
     "build": "tsc -p .",

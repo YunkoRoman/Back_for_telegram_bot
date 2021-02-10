@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_codes_1 = require("http-status-codes");
 const response_1 = require("../utils/response");
 const logger_1 = __importDefault(require("../utils/logger"));
+const user_role_model_1 = require("../sequelize/models/user.role.model");
 class UserController {
     constructor(userService) {
         this.getAllUsers = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
@@ -44,7 +45,7 @@ class UserController {
         });
         this.createNewUser = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const user = req.body;
-            user.roleId = 1;
+            user.roleId = user_role_model_1.Role.regular;
             user.typeId = 1;
             try {
                 logger_1.default.info('save new user');
@@ -104,7 +105,7 @@ class UserController {
             }
         });
         this.getAllAdmins = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-            const roleId = 2;
+            const roleId = user_role_model_1.Role.admin;
             try {
                 logger_1.default.info('get all admins');
                 const users = yield this.userService.getAllUsersByRole(roleId);

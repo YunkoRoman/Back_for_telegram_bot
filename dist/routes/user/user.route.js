@@ -10,10 +10,9 @@ function usersRoute(db) {
     const api = express_1.default.Router();
     const userController = new user_crud_controller_1.default(new user_service_1.default(db));
     // ========== CRUD ====================
-    // GET all users
+    // GET all admins
     api.get('/admins', userController.getAllAdmins);
     // api.get('/', userController.getAllUsers);
-    // GET all admins
     // GET user by id
     api.get('/:telegramId', userController.getUserById);
     api.get('/admins', userController.getAllAdmins);

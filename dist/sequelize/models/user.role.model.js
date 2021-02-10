@@ -6,11 +6,11 @@ const sequelize_1 = require("sequelize");
 var Role;
 (function (Role) {
     // eslint-disable-next-line no-unused-vars
-    Role["regular"] = "regular";
+    Role[Role["regular"] = 0] = "regular";
     // eslint-disable-next-line no-unused-vars
-    Role["admin"] = "admin";
+    Role[Role["admin"] = 1] = "admin";
     // eslint-disable-next-line no-unused-vars
-    Role["superAdmin"] = "superAdmin";
+    Role[Role["superAdmin"] = 2] = "superAdmin";
 })(Role = exports.Role || (exports.Role = {}));
 class UserRole extends sequelize_1.Model {
 }
@@ -22,7 +22,7 @@ function initRole(sequelize) {
             autoIncrement: true,
             primaryKey: true,
         },
-        role: sequelize_1.DataTypes.ENUM(Role.regular, Role.admin, Role.superAdmin),
+        role: sequelize_1.DataTypes.ENUM(Role[0], Role[1], Role[2]),
     });
 }
 exports.initRole = initRole;

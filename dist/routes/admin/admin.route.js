@@ -14,9 +14,6 @@ function adminStats(db) {
     const api = express_1.default.Router();
     const adminController = new admin_controller_1.default(new faqs_service_1.default(db), new user_service_1.default(db), new user_types_service_1.default(db), new unanswered_service_1.default(db));
     const userController = new user_crud_controller_1.default(new user_service_1.default(db));
-    api.post('/users', (req, res) => {
-        res.send({ res: 'ok' });
-    });
     // Most popular FAQ
     api.get('/popular', adminController.getMostPopularFaqs);
     // Get all unanswered questions

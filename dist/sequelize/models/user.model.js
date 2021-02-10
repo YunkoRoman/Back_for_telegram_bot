@@ -9,7 +9,7 @@ exports.User = User;
 function initUser(sequelize) {
     return sequelize.define('chat_bot_users', {
         id: {
-            type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
+            type: sequelize_1.DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },

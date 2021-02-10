@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Request, Response, NextFunction } from 'express';
-import {
-  getReasonPhrase, StatusCodes,
-} from 'http-status-codes';
+import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { UserAddToChat } from 'types/types';
 import { UserModel } from 'sequelize/models/user.model';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
@@ -12,14 +10,11 @@ import UserService from '../services/user.service';
 export default class UserController {
   public userService: UserService;
 
-  public constructor(userService: UserService) {
+  constructor(userService: UserService) {
     this.userService = userService;
   }
 
-  public getAllUsers = async (
-    req: Request,
-    res: Response,
-    next: NextFunction): Promise<Response> => {
+  public getAllUsers = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
     try {
       logger.info('get all users');
       const users = await this.userService.getAllUsers();
@@ -28,18 +23,11 @@ export default class UserController {
       logger.error('error while getting all users', {
         meta: { ...error },
       });
-      return apiResponse(
-        res,
-        failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR,
-      );
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
     }
-  }
+  };
 
-  public getUserById = async (
-    req: Request,
-    res: Response,
-    next: NextFunction): Promise<Response> => {
+  public getUserById = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
     const { telegramId } = req.params;
     try {
       logger.info('find user by id');
@@ -47,15 +35,11 @@ export default class UserController {
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while getting user by id', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
     }
-  }
+  };
 
-  public createNewUser = async (
-    req: Request,
-    res: Response,
-    next: NextFunction): Promise<Response> => {
+  public createNewUser = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
     const user: UserAddToChat = req.body;
     user.roleId = 1;
     user.typeId = 1;
@@ -65,16 +49,11 @@ export default class UserController {
       return apiResponse(res, successResponse(result), StatusCodes.CREATED);
     } catch (error) {
       logger.error('error while saving user', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
     }
-  }
+  };
 
-  public updateUserById = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ):Promise<Response> => {
+  public updateUserById = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
     const user: UserAddToChat = {
       ...req.body,
       telegramId: req.params.telegramId,
@@ -85,30 +64,22 @@ export default class UserController {
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while updating user');
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
     }
-  }
+  };
 
-  public countAllUsers = async (
-    req: Request,
-    res: Response,
-    next: NextFunction): Promise<Response> => {
+  public countAllUsers = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
     try {
       logger.info('count all users');
       const result = await this.userService.findAndCountAll();
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while counting users', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
     }
-  }
+  };
 
-  public countByType = async (
-    req: Request,
-    res: Response,
-    next: NextFunction): Promise<Response> => {
+  public countByType = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
     const { typeId } = req.params;
     try {
       logger.info('count all users');
@@ -116,15 +87,11 @@ export default class UserController {
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while counting users by type', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
     }
-  }
+  };
 
-  public deleteUser = async (
-    req: Request,
-    res: Response,
-    next: NextFunction): Promise<Response> => {
+  public deleteUser = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
     const { id, telegramId } = req.params;
     try {
       logger.info('delete user by id');
@@ -132,15 +99,11 @@ export default class UserController {
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while deleting user', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
     }
-  }
+  };
 
-  public getAllAdmins = async (
-    req: Request,
-    res: Response,
-    next: NextFunction): Promise<Response> => {
+  public getAllAdmins = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
     const roleId = 2;
     try {
       logger.info('get all admins');
@@ -150,11 +113,7 @@ export default class UserController {
       logger.error('error while getting all admins', {
         meta: { ...error },
       });
-      return apiResponse(
-        res,
-        failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR,
-      );
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
     }
-  }
+  };
 }

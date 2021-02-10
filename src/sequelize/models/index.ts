@@ -1,7 +1,5 @@
-import {
-  Sequelize,
-} from 'sequelize';
-
+import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
 import { initUser, UserStatic } from './user.model';
 import { initRole, UserRoleStatic } from './user.role.model';
 import { initUserType, UserTypeStatic } from './user.type.model';
@@ -19,13 +17,13 @@ export interface DB {
   UnanswdQuestions: UnanswdQuestionStatic;
   Settings: SettingsStatic;
 }
-
-const env = process.env.NODE_ENV || 'development';
+dotenv.config();
+const env = process.env.NODE_ENV || 'production';
 
 const params: any = config[env];
 
-const sequelize = new Sequelize(process.env.DATABASE_URL || params.url);
-// const sequelize = new Sequelize(params.database, params.username, params.password, params);
+// const sequelize = new Sequelize(process.env.DATABASE_URL || params.url);
+const sequelize = new Sequelize(params.database, params.username, params.password, params);
 
 const User = initUser(sequelize);
 const Roles = initRole(sequelize);

@@ -19,6 +19,7 @@ export default function infoRoute(db: DB) {
   api.get('/popular', faqsController.getPopularFaqs);
 
   api.get('/faq', faqsController.getFaqByQuestion);
+
   // GET faq by id
   api.get('/faq/:id', faqsController.getFaqById);
 

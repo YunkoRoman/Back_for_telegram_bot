@@ -4,7 +4,7 @@ import {
   getReasonPhrase, StatusCodes,
 } from 'http-status-codes';
 import { UserAddToChat } from 'types/types';
-import { UserModel } from 'sequelize/models/user.model';
+import { UserModel } from '../sequelize/models/user.model';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
 import logger from '../utils/logger';
 import UserService from '../services/user.service';

@@ -1,0 +1,623 @@
+{
+	"info": {
+		"_postman_id": "00f7bafd-7eec-4d2e-889a-35231fd4f480",
+		"name": "chatbot",
+		"description": "# Introduction\nHere is my chatbot endpoints\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Start",
+			"item": [
+				{
+					"name": "Enter name",
+					"item": [
+						{
+							"name": "Save name",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "John",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://intern-task-winter.herokuapp.com/users/telegram01",
+									"protocol": "https",
+									"host": [
+										"intern-task-winter",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"users",
+										"telegram01"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Enter city",
+					"item": [
+						{
+							"name": "Save city",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "city",
+											"value": "Dnipro",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://intern-task-winter.herokuapp.com/users/telegram01",
+									"protocol": "https",
+									"host": [
+										"intern-task-winter",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"users",
+										"telegram01"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Choose category",
+					"item": [
+						{
+							"name": "entrant",
+							"item": [
+								{
+									"name": "Save category",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "typeId",
+													"value": "1",
+													"description": "corresponds to ID in \"types\" entity",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://intern-task-winter.herokuapp.com/users/telegram01",
+											"protocol": "https",
+											"host": [
+												"intern-task-winter",
+												"herokuapp",
+												"com"
+											],
+											"path": [
+												"users",
+												"telegram01"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Choose question",
+					"item": [
+						{
+							"name": "Get Faculty info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://intern-task-winter.herokuapp.com/info/faculty",
+									"protocol": "https",
+									"host": [
+										"intern-task-winter",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"info",
+										"faculty"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get University Info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://intern-task-winter.herokuapp.com/info/university",
+									"protocol": "https",
+									"host": [
+										"intern-task-winter",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"info",
+										"university"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get FAQs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://intern-task-winter.herokuapp.com/info/popular",
+									"protocol": "https",
+									"host": [
+										"intern-task-winter",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"info",
+										"popular"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "/start\n"
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Stats menu",
+					"item": [
+						{
+							"name": "Count all users",
+							"item": [
+								{
+									"name": "Count all users",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://intern-task-winter.herokuapp.com/admin/count",
+											"protocol": "https",
+											"host": [
+												"intern-task-winter",
+												"herokuapp",
+												"com"
+											],
+											"path": [
+												"admin",
+												"count"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Count by category",
+							"item": [
+								{
+									"name": "Count by category (category ID)",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://intern-task-winter.herokuapp.com/admin/count/1",
+											"protocol": "https",
+											"host": [
+												"intern-task-winter",
+												"herokuapp",
+												"com"
+											],
+											"path": [
+												"admin",
+												"count",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "10 most popular questions",
+							"item": [
+								{
+									"name": "Get 10 most popular",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://intern-task-winter.herokuapp.com/admin/popular",
+											"protocol": "https",
+											"host": [
+												"intern-task-winter",
+												"herokuapp",
+												"com"
+											],
+											"path": [
+												"admin",
+												"popular"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Unanswered questions",
+							"item": [
+								{
+									"name": "Get all unanswered",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://intern-task-winter.herokuapp.com/admin/unanswered",
+											"protocol": "https",
+											"host": [
+												"intern-task-winter",
+												"herokuapp",
+												"com"
+											],
+											"path": [
+												"admin",
+												"unanswered"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Edit infos",
+					"item": [
+						{
+							"name": "Edit faculty info",
+							"item": [
+								{
+									"name": "Edit faculty info",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "answer",
+													"value": "New faculty info",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://intern-task-winter.herokuapp.com/admin/faculty",
+											"protocol": "https",
+											"host": [
+												"intern-task-winter",
+												"herokuapp",
+												"com"
+											],
+											"path": [
+												"admin",
+												"faculty"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Edit university info",
+							"item": [
+								{
+									"name": "Edit university info",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "answer",
+													"value": "New university info",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://intern-task-winter.herokuapp.com/admin/university",
+											"protocol": "https",
+											"host": [
+												"intern-task-winter",
+												"herokuapp",
+												"com"
+											],
+											"path": [
+												"admin",
+												"university"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Refresh FAQs",
+					"item": [
+						{
+							"name": "Get all FAQ",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://intern-task-winter.herokuapp.com/admin/faqs",
+									"protocol": "https",
+									"host": [
+										"intern-task-winter",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"admin",
+										"faqs"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Group message",
+					"item": [
+						{
+							"name": "Choose category",
+							"item": [
+								{
+									"name": "Get all categories",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://intern-task-winter.herokuapp.com/admin/categories",
+											"protocol": "https",
+											"host": [
+												"intern-task-winter",
+												"herokuapp",
+												"com"
+											],
+											"path": [
+												"admin",
+												"categories"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Superadmin",
+			"item": [
+				{
+					"name": "Superadmin actions",
+					"item": [
+						{
+							"name": "Add admin",
+							"item": [
+								{
+									"name": "Change selected user role (role ID)",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "roleId",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "city",
+													"value": "city",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "https://intern-task-winter.herokuapp.com/users/telegram01",
+											"protocol": "https",
+											"host": [
+												"intern-task-winter",
+												"herokuapp",
+												"com"
+											],
+											"path": [
+												"users",
+												"telegram01"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get all admins",
+							"item": [
+								{
+									"name": "Get all admins",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://intern-task-winter.herokuapp.com/users/admins",
+											"protocol": "https",
+											"host": [
+												"intern-task-winter",
+												"herokuapp",
+												"com"
+											],
+											"path": [
+												"users",
+												"admins"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Delete admin",
+							"item": [
+								{
+									"name": "Change user role to regular",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "roleId",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://intern-task-winter.herokuapp.com/users/telegram01",
+											"protocol": "https",
+											"host": [
+												"intern-task-winter",
+												"herokuapp",
+												"com"
+											],
+											"path": [
+												"users",
+												"telegram01"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Init user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "telegramId",
+							"value": "telegram01",
+							"type": "text"
+						},
+						{
+							"key": "telegramName",
+							"value": "@telegram_name",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "no name",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://intern-task-winter.herokuapp.com/users",
+					"protocol": "https",
+					"host": [
+						"intern-task-winter",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				},
+				"description": "Create test user"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete test user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://intern-task-winter.herokuapp.com/users/telegram01",
+					"protocol": "https",
+					"host": [
+						"intern-task-winter",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"telegram01"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

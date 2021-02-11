@@ -1,13 +1,33 @@
+import { UserAddToChat } from 'types/types';
 import validator from 'validator';
-import { UserAddToChat } from '../types/types';
+import { Role } from '../sequelize/models/user.role.model';
+import logger from './logger';
 
-function validateNewUser(user: UserAddToChat) {
-  const errors: any = [];
-  const { phoneNumber = '' } = user;
-  if (!validator.isMobilePhone(phoneNumber)) {
-    errors.push({ phoneNumber: 'is invalid mobile phone number' });
+// eslint-disable-next-line import/prefer-default-export
+export function isValidTelegramId(telegramId:any) {
+  const errors = [];
+  if (!telegramId) {
+    errors.push('Please provide user telegram id');
+    return errors;
+  }
+  if (!validator.isNumeric(telegramId)) {
+    errors.push('Telegram id is not a number');
   }
   return errors;
 }
 
-export default validateNewUser;
+export function invalidFields(user: UserAddToChat) {
+  const errors: any[] = [];
+
+  errors.push(...isValidTelegramId(user.telegramId));
+  // if (user.phoneNumber) {
+  // }
+
+  if (user.roleId && ![Role.regular, Role.admin, Role.superAdmin].includes(user.roleId)) {
+    errors.push('User role is ivalid');
+  }
+  if (user.typeId && ![1, 2, 3, 4, 5].includes(user.typeId)) {
+    errors.push('User role is invalid');
+  }
+  return errors;
+}

@@ -6,6 +6,8 @@ import FaqsService from '../../services/faqs.service';
 import UserController from '../../controllers/user.crud.controller';
 import UserService from '../../services/user.service';
 import { DB } from '../../sequelize/models/index';
+import { hasRole } from '../../utils/middlewares';
+import { Role } from '../../sequelize/models/user.role.model';
 
 export default function adminStats(db: DB) {
   const api = express.Router();
@@ -17,34 +19,34 @@ export default function adminStats(db: DB) {
   const userController = new UserController(new UserService(db));
 
   // Most popular FAQ
-  api.get('/popular', adminController.getMostPopularFaqs);
+  api.get('/popular', hasRole([Role.admin, Role.superAdmin]), adminController.getMostPopularFaqs);
 
   // Get all unanswered questions
-  api.get('/unanswered', adminController.getUnanswered);
+  api.get('/unanswered', hasRole([Role.admin, Role.superAdmin]), adminController.getUnanswered);
 
   // Get total number of users
-  api.get('/count', userController.countAllUsers);
+  api.get('/count', hasRole([Role.admin, Role.superAdmin]), userController.countAllUsers);
 
   // Get total users by group(type)
-  api.get('/count/:typeId', userController.countByType);
+  api.get('/count/:typeId', hasRole([Role.admin, Role.superAdmin]), userController.countByType);
 
   // Put faculty answer
-  api.put('/faculty', adminController.editFacultyInfo);
+  api.put('/faculty', hasRole([Role.admin, Role.superAdmin]), adminController.editFacultyInfo);
 
   // Put university answer
-  api.put('/university', adminController.editUniversityInfo);
+  api.put('/university', hasRole([Role.admin, Role.superAdmin]), adminController.editUniversityInfo);
 
   // Get all categories
-  api.get('/categories', adminController.getAllUserTypes);
+  api.get('/categories', hasRole([Role.admin, Role.superAdmin]), adminController.getAllUserTypes);
 
   // Create new user category
-  api.post('/categories', adminController.addNewType);
+  api.post('/categories', hasRole([Role.admin, Role.superAdmin]), adminController.addNewType);
 
   // Get all faqs
-  api.get('/faqs', adminController.refreshFaqs);
+  api.get('/faqs', hasRole([Role.admin, Role.superAdmin]), adminController.refreshFaqs);
 
   // Get users by category
-  api.get('/categories/:typeId', adminController.selectUsersByCategory);
+  api.get('/categories/:typeId', hasRole([Role.admin, Role.superAdmin]), adminController.selectUsersByCategory);
 
   return api;
 }

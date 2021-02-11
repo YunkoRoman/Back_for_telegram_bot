@@ -2,6 +2,9 @@ import { RedisClient, createClient } from 'redis';
 import dotenv from 'dotenv';
 import { UserAddToChat } from '../types/types';
 import {logger} from "../utils/logger";
+import { ErrorHandler } from "../errors/errorHandler";
+import { customErrors } from "../errors/customErrors";
+
 
 export default class RedisUser {
   private client: RedisClient;
@@ -29,7 +32,7 @@ export default class RedisUser {
       this.client.setex(user.telegramId, 86400, JSON.stringify(user), (err, data) => {
         if (err) {
           reject(err);
-          logger.redisLogger.error(err)
+          logger.redisLogger.error(`${err}`)
         }
         resolve(data);
       });
@@ -40,7 +43,7 @@ export default class RedisUser {
       this.client.get(telegramId as string, (err, data) => {
         if (err) {
           reject(err);
-          logger.redisLogger.error(err)
+          logger.redisLogger.error(`${err}`)
         }
 
         if (data !== null) {

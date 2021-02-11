@@ -8,7 +8,7 @@ export const customErrors = {
     message: "Role id is not present"
   },
   BAD_REQUEST_NO_TELEGRAM_ID: {
-    message: "Telegram id is not present, in header"
+    message: "Telegram id is not present, in header (X-User-id)"
   },
   //404
   NOT_FOUND: {

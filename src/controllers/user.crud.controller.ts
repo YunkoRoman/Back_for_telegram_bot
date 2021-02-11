@@ -75,19 +75,20 @@ export default class UserController {
       next(error)
     }
   };
-
+  //todo super admin could not update himself
   public updateUserById = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const user: UserAddToChat = {
       ...req.body,
       telegramId: req.params.telegramId
     };
+    console.log(req.params);
     try {
       logger.userLogger.info("update user by id");
       const result = await this.userService.updateUser(user);
       if (result) {
         if (result !== null) {
           const updatedUser = await this.redisUserCache.setUser(result[1][0] as UserAddToChat);
-          logger.userLogger.info("updatedUser: ", updatedUser);
+          logger.userLogger.info(`updatedUser: ${updatedUser}` );
         }
       }
       return apiResponse(res, successResponse(result), StatusCodes.OK);

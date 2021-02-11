@@ -110,6 +110,23 @@ export default class FaqsController {
       next(error);
     }
   };
+  public addFaq = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | undefined> => {
+    const faq: FaqModel = req.body;
+    try {
+      logger.faqLogger.info("add faq");
+      const result = await this.faqsService.addNewFaq(faq);
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.faqLogger.error("error while adding faq", {
+        meta: { ...error }
+      });
+      next(error);
+    }
+  };
 
   public addUnanswered = async (
     req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {

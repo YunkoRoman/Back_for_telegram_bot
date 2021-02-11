@@ -51,6 +51,7 @@ export default class UserController {
       }
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
+      console.log('getUserById Error: ', error);
       logger.error('error while getting user by id', { meta: { ...error } });
       return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
     }

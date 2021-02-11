@@ -60,6 +60,9 @@ export function initUser(sequelize: Sequelize) {
         type: new DataTypes.STRING(32),
         unique: true,
         allowNull: false,
+        validate: {
+          isNumeric: true,
+        },
       },
       telegramName: {
         type: new DataTypes.STRING(32),

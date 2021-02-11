@@ -2,7 +2,7 @@ import express from 'express';
 import UserService from '../../services/user.service';
 import UserController from '../../controllers/user.crud.controller';
 import { DB } from '../../sequelize/models/index';
-import { hasRole } from '../../utils/middlewares';
+import { hasRole, validateUserFields } from '../../utils/middlewares';
 import { Role } from '../../sequelize/models/user.role.model';
 
 export default function usersRoute(db: DB) {
@@ -15,7 +15,7 @@ export default function usersRoute(db: DB) {
   api.get('/admins', hasRole([Role.superAdmin]), userController.getAllAdmins);
 
   // Add admin
-  api.put('/admins', hasRole([Role.superAdmin]), userController.getAllAdmins);
+  api.put('/admins', [hasRole([Role.superAdmin]), validateUserFields], userController.getAllAdmins);
 
   // Remove admin
   api.delete('/admins/remove', hasRole([Role.superAdmin]), userController.getAllAdmins);
@@ -24,10 +24,10 @@ export default function usersRoute(db: DB) {
   api.get('/:telegramId', userController.getUserById);
 
   // CREATE new user
-  api.post('/', userController.createNewUser);
+  api.post('/', [validateUserFields], userController.createNewUser);
 
   // UPDATE user
-  api.put('/:telegramId', userController.updateUserById);
+  api.put('/:telegramId', [validateUserFields], userController.updateUserById);
 
   // DELETE user by ID
   api.delete('/:telegramId', userController.deleteUser);

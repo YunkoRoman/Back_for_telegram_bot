@@ -15,11 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_codes_1 = require("http-status-codes");
 const response_1 = require("../utils/response");
 const logger_1 = __importDefault(require("../utils/logger"));
-<<<<<<< HEAD
 const user_role_model_1 = require("../sequelize/models/user.role.model");
-=======
 const redisUser_1 = __importDefault(require("../cache/redisUser"));
->>>>>>> redis
 class UserController {
     constructor(userService) {
         this.getAllUsers = (req, res, next) => __awaiter(this, void 0, void 0, function* () {

@@ -3,14 +3,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.invalidFields = exports.isValidTelegramId = void 0;
 const validator_1 = __importDefault(require("validator"));
-function validateNewUser(user) {
+const user_role_model_1 = require("../sequelize/models/user.role.model");
+// eslint-disable-next-line import/prefer-default-export
+function isValidTelegramId(telegramId) {
     const errors = [];
-    const { phoneNumber = '' } = user;
-    if (!validator_1.default.isMobilePhone(phoneNumber)) {
-        errors.push({ phoneNumber: 'is invalid mobile phone number' });
+    if (!telegramId) {
+        errors.push('Please provide user telegram id');
+        return errors;
+    }
+    if (!validator_1.default.isNumeric(telegramId)) {
+        errors.push('Telegram id is not a number');
     }
     return errors;
 }
-exports.default = validateNewUser;
+exports.isValidTelegramId = isValidTelegramId;
+function invalidFields(user) {
+    const errors = [];
+    errors.push(...isValidTelegramId(user.telegramId));
+    // if (user.phoneNumber) {
+    // }
+    if (user.roleId && ![user_role_model_1.Role.regular, user_role_model_1.Role.admin, user_role_model_1.Role.superAdmin].includes(user.roleId)) {
+        errors.push('User role is ivalid');
+    }
+    if (user.typeId && ![1, 2, 3, 4, 5].includes(user.typeId)) {
+        errors.push('User role is invalid');
+    }
+    return errors;
+}
+exports.invalidFields = invalidFields;
 //# sourceMappingURL=validator.js.map

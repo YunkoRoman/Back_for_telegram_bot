@@ -32,20 +32,43 @@ function initUser(sequelize) {
             validate: {
                 is: types_1.PHONE_REGEX,
             },
-        },
-        city: {
-            type: new sequelize_1.DataTypes.STRING(32),
-            allowNull: true,
-        },
-        step: {
-            type: sequelize_1.DataTypes.JSON,
-        },
-        roleId: {
-            type: sequelize_1.DataTypes.INTEGER,
-        },
-        typeId: {
-            type: sequelize_1.DataTypes.INTEGER,
-        },
+            telegramId: {
+                type: new sequelize_1.DataTypes.STRING(32),
+                unique: true,
+                allowNull: false,
+                validate: {
+                    isNumeric: true,
+                },
+            },
+            telegramName: {
+                type: new sequelize_1.DataTypes.STRING(32),
+                allowNull: true,
+            },
+            name: {
+                type: new sequelize_1.DataTypes.STRING(32),
+                allowNull: false,
+            },
+            phoneNumber: {
+                type: new sequelize_1.DataTypes.STRING(64),
+                allowNull: true,
+                validate: {
+                    is: types_1.PHONE_REGEX,
+                },
+            },
+            city: {
+                type: new sequelize_1.DataTypes.STRING(32),
+                allowNull: true,
+            },
+            step: {
+                type: sequelize_1.DataTypes.JSON,
+            },
+            roleId: {
+                type: sequelize_1.DataTypes.INTEGER,
+            },
+            typeId: {
+                type: sequelize_1.DataTypes.INTEGER,
+            },
+        }
     });
 }
 exports.initUser = initUser;

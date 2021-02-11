@@ -15,7 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_codes_1 = require("http-status-codes");
 const response_1 = require("../utils/response");
 const logger_1 = __importDefault(require("../utils/logger"));
+<<<<<<< HEAD
 const user_role_model_1 = require("../sequelize/models/user.role.model");
+=======
+const redisUser_1 = __importDefault(require("../cache/redisUser"));
+>>>>>>> redis
 class UserController {
     constructor(userService) {
         this.getAllUsers = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
@@ -35,7 +39,19 @@ class UserController {
             const { telegramId } = req.params;
             try {
                 logger_1.default.info('find user by id');
+                console.log('redis get start');
+                const getUserRedis = yield this.redisUserCache.getUser(telegramId);
+                if (getUserRedis !== null) {
+                    console.log('getUserRedis: ', getUserRedis);
+                    return response_1.apiResponse(res, response_1.successResponse(getUserRedis), http_status_codes_1.StatusCodes.OK);
+                }
+                console.log('redis get end');
+                console.log('ORM START CHECKPOINT');
                 const result = yield this.userService.getUserById(telegramId);
+                if (result !== null) {
+                    const createdUser = yield this.redisUserCache.setUser(result[0]);
+                    console.log('createdUser: ', createdUser);
+                }
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
@@ -50,6 +66,8 @@ class UserController {
             try {
                 logger_1.default.info('save new user');
                 const result = yield this.userService.createUser(user);
+                const createdUser = yield this.redisUserCache.setUser(result);
+                console.log('createdUser: ', createdUser);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.CREATED);
             }
             catch (error) {
@@ -62,6 +80,12 @@ class UserController {
             try {
                 logger_1.default.info('update user by id');
                 const result = yield this.userService.updateUser(user);
+                if (result) {
+                    if (result !== null) {
+                        const updatedUser = yield this.redisUserCache.setUser(result[1][0]);
+                        console.log('updatedUser: ', updatedUser);
+                    }
+                }
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
@@ -119,6 +143,7 @@ class UserController {
             }
         });
         this.userService = userService;
+        this.redisUserCache = new redisUser_1.default();
     }
 }
 exports.default = UserController;

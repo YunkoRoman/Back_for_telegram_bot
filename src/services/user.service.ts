@@ -7,27 +7,26 @@ export default class UserService {
   private DB;
 
   // eslint-disable-next-line no-shadow
-  public constructor(db: DB) {
+  constructor(db: DB) {
     this.DB = db;
   }
 
   public getAllUsers = async (): Promise<UserModel[]> => {
     const result = await this.DB.User.findAll();
     return result;
-  }
+  };
 
-  public findAndCountAll = async (): Promise<{rows: UserModel[], count: number}> => {
+  public findAndCountAll = async (): Promise<{ rows: UserModel[]; count: number }> => {
     const result = await this.DB.User.findAndCountAll();
     return result;
-  }
+  };
 
-  public findAndCountByType = async (
-    idOfType: number): Promise<{rows: UserModel[], count: number}> => {
+  public findAndCountByType = async (idOfType: number): Promise<{ rows: UserModel[]; count: number }> => {
     const result = await this.DB.User.findAndCountAll({
       where: { typeId: idOfType },
     });
     return result;
-  }
+  };
 
   // =============== CRUD =================
 
@@ -40,22 +39,22 @@ export default class UserService {
       },
     });
     return result;
-  }
+  };
 
   public getAllUsersByType = async (typeId: number): Promise<UserModel[]> => {
     const result = await this.DB.User.findAll({ where: { typeId } });
     return result;
-  }
+  };
 
   public getAllUsersByRole = async (roleId: number): Promise<UserModel[]> => {
     const result = await this.DB.User.findAll({ where: { roleId } });
     return result;
-  }
+  };
 
   public createUser = async (user: UserAddToChat): Promise<UserModel | any> => {
     const result = await this.DB.User.create(user);
     return result;
-  }
+  };
 
   public updateUser = async (user: UserAddToChat): Promise<any> => {
     const result = await this.DB.User.update(user, {
@@ -64,12 +63,13 @@ export default class UserService {
           [Op.eq]: user.telegramId,
         },
       },
+      returning: true,
     });
     return result;
-  }
+  };
 
   public deleteUser = async (userId: number | string): Promise<any> => {
     const result = await this.DB.User.destroy({ where: { telegramId: userId } });
     return result;
-  }
+  };
 }

@@ -57,6 +57,7 @@ class UserService {
                         [sequelize_1.Op.eq]: user.telegramId,
                     },
                 },
+                returning: true,
             });
             return result;
         });

@@ -16,22 +16,31 @@ export default class UnansweredService {
     return result;
   };
 
-  public getUnansweredById = async (UnansweredId: number): Promise<UnanswdQuestionModel | null> => {
-    const result = await this.DB.UnanswdQuestions.findOne({ where: { id: UnansweredId } });
+  public getUnansweredById = async (
+    unansweredId: number): Promise<UnanswdQuestionModel | null> => {
+    const result = await this.DB.UnanswdQuestions.findOne({ where: { id: unansweredId } });
     return result;
   };
 
-  public addNewUnanswered = async (Unanswered: UnanswdQuestionModel): Promise<UnanswdQuestionModel> => {
-    const result = await this.DB.UnanswdQuestions.create(Unanswered);
+  public getUnansweredByQuestion = async (
+    unansweredQuestion: string): Promise<UnanswdQuestionModel[]> => {
+    const result = await this.DB.UnanswdQuestions.findAll({ where: { question: unansweredQuestion } });
     return result;
   };
 
-  public updateUnansweredById = async (Unanswered: UnanswdQuestionModel): Promise<UnanswdQuestionModel | any> => {
-    await this.DB.UnanswdQuestions.update(Unanswered, { where: { id: Unanswered.id } });
+  public addNewUnanswered = async (
+    unanswered: UnanswdQuestionModel): Promise<UnanswdQuestionModel> => {
+    const result = await this.DB.UnanswdQuestions.create(unanswered);
+    return result;
   };
 
-  public deleteUnansweredById = async (UnansweredId: number): Promise<number> => {
-    const result = await this.DB.UnanswdQuestions.destroy({ where: { id: UnansweredId } });
+  public updateUnansweredById = async (
+    unanswered: UnanswdQuestionModel): Promise<UnanswdQuestionModel | any> => {
+    await this.DB.UnanswdQuestions.update(unanswered, { where: { id: unanswered.id } });
+  };
+
+  public deleteUnansweredById = async (unansweredId: number): Promise<number> => {
+    const result = await this.DB.UnanswdQuestions.destroy({ where: { id: unansweredId } });
     return result;
   };
 }

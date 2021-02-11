@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Request, Response, NextFunction } from 'express';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import UnansweredService from '../services/unanswered.service';
 import { FaqModel } from '../sequelize/models/faq.model';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
 import logger from '../utils/logger';
@@ -9,8 +10,11 @@ import FaqsService from '../services/faqs.service';
 export default class FaqsController {
   public faqsService: FaqsService;
 
-  constructor(faqsService: FaqsService) {
+  public unansweredService: UnansweredService;
+
+  constructor(faqsService: FaqsService, unansweredService: UnansweredService) {
     this.faqsService = faqsService;
+    this.unansweredService = unansweredService;
   }
 
   public getAllFaqs = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
@@ -80,14 +84,59 @@ export default class FaqsController {
     }
   };
 
-  public getPopularFaqs = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public getPopularFaqs = async (
+    req: Request, res: Response, next: NextFunction): Promise<Response> => {
     try {
       logger.info('get popular faqs');
       const result = await this.faqsService.getOnlyPopular();
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('unable to get popular faqs');
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
     }
   };
+
+  public getAllUnanswered = async (
+    req: Request, res: Response, next: NextFunction): Promise<Response> => {
+    try {
+      logger.info('get unanswered');
+      const result = await this.unansweredService.getAllUnanswered();
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.error('unable to get unanswered');
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  public addUnanswered = async (
+    req: Request, res: Response, next: NextFunction): Promise<Response> => {
+    const newUnansd = {
+      ...req.body,
+    };
+    try {
+      logger.info('crete unanswered');
+      const result = await this.unansweredService.addNewUnanswered(newUnansd);
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.error('unable to create unanswered');
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  public getUnansweredByQuestion = async (
+    req: Request, res: Response, next: NextFunction): Promise<Response> => {
+    const { question } = req.params;
+    try {
+      logger.info('get unanswered by question');
+      const result = await this.unansweredService.getUnansweredByQuestion(question);
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.error('unable to get unanswered by question');
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

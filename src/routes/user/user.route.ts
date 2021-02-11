@@ -15,10 +15,10 @@ export default function usersRoute(db: DB) {
   api.get('/admins', hasRole([Role.superAdmin]), userController.getAllAdmins);
 
   // Add admin
-  api.put('/admins', [hasRole([Role.superAdmin]), validateUserFields], userController.getAllAdmins);
+  api.put('/admins/:telegramId', [hasRole([Role.superAdmin]), validateUserFields], userController.updateUserById);
 
   // Remove admin
-  api.delete('/admins/remove', hasRole([Role.superAdmin]), userController.getAllAdmins);
+  api.put('/admins/remove/:telegramId', hasRole([Role.superAdmin]), userController.updateUserById);
 
   // GET user by id
   api.get('/:telegramId', userController.getUserById);

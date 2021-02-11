@@ -15,7 +15,7 @@ export default function usersRoute(db: DB) {
   api.get('/admins', hasRole([Role.superAdmin]), userController.getAllAdmins);
 
   // Add admin
-  api.put('/admins/:telegramId', [hasRole([Role.superAdmin]), validateUserFields], userController.updateUserById);
+  api.put('/admins/:telegramId', [hasRole([Role.superAdmin])], userController.updateUserById);
 
   // Remove admin
   api.put('/admins/remove/:telegramId', hasRole([Role.superAdmin]), userController.updateUserById);

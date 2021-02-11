@@ -17,6 +17,7 @@ function infoRoute(db) {
     api.get('/university', faqsController.getUniversityInfo);
     api.get('/popular', faqsController.getPopularFaqs);
     api.get('/faq', faqsController.getFaqByQuestion);
+    api.post('/faq', faqsController.addFaq);
     // GET faq by id
     api.get('/faq/:id', faqsController.getFaqById);
     api.get('/unanswered', faqsController.getAllUnanswered);

@@ -15,7 +15,7 @@ function usersRoute(db) {
     // GET all admins
     api.get('/admins', middlewares_1.hasRole([user_role_model_1.Role.superAdmin]), userController.getAllAdmins);
     // Add admin
-    api.put('/admins/:telegramId', [middlewares_1.hasRole([user_role_model_1.Role.superAdmin]), middlewares_1.validateUserFields], userController.updateUserById);
+    api.put('/admins/:telegramId', [middlewares_1.hasRole([user_role_model_1.Role.superAdmin])], userController.updateUserById);
     // Remove admin
     api.put('/admins/remove/:telegramId', middlewares_1.hasRole([user_role_model_1.Role.superAdmin]), userController.updateUserById);
     // GET user by id

@@ -44,6 +44,20 @@ class FaqsController {
                 return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
+        this.addFaq = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const faq = req.body;
+            try {
+                logger_1.default.info('add faq');
+                const result = yield this.faqsService.addNewFaq(faq);
+                return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('error while adding faq', {
+                    meta: Object.assign({}, error),
+                });
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
         this.getFaqByQuestion = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const faq = req.query;
             try {

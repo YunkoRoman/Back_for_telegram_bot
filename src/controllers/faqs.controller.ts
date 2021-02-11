@@ -44,6 +44,24 @@ export default class FaqsController {
     }
   };
 
+  public addFaq = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> => {
+    const faq: FaqModel = req.body;
+    try {
+      logger.info('add faq');
+      const result = await this.faqsService.addNewFaq(faq);
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error while adding faq', {
+        meta: { ...error },
+      });
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   public getFaqByQuestion = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
     const faq = <FaqModel>(<unknown>req.query);
     try {

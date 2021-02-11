@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import { UnanswdQuestionModel } from '../sequelize/models/unanswered.questions.model';
 import { DB } from '../sequelize/models/index';
 
@@ -24,7 +25,13 @@ export default class UnansweredService {
 
   public getUnansweredByQuestion = async (
     unansweredQuestion: string): Promise<UnanswdQuestionModel[]> => {
-    const result = await this.DB.UnanswdQuestions.findAll({ where: { question: unansweredQuestion } });
+    const result = await this.DB.UnanswdQuestions.findAll({
+      where: {
+        question: {
+          [Op.like]: unansweredQuestion,
+        },
+      },
+    });
     return result;
   };
 

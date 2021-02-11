@@ -45,7 +45,7 @@ class UserController {
                 console.log('redis get end');
                 console.log('ORM START CHECKPOINT');
                 const result = yield this.userService.getUserById(telegramId);
-                if (result !== null) {
+                if (result.length > 0) {
                     const createdUser = yield this.redisUserCache.setUser(result[0]);
                     console.log('createdUser: ', createdUser);
                 }
@@ -136,6 +136,72 @@ class UserController {
                 logger_1.default.error('error while getting all admins', {
                     meta: Object.assign({}, error),
                 });
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
+        this.getUserByTelegramName = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { telegramName } = req.params;
+            try {
+                const users = yield this.userService.getAllUsersByTelName(telegramName);
+                return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('error getting users by telegram name', { meta: Object.assign({}, error) });
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
+        this.getUserByPhone = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { phone } = req.params;
+            try {
+                const users = yield this.userService.getAllUsersByPhone(phone);
+                return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('error getting users by phone', { meta: Object.assign({}, error) });
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
+        this.getUserByCity = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { city } = req.params;
+            try {
+                const users = yield this.userService.getAllUsersByCity(city);
+                return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('error getting users by telegram city', { meta: Object.assign({}, error) });
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
+        this.getUserByName = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { name } = req.params;
+            try {
+                const users = yield this.userService.getAllUsersByName(name);
+                return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('error getting users by telegram name', { meta: Object.assign({}, error) });
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
+        this.getUserByRole = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { role } = req.params;
+            try {
+                const users = yield this.userService.getAllUsersByRole(parseInt(role, 10));
+                return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('error getting users by role', { meta: Object.assign({}, error) });
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
+        this.getUserByType = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { type } = req.params;
+            try {
+                const users = yield this.userService.getAllUsersByRole(parseInt(type, 10));
+                return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('error getting users by type', { meta: Object.assign({}, error) });
                 return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });

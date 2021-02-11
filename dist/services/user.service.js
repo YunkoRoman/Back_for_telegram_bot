@@ -38,6 +38,46 @@ class UserService {
             });
             return result;
         });
+        this.getAllUsersByTelName = (telName) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.User.findAll({
+                where: {
+                    telegramName: {
+                        [sequelize_1.Op.like]: telName,
+                    },
+                },
+            });
+            return result;
+        });
+        this.getAllUsersByName = (userName) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.User.findAll({
+                where: {
+                    name: {
+                        [sequelize_1.Op.like]: userName,
+                    },
+                },
+            });
+            return result;
+        });
+        this.getAllUsersByCity = (userCity) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.User.findAll({
+                where: {
+                    city: {
+                        [sequelize_1.Op.like]: userCity,
+                    },
+                },
+            });
+            return result;
+        });
+        this.getAllUsersByPhone = (phone) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.User.findAll({
+                where: {
+                    phoneNumber: {
+                        [sequelize_1.Op.like]: phone,
+                    },
+                },
+            });
+            return result;
+        });
         this.getAllUsersByType = (typeId) => __awaiter(this, void 0, void 0, function* () {
             const result = yield this.DB.User.findAll({ where: { typeId } });
             return result;

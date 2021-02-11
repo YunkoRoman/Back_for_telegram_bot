@@ -48,8 +48,11 @@ class UserController {
                 if (result !== null) {
                     const createdUser = yield this.redisUserCache.setUser(result[0]);
                     console.log('createdUser: ', createdUser);
+                    return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
                 }
-                return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
+                else {
+                    return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.NOT_FOUND)), http_status_codes_1.StatusCodes.NOT_FOUND);
+                }
             }
             catch (error) {
                 logger_1.default.error('error while getting user by id', { meta: Object.assign({}, error) });

@@ -47,8 +47,10 @@ export default class UserController {
       if (result !== null) {
         const createdUser = await this.redisUserCache.setUser(result[0] as UserAddToChat);
         console.log('createdUser: ', createdUser);
+        return apiResponse(res, successResponse(result), StatusCodes.OK);
+      } else {
+        return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.NOT_FOUND)), StatusCodes.NOT_FOUND);
       }
-      return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while getting user by id', { meta: { ...error } });
       return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);

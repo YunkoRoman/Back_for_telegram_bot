@@ -30,11 +30,55 @@ export default class UserService {
 
   // =============== CRUD =================
 
-  public getUserById = async (userId: number | string): Promise<UserModel[] | null> => {
+  public getUserById = async (userId: number | string): Promise<UserModel[]> => {
     const result = await this.DB.User.findAll({
       where: {
         telegramId: {
           [Op.eq]: userId,
+        },
+      },
+    });
+    return result;
+  };
+
+  public getAllUsersByTelName = async (telName: string): Promise<UserModel[]> => {
+    const result = await this.DB.User.findAll({
+      where: {
+        telegramName: {
+          [Op.like]: telName,
+        },
+      },
+    });
+    return result;
+  };
+
+  public getAllUsersByName = async (userName: string): Promise<UserModel[]> => {
+    const result = await this.DB.User.findAll({
+      where: {
+        name: {
+          [Op.like]: userName,
+        },
+      },
+    });
+    return result;
+  };
+
+  public getAllUsersByCity = async (userCity: string): Promise<UserModel[]> => {
+    const result = await this.DB.User.findAll({
+      where: {
+        city: {
+          [Op.like]: userCity,
+        },
+      },
+    });
+    return result;
+  };
+
+  public getAllUsersByPhone = async (phone: string): Promise<UserModel[]> => {
+    const result = await this.DB.User.findAll({
+      where: {
+        phoneNumber: {
+          [Op.like]: phone,
         },
       },
     });

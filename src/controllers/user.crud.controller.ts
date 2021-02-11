@@ -11,6 +11,7 @@ import RedisUser from '../cache/redisUser';
 
 export default class UserController {
   public userService: UserService;
+
   private redisUserCache: RedisUser;
 
   constructor(userService: UserService) {
@@ -44,7 +45,7 @@ export default class UserController {
       console.log('redis get end');
       console.log('ORM START CHECKPOINT');
       const result = await this.userService.getUserById(telegramId);
-      if (result !== null) {
+      if (result.length > 0) {
         const createdUser = await this.redisUserCache.setUser(result[0] as UserAddToChat);
         console.log('createdUser: ', createdUser);
       }
@@ -140,4 +141,100 @@ export default class UserController {
       return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
     }
   };
+
+  public getUserByTelegramName = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> => {
+    const { telegramName } = req.params;
+    try {
+      const users = await this.userService.getAllUsersByTelName(telegramName);
+      return apiResponse(res, successResponse(users), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error getting users by telegram name', { meta: { ...error } });
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  public getUserByPhone = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> => {
+    const { phone } = req.params;
+    try {
+      const users = await this.userService.getAllUsersByPhone(phone);
+      return apiResponse(res, successResponse(users), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error getting users by phone', { meta: { ...error } });
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  public getUserByCity = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> => {
+    const { city } = req.params;
+    try {
+      const users = await this.userService.getAllUsersByCity(city);
+      return apiResponse(res, successResponse(users), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error getting users by telegram city', { meta: { ...error } });
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  public getUserByName = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> => {
+    const { name } = req.params;
+    try {
+      const users = await this.userService.getAllUsersByName(name);
+      return apiResponse(res, successResponse(users), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error getting users by telegram name', { meta: { ...error } });
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  public getUserByRole = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> => {
+    const { role } = req.params;
+    try {
+      const users = await this.userService.getAllUsersByRole(parseInt(role, 10));
+      return apiResponse(res, successResponse(users), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error getting users by role', { meta: { ...error } });
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  public getUserByType = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> => {
+    const { type } = req.params;
+    try {
+      const users = await this.userService.getAllUsersByRole(parseInt(type, 10));
+      return apiResponse(res, successResponse(users), StatusCodes.OK);
+    } catch (error) {
+      logger.error('error getting users by type', { meta: { ...error } });
+      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
+        StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

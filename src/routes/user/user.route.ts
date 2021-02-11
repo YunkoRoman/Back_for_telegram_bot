@@ -23,11 +23,29 @@ export default function usersRoute(db: DB) {
   // GET user by id
   api.get('/:telegramId', userController.getUserById);
 
+  // GET users by telegram name
+  api.get('/telegram_name/:telegramName', userController.getUserByTelegramName);
+
+  // GET users by name
+  api.get('/name/:name', userController.getUserByName);
+
+  // GET users by phone
+  api.get('/phone/:phone', userController.getUserByPhone);
+
+  // GET user by city
+  api.get('/city/:city', userController.getUserByCity);
+
+  // GET user by role
+  api.get('/role/:role', userController.getUserByRole);
+
+  // GET user by type
+  api.get('/type/:type', userController.getUserByType);
+
   // CREATE new user
-  api.post('/', [validateUserFields], userController.createNewUser);
+  api.post('/', userController.createNewUser);
 
   // UPDATE user
-  api.put('/:telegramId', [validateUserFields], userController.updateUserById);
+  api.put('/:telegramId', userController.updateUserById);
 
   // DELETE user by ID
   api.delete('/:telegramId', userController.deleteUser);

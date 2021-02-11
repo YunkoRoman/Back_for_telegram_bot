@@ -19,15 +19,15 @@ export function isValidTelegramId(telegramId:any) {
 export function invalidFields(user: UserAddToChat) {
   const errors: any[] = [];
 
-  errors.push(...isValidTelegramId(user.telegramId));
+  // errors.push(...isValidTelegramId(user.telegramId));
   // if (user.phoneNumber) {
   // }
 
   if (user.roleId && ![Role.regular, Role.admin, Role.superAdmin].includes(user.roleId)) {
-    errors.push('User role is ivalid');
+    errors.push('User role is invalid');
   }
   if (user.typeId && ![1, 2, 3, 4, 5].includes(user.typeId)) {
-    errors.push('User role is invalid');
+    errors.push('User type is invalid');
   }
   return errors;
 }

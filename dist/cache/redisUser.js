@@ -29,9 +29,7 @@ class RedisUser {
                 if (err) {
                     reject(err);
                 }
-                if (data !== null) {
-                    resolve(data);
-                }
+                resolve(data);
             });
         });
     }

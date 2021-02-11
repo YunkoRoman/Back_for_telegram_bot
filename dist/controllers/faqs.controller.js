@@ -16,7 +16,7 @@ const http_status_codes_1 = require("http-status-codes");
 const response_1 = require("../utils/response");
 const logger_1 = __importDefault(require("../utils/logger"));
 class FaqsController {
-    constructor(faqsService) {
+    constructor(faqsService, unansweredService) {
         this.getAllFaqs = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
                 logger_1.default.info('get all faqs');
@@ -95,7 +95,43 @@ class FaqsController {
                 return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
+        this.getAllUnanswered = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                logger_1.default.info('get unanswered');
+                const result = yield this.unansweredService.getAllUnanswered();
+                return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('unable to get unanswered');
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
+        this.addUnanswered = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const newUnansd = Object.assign({}, req.body);
+            try {
+                logger_1.default.info('crete unanswered');
+                const result = yield this.unansweredService.addNewUnanswered(newUnansd);
+                return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('unable to create unanswered');
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
+        this.getUnansweredByQuestion = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { question } = req.params;
+            try {
+                logger_1.default.info('get unanswered by question');
+                const result = yield this.unansweredService.getUnansweredByQuestion(question);
+                return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.default.error('unable to get unanswered by question');
+                return response_1.apiResponse(res, response_1.failedResponse(http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
         this.faqsService = faqsService;
+        this.unansweredService = unansweredService;
     }
 }
 exports.default = FaqsController;

@@ -4,11 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const unanswered_service_1 = __importDefault(require("../../services/unanswered.service"));
 const faqs_service_1 = __importDefault(require("../../services/faqs.service"));
 const faqs_controller_1 = __importDefault(require("../../controllers/faqs.controller"));
 function infoRoute(db) {
     const api = express_1.default.Router();
-    const faqsController = new faqs_controller_1.default(new faqs_service_1.default(db));
+    const faqsController = new faqs_controller_1.default(new faqs_service_1.default(db), new unanswered_service_1.default(db));
     // ========== CRUD ====================
     // GET all faqs
     api.get('/all', faqsController.getAllFaqs);
@@ -18,6 +19,9 @@ function infoRoute(db) {
     api.get('/faq', faqsController.getFaqByQuestion);
     // GET faq by id
     api.get('/faq/:id', faqsController.getFaqById);
+    api.get('/unanswered', faqsController.getAllUnanswered);
+    api.get('/unanswered/:question', faqsController.getUnansweredByQuestion);
+    api.post('/unanswered', faqsController.addUnanswered);
     return api;
 }
 exports.default = infoRoute;

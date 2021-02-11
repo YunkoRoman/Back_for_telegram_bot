@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const sequelize_1 = require("sequelize");
 class UnansweredService {
     // eslint-disable-next-line no-shadow
     constructor(db) {
@@ -17,19 +18,29 @@ class UnansweredService {
             const result = yield this.DB.UnanswdQuestions.findAll();
             return result;
         });
-        this.getUnansweredById = (UnansweredId) => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.UnanswdQuestions.findOne({ where: { id: UnansweredId } });
+        this.getUnansweredById = (unansweredId) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.UnanswdQuestions.findOne({ where: { id: unansweredId } });
             return result;
         });
-        this.addNewUnanswered = (Unanswered) => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.UnanswdQuestions.create(Unanswered);
+        this.getUnansweredByQuestion = (unansweredQuestion) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.UnanswdQuestions.findAll({
+                where: {
+                    question: {
+                        [sequelize_1.Op.like]: unansweredQuestion,
+                    },
+                },
+            });
             return result;
         });
-        this.updateUnansweredById = (Unanswered) => __awaiter(this, void 0, void 0, function* () {
-            yield this.DB.UnanswdQuestions.update(Unanswered, { where: { id: Unanswered.id } });
+        this.addNewUnanswered = (unanswered) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.UnanswdQuestions.create(unanswered);
+            return result;
         });
-        this.deleteUnansweredById = (UnansweredId) => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.UnanswdQuestions.destroy({ where: { id: UnansweredId } });
+        this.updateUnansweredById = (unanswered) => __awaiter(this, void 0, void 0, function* () {
+            yield this.DB.UnanswdQuestions.update(unanswered, { where: { id: unanswered.id } });
+        });
+        this.deleteUnansweredById = (unansweredId) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.UnanswdQuestions.destroy({ where: { id: unansweredId } });
             return result;
         });
         this.DB = db;

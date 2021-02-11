@@ -1,7 +1,6 @@
 import { UserAddToChat } from 'types/types';
 import validator from 'validator';
 import { Role } from '../sequelize/models/user.role.model';
-import logger from './logger';
 
 // eslint-disable-next-line import/prefer-default-export
 export function isValidTelegramId(telegramId:any) {

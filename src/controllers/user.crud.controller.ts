@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { Request, Response, NextFunction } from 'express';
-import { getReasonPhrase, StatusCodes } from 'http-status-codes';
-import { UserAddToChat } from 'types/types';
-import { UserModel } from '../sequelize/models/user.model';
-import { apiResponse, failedResponse, successResponse } from '../utils/response';
-import logger from '../utils/logger';
-import UserService from '../services/user.service';
-import { Role } from '../sequelize/models/user.role.model';
-import RedisUser from '../cache/redisUser';
+import { Request, Response, NextFunction } from "express";
+import { getReasonPhrase, StatusCodes } from "http-status-codes";
+import { UserAddToChat } from "types/types";
+import { UserModel } from "../sequelize/models/user.model";
+import { apiResponse, failedResponse, successResponse } from "../utils/response";
+import { logger } from "../utils/logger";
+import UserService from "../services/user.service";
+import { Role } from "../sequelize/models/user.role.model";
+import RedisUser from "../cache/redisUser";
 
 export default class UserController {
   public userService: UserService;
@@ -19,223 +19,227 @@ export default class UserController {
     this.redisUserCache = new RedisUser();
   }
 
-  public getAllUsers = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public getAllUsers = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
-      logger.info('get all users');
+      logger.userLogger.info("get all users");
       const users = await this.userService.getAllUsers();
       return apiResponse(res, successResponse(users), StatusCodes.OK);
     } catch (error) {
-      logger.error('error while getting all users', {
-        meta: { ...error },
+      logger.userLogger.error("error while getting all users", {
+        meta: { ...error }
       });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      next(error)
     }
   };
 
-  public getUserById = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public getUserById = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const { telegramId } = req.params;
     try {
-      logger.info('find user by id');
-      console.log('redis get start');
+      logger.userLogger.info("find user by id");
+      console.log("redis get start");
       const getUserRedis = await this.redisUserCache.getUser(telegramId);
       if (getUserRedis !== null) {
-        console.log('getUserRedis: ', getUserRedis);
+        logger.userLogger.info("getUserRedis: ", getUserRedis);
         return apiResponse(res, successResponse(getUserRedis), StatusCodes.OK);
       }
-      console.log('redis get end');
-      console.log('ORM START CHECKPOINT');
+      logger.userLogger.info("redis get end");
+      logger.userLogger.info("ORM START CHECKPOINT");
       const result = await this.userService.getUserById(telegramId);
       if (result.length > 0) {
         const createdUser = await this.redisUserCache.setUser(result[0] as UserAddToChat);
-        console.log('createdUser: ', createdUser);
+        logger.userLogger.info("createdUser: ", createdUser);
       }
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      console.log('getUserById Error: ', error);
-      logger.error('error while getting user by id', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+
+      logger.userLogger.error("error while getting user by id", { meta: { ...error } });
+      next(error)
     }
   };
 
-  public createNewUser = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public createNewUser = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const user: UserAddToChat = req.body;
     user.roleId = Role.regular;
     user.typeId = 1;
     try {
-      logger.info('save new user');
+      // todo error hendler for empty object
+
+      console.log(user);
+      logger.userLogger.info("save new user");
       const result = await this.userService.createUser(user);
       const createdUser = await this.redisUserCache.setUser(result);
-      console.log('createdUser: ', createdUser);
+      logger.userLogger.info("createdUser: ", createdUser);
       return apiResponse(res, successResponse(result), StatusCodes.CREATED);
     } catch (error) {
-      logger.error('error while saving user', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.userLogger.error("error while saving user", { meta: { ...error } });
+      next(error)
     }
   };
 
-  public updateUserById = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public updateUserById = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const user: UserAddToChat = {
       ...req.body,
-      telegramId: req.params.telegramId,
+      telegramId: req.params.telegramId
     };
     try {
-      logger.info('update user by id');
+      logger.userLogger.info("update user by id");
       const result = await this.userService.updateUser(user);
       if (result) {
         if (result !== null) {
           const updatedUser = await this.redisUserCache.setUser(result[1][0] as UserAddToChat);
-          console.log('updatedUser: ', updatedUser);
+          logger.userLogger.info("updatedUser: ", updatedUser);
         }
       }
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('error while updating user');
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.userLogger.error("error while updating user",{
+        meta: { ...error }
+      });
+      next(error)
     }
   };
 
-  public countAllUsers = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public countAllUsers = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
-      logger.info('count all users');
+      logger.userLogger.info("count all users");
       const result = await this.userService.findAndCountAll();
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('error while counting users', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.userLogger.error("error while counting users", { meta: { ...error } });
+      next(error)
     }
   };
 
-  public countByType = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public countByType = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const { typeId } = req.params;
     try {
-      logger.info('count all users');
+      logger.userLogger.info("count all users");
       const result = await this.userService.findAndCountByType(parseInt(typeId, 10));
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('error while counting users by type', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.userLogger.error("error while counting users by type", { meta: { ...error } });
+      next(error)
     }
   };
 
-  public deleteUser = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public deleteUser = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const { id, telegramId } = req.params;
     try {
-      logger.info('delete user by id');
+      logger.userLogger.info("delete user by id");
       const result = await this.userService.deleteUser(telegramId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('error while deleting user', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.userLogger.error("error while deleting user", { meta: { ...error } });
+      next(error)
     }
   };
 
-  public getAllAdmins = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public getAllAdmins = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const roleId = Role.admin;
     try {
-      logger.info('get all admins');
+      logger.userLogger.info("get all admins");
       const users = await this.userService.getAllUsersByRole(roleId);
       return apiResponse(res, successResponse(users), StatusCodes.OK);
     } catch (error) {
-      logger.error('error while getting all admins', {
-        meta: { ...error },
+      logger.userLogger.error("error while getting all admins", {
+        meta: { ...error }
       });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      next(error)
     }
   };
 
   public getUserByTelegramName = async (
     req: Request,
     res: Response,
-    next: NextFunction,
-  ): Promise<Response> => {
+    next: NextFunction
+  ): Promise<Response | undefined> => {
     const { telegramName } = req.params;
     try {
       const users = await this.userService.getAllUsersByTelName(telegramName);
       return apiResponse(res, successResponse(users), StatusCodes.OK);
     } catch (error) {
-      logger.error('error getting users by telegram name', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.userLogger.error("error getting users by telegram name", { meta: { ...error } });
+      next(error);
+
     }
-  }
+  };
 
   public getUserByPhone = async (
     req: Request,
     res: Response,
-    next: NextFunction,
-  ): Promise<Response> => {
+    next: NextFunction
+  ): Promise<Response | undefined> => {
     const { phone } = req.params;
     try {
       const users = await this.userService.getAllUsersByPhone(phone);
       return apiResponse(res, successResponse(users), StatusCodes.OK);
     } catch (error) {
-      logger.error('error getting users by phone', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.userLogger.error("error getting users by phone", { meta: { ...error } });
+      next(error);
+
     }
-  }
+  };
 
   public getUserByCity = async (
     req: Request,
     res: Response,
-    next: NextFunction,
-  ): Promise<Response> => {
+    next: NextFunction
+  ): Promise<Response | undefined> => {
     const { city } = req.params;
     try {
       const users = await this.userService.getAllUsersByCity(city);
       return apiResponse(res, successResponse(users), StatusCodes.OK);
     } catch (error) {
-      logger.error('error getting users by telegram city', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.userLogger.error("error getting users by telegram city", { meta: { ...error } });
+      next(error);
+
     }
-  }
+  };
 
   public getUserByName = async (
     req: Request,
     res: Response,
-    next: NextFunction,
-  ): Promise<Response> => {
+    next: NextFunction
+  ): Promise<Response | undefined> => {
     const { name } = req.params;
     try {
       const users = await this.userService.getAllUsersByName(name);
       return apiResponse(res, successResponse(users), StatusCodes.OK);
     } catch (error) {
-      logger.error('error getting users by telegram name', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.userLogger.error("error getting users by telegram name", { meta: { ...error } });
+      next(error);
+
     }
-  }
+  };
 
   public getUserByRole = async (
     req: Request,
     res: Response,
-    next: NextFunction,
-  ): Promise<Response> => {
+    next: NextFunction
+  ): Promise<Response | undefined> => {
     const { role } = req.params;
     try {
       const users = await this.userService.getAllUsersByRole(parseInt(role, 10));
       return apiResponse(res, successResponse(users), StatusCodes.OK);
     } catch (error) {
-      logger.error('error getting users by role', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.userLogger.error("error getting users by role", { meta: { ...error } });
+      next(error);
+
     }
-  }
+  };
 
   public getUserByType = async (
     req: Request,
     res: Response,
-    next: NextFunction,
-  ): Promise<Response> => {
+    next: NextFunction
+  ): Promise<Response | undefined> => {
     const { type } = req.params;
     try {
       const users = await this.userService.getAllUsersByRole(parseInt(type, 10));
       return apiResponse(res, successResponse(users), StatusCodes.OK);
     } catch (error) {
-      logger.error('error getting users by type', { meta: { ...error } });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.userLogger.error("error getting users by type", { meta: { ...error } });
+      next(error);
     }
-  }
+  };
 }

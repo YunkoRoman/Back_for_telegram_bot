@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { Request, Response, NextFunction } from 'express';
-import { getReasonPhrase, StatusCodes } from 'http-status-codes';
-import { SettingsModel } from 'sequelize/models/settings.model';
-import { apiResponse, failedResponse, successResponse } from '../utils/response';
-import logger from '../utils/logger';
-import SettingsService from '../services/settings.service';
+import { Request, Response, NextFunction } from "express";
+import { getReasonPhrase, StatusCodes } from "http-status-codes";
+import { SettingsModel } from "sequelize/models/settings.model";
+import { apiResponse, failedResponse, successResponse } from "../utils/response";
+import { logger } from "../utils/logger";
+import SettingsService from "../services/settings.service";
 
 export default class SettingsController {
   public settingsService: SettingsService;
@@ -14,68 +14,67 @@ export default class SettingsController {
   }
 
   public getAllSettings = async (
-    req: Request, res: Response, next: NextFunction): Promise<Response> => {
+    req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
-      logger.info('get all settings');
+      logger.settingLogger.info("get all settings");
       const settings = await this.settingsService.getAllSettings();
       return apiResponse(res, successResponse(settings), StatusCodes.OK);
     } catch (error) {
-      logger.error('error while getting all settings', {
-        meta: { ...error },
+      logger.settingLogger.error("error while getting all settings", {
+        meta: { ...error }
       });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      next(error);
     }
   };
 
   public udpdateById = async (
-    req: Request, res: Response, next: NextFunction): Promise<Response> => {
+    req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
       const setting: SettingsModel = {
         ...req.body,
-        id: req.params.id,
+        id: req.params.id
       };
-      logger.info('update setting');
+      logger.settingLogger.info("update setting");
       const settings = await this.settingsService.updateSetting(setting);
       return apiResponse(res, successResponse(settings), StatusCodes.OK);
     } catch (error) {
-      logger.error('error while updating', {
-        meta: { ...error },
+      logger.settingLogger.error("error while updating", {
+        meta: { ...error }
       });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      next(error);
+
     }
-  }
+  };
 
   public createSetting = async (
-    req: Request, res: Response, next: NextFunction): Promise<Response> => {
+    req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
       const { setting } = req.body;
-      logger.info('create setting');
+      logger.settingLogger.info("create setting");
       const settings = await this.settingsService.createSetting(setting);
       return apiResponse(res, successResponse(settings), StatusCodes.OK);
     } catch (error) {
-      logger.error('error while creating', {
-        meta: { ...error },
+      logger.settingLogger.error("error while creating", {
+        meta: { ...error }
       });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      next(error);
+
     }
-  }
+  };
 
   public deleteValue = async (
-    req: Request, res: Response, next: NextFunction): Promise<Response> => {
+    req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
       const { value } = req.body;
-      logger.info('delete setting');
+      logger.settingLogger.info("delete setting");
       const settings = await this.settingsService.deleteValue(value);
       return apiResponse(res, successResponse(settings), StatusCodes.OK);
     } catch (error) {
-      logger.error('error while deleting setting', {
-        meta: { ...error },
+      logger.settingLogger.error("error while deleting setting", {
+        meta: { ...error }
       });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)),
-        StatusCodes.INTERNAL_SERVER_ERROR);
+      next(error);
+
     }
-  }
+  };
 }

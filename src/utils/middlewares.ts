@@ -3,10 +3,12 @@ import {
   StatusCodes,
 } from 'http-status-codes';
 import { Role } from '../sequelize/models/user.role.model';
-import logger from './logger';
+import {logger} from './logger';
 import { apiResponse, failedResponse } from './response';
 import { invalidFields, isValidTelegramId } from './validator';
 import { db } from '../sequelize/models/index';
+import {ErrorHandler} from '../errors/errorHandler'
+import { customErrors } from "../errors/customErrors";
 
 // eslint-disable-next-line import/prefer-default-export
 export function hasRole(roles: Role[]) {
@@ -16,7 +18,7 @@ export function hasRole(roles: Role[]) {
     next: NextFunction,
   ) {
     const telegramIdFromHeader = req.header('X-User-id');
-    logger.info(telegramIdFromHeader);
+    logger.userLogger.info(telegramIdFromHeader);
     const validationErrors = isValidTelegramId(telegramIdFromHeader);
     if (validationErrors.length === 0) {
       try {
@@ -24,17 +26,17 @@ export function hasRole(roles: Role[]) {
         if (user !== null && roles.includes(user?.roleId)) {
           next();
         } else {
-          const error: string = 'You do not have enough rights';
-          logger.error('Trying to access without sufficient rights');
-          apiResponse(res, failedResponse(error), StatusCodes.BAD_REQUEST);
+
+          logger.userLogger.error('Trying to access without sufficient rights');
+          return next(new ErrorHandler(StatusCodes.FORBIDDEN, customErrors.FORBIDDEN.message))
         }
       } catch (err) {
-        logger.error('Internall server error');
-        throw err;
+        logger.userLogger.error('Internal server error');
+        next(err)
       }
     } else {
-      logger.error('No id in header');
-      apiResponse(res, failedResponse(validationErrors), StatusCodes.BAD_REQUEST);
+      logger.userLogger.error('No id in header');
+      return next(new ErrorHandler(StatusCodes.BAD_REQUEST, customErrors.BAD_REQUEST_NO_TELEGRAM_ID.message))
     }
   };
 }
@@ -46,8 +48,9 @@ export function validateUserFields(
 ) {
   const errors = invalidFields(req.body);
   if (errors.length > 0) {
-    logger.error('Field validation failed');
-    apiResponse(res, failedResponse(errors), StatusCodes.BAD_REQUEST);
+    logger.userLogger.error('Field validation failed', {meta: errors});
+
+    return next(new ErrorHandler(StatusCodes.BAD_REQUEST, `${errors}`))
   } else {
     next();
   }

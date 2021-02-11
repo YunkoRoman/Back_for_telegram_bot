@@ -1,27 +1,38 @@
-import express from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import bodyparser from 'body-parser';
-import logger from './utils/logger';
+import {logger} from './utils/logger';
 import users from './routes/user/user.route';
 import admin from './routes/admin/admin.route';
 import info from './routes/faqs/faqs.route';
-import settings from './routes/settings/settings.route';
-import { db } from './sequelize/models/index';
+import {db} from './sequelize/models/index';
+import {
+    StatusCodes,
+    getReasonPhrase,
+} from 'http-status-codes';
 
 export default function appFunc() {
-  const app = express();
+    const app = express();
 
-  db.sequelize.authenticate().then(() => logger.info('Authenticated'));
+    db.sequelize.authenticate().then(() => logger.serverLogger.info('Authenticated'));
 
-  app.use(bodyparser.json());
-  app.use(bodyparser.urlencoded({ extended: true }));
+    app.use(bodyparser.json());
+    app.use(bodyparser.urlencoded({extended: true}));
 
-  app.use('/users', users(db));
+    app.use((err: any, req: Request, res: Response, next: NextFunction): void => {
+        logger.serverLogger.error(`Server error ${err.message}  CODE ${err.code}`);
+        res
+            .status(err.status || StatusCodes.INTERNAL_SERVER_ERROR)
+            .json({
+                message: err.message || getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+                code: err.code
+            });
 
-  app.use('/admin', admin(db));
+    });
+    app.use('/users', users(db));
 
-  app.use('/info', info(db));
+    app.use('/admin', admin(db));
 
-  app.use('/settings', settings(db));
+    app.use('/info', info(db));
 
-  return app;
+    return app;
 }

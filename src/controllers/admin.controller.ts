@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { Request, Response, NextFunction } from 'express';
-import { getReasonPhrase, StatusCodes } from 'http-status-codes';
-import FaqsService from 'services/faqs.service';
-import { FaqModel } from 'sequelize/models/faq.model';
-import UserService from 'services/user.service';
-import UserTypesService from 'services/user.types.service';
-import { UserTypeModel } from 'sequelize/models/user.type.model';
-import UnansweredService from 'services/unanswered.service';
-import { apiResponse, failedResponse, successResponse } from '../utils/response';
-import logger from '../utils/logger';
+import { Request, Response, NextFunction } from "express";
+import { getReasonPhrase, StatusCodes } from "http-status-codes";
+import FaqsService from "services/faqs.service";
+import { FaqModel } from "sequelize/models/faq.model";
+import UserService from "services/user.service";
+import UserTypesService from "services/user.types.service";
+import { UserTypeModel } from "sequelize/models/user.type.model";
+import UnansweredService from "services/unanswered.service";
+import { apiResponse, failedResponse, successResponse } from "../utils/response";
+import { logger } from "../utils/logger";
 
 export default class AdminController {
   private faqsService: FaqsService;
@@ -26,102 +26,116 @@ export default class AdminController {
     this.unansweredService = unansweredService;
   }
 
-  public getMostPopularFaqs = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public getMostPopularFaqs = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
-      logger.info('find most popular faqs');
+      logger.adminLogger.info("find most popular faqs");
       const result = await this.faqsService.getMostPopular();
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('unable to get most popular faqs');
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.adminLogger.error("unable to get most popular faqs",{
+        meta: { ...error }
+      });
+      next(error);
     }
   };
 
-  public getUnanswered = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public getUnanswered = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
-      logger.info('getting all unanswered questions');
+      logger.adminLogger.info("getting all unanswered questions");
       const result = await this.unansweredService.getAllUnanswered();
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('unable to get unanswered');
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.adminLogger.error("unable to get unanswered",{
+        meta: { ...error }
+      });
+      next(error);
     }
   };
 
-  public editUniversityInfo = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public editUniversityInfo = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const faqToEdit: FaqModel = req.body;
     // University qustion id
     faqToEdit.id = 2;
     try {
-      logger.info('edit university info');
+      logger.adminLogger.info("edit university info");
       const result = await this.faqsService.updateFaqById(faqToEdit);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('unable to edit university info');
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.adminLogger.error("unable to edit university info", {
+        meta: { ...error }
+      });
+      next(error);
     }
   };
 
-  public editFacultyInfo = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public editFacultyInfo = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const faqToEdit: FaqModel = req.body;
     // Faculty qustion id
     faqToEdit.id = 1;
     try {
-      logger.info('edit faculty info');
+      logger.adminLogger.info("edit faculty info");
       const result = await this.faqsService.updateFaqById(faqToEdit);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('unable to edit faculty info');
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.adminLogger.error("unable to edit faculty info",{
+        meta: { ...error }
+      });
+      next(error);
     }
   };
 
-  public refreshFaqs = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public refreshFaqs = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const faqToEdit: FaqModel = req.body;
     try {
-      logger.info('getting all faqs');
+      logger.adminLogger.info("getting all faqs");
       const result = await this.faqsService.getAllFaqs();
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('unable to get faqs');
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.adminLogger.error("unable to get faqs",{
+        meta: { ...error }
+      });
+      next(error);
     }
   };
 
-  public selectUsersByCategory = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public selectUsersByCategory = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const { type } = req.body;
     try {
-      logger.info('select users by type');
+      logger.adminLogger.info("select users by type");
       const result = await this.userService.getAllUsersByType(type);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('unable select users by type');
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.adminLogger.error("unable select users by type",{
+        meta: { ...error }
+      });
+      next(error);
     }
   };
 
-  public getAllUserTypes = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public getAllUserTypes = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     try {
-      logger.info('get all user types');
+      logger.adminLogger.info("get all user types");
       const faqs = await this.userTypesService.getAllUserTypes();
       return apiResponse(res, successResponse(faqs), StatusCodes.OK);
     } catch (error) {
-      logger.error('error while getting all user types', {
-        meta: { ...error },
+      logger.adminLogger.error("error while getting all user types", {
+        meta: { ...error }
       });
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      next(error);
     }
   };
 
-  public addNewType = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+  public addNewType = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const type: UserTypeModel = req.body;
     try {
-      logger.info('add new category(type)');
+      logger.adminLogger.info("add new category(type)");
       const result = await this.userTypesService.addNewUserType(type);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.error('unable select users by type');
-      return apiResponse(res, failedResponse(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)), StatusCodes.INTERNAL_SERVER_ERROR);
+      logger.adminLogger.error("unable select users by type",{
+        meta: { ...error }
+      });
+      next(error);
     }
   };
 }

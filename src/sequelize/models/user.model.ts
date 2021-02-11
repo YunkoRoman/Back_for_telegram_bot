@@ -53,6 +53,9 @@ export function initUser(sequelize: Sequelize) {
       type: new DataTypes.STRING(32),
       unique: true,
       allowNull: false,
+      validate: {
+        isNumeric: true,
+      },
     },
     telegramName: {
       type: new DataTypes.STRING(32),
@@ -68,45 +71,6 @@ export function initUser(sequelize: Sequelize) {
       validate: {
         is: PHONE_REGEX,
       },
-<<<<<<< HEAD
-      telegramId: {
-        type: new DataTypes.STRING(32),
-        unique: true,
-        allowNull: false,
-        validate: {
-          isNumeric: true,
-        },
-      },
-      telegramName: {
-        type: new DataTypes.STRING(32),
-        allowNull: true,
-      },
-      name: {
-        type: new DataTypes.STRING(32),
-        allowNull: false,
-      },
-      phoneNumber: {
-        type: new DataTypes.STRING(64),
-        allowNull: true,
-        validate: {
-          is: PHONE_REGEX,
-        },
-      },
-      city: {
-        type: new DataTypes.STRING(32),
-        allowNull: true,
-      },
-      step: {
-        type: DataTypes.JSON,
-      },
-      roleId: {
-        type: DataTypes.INTEGER,
-      },
-      typeId: {
-        type: DataTypes.INTEGER,
-      },
-    });
-=======
     },
     city: {
       type: new DataTypes.STRING(32),
@@ -122,5 +86,4 @@ export function initUser(sequelize: Sequelize) {
       type: DataTypes.INTEGER,
     },
   });
->>>>>>> redis
 }

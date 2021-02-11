@@ -36,9 +36,19 @@ export default class UserController {
     const { telegramId } = req.params;
     try {
       logger.info('find user by id');
-      // const cachedResult = await this.redisUserCache.getUser(telegramId);
-      // console.log('cached result: ', cachedResult);
+      console.log('redis get start');
+      const getUserRedis = await this.redisUserCache.getUser(telegramId);
+      if (getUserRedis !== null) {
+        console.log('getUserRedis: ', getUserRedis);
+        return apiResponse(res, successResponse(getUserRedis), StatusCodes.OK);
+      }
+      console.log('redis get end');
+      console.log('ORM START CHECKPOINT');
       const result = await this.userService.getUserById(telegramId);
+      if (result !== null) {
+        const createdUser = await this.redisUserCache.setUser(result[0] as UserAddToChat);
+        console.log('createdUser: ', createdUser);
+      }
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while getting user by id', { meta: { ...error } });
@@ -53,15 +63,8 @@ export default class UserController {
     try {
       logger.info('save new user');
       const result = await this.userService.createUser(user);
-      console.log('CREATE RESULT: ', JSON.stringify(result));
-      console.log('before redis');
       const createdUser = await this.redisUserCache.setUser(result);
-      // this.redisUserCache.getUser(result.telegramId).then((res) => {
-      //   console.log('getUsers:', res);
-      // });
-      const getUserRedis = await this.redisUserCache.getUser(result.telegramId);
       console.log('createdUser: ', createdUser);
-      console.log('getUserRedis: ', getUserRedis);
       return apiResponse(res, successResponse(result), StatusCodes.CREATED);
     } catch (error) {
       logger.error('error while saving user', { meta: { ...error } });
@@ -77,10 +80,12 @@ export default class UserController {
     try {
       logger.info('update user by id');
       const result = await this.userService.updateUser(user);
-      // console.log('CREATE RESULT: ', result);
-      console.log('before redis');
-      await this.redisUserCache.setUser(result);
-      console.log('after redis');
+      if (result) {
+        if (result !== null) {
+          const updatedUser = await this.redisUserCache.setUser(result[1][0] as UserAddToChat);
+          console.log('updatedUser: ', updatedUser);
+        }
+      }
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.error('error while updating user');

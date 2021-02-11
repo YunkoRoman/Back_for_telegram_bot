@@ -9,8 +9,9 @@ export default class RedisUser {
 
   constructor() {
     dotenv.config();
-    // this.REDIS_URL = process.env.REDIS_URL || '';
-    this.REDIS_URL = 'redis://127.0.0.1:6379';
+    this.REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
+    // this.REDIS_URL = 'redis://127.0.0.1:6379';
+    console.log('REDIS_URL: ', this.REDIS_URL);
     this.client = createClient(this.REDIS_URL);
   }
   public testConnection(test: string) {
@@ -23,45 +24,29 @@ export default class RedisUser {
       }
     });
   }
-  public setUser(user: UserAddToChat) {
-    //   public setUser() {
-    console.log('DATA FOR REDIS: ', user);
-    console.log('DATA FOR REDIS: ', user.telegramId);
-    this.client.setex(user.telegramId, 86400, JSON.stringify(user), (err, data) => {
-      // this.client.setex(`${user.telegramId}`, 86400, 'test data for set', (err, data) => {
-      if (err) throw err;
-
-      if (data !== null) {
-        return data;
-      }
-    });
-  }
-  //   public getUser(telegramId: number | string) {
-  public getUser(telegramId: number | string): Promise<any> {
-    // this.client.get(telegramId as string, (err, data) => {
-    //   console.log('telegramId: ', telegramId);
-    //   console.log('errGET-USER', err);
-    //   console.log('dataGet-user', data);
-    //   if (err) {
-    //     return err;
-    //   }
-
-    //   if (data !== null) {
-    //     console.log('data-getuser', data);
-    //     return data;
-    //   }
-    // });
+  public setUser(user: UserAddToChat): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.client.get(telegramId as string, (err, data) => {
-        console.log('telegramId: ', telegramId);
-        console.log('errGET-USER', err);
-        console.log('dataGet-user', data);
+      this.client.setex(user.telegramId, 86400, JSON.stringify(user), (err, data) => {
         if (err) {
-          return reject(err);
+          reject(err);
         }
 
         if (data !== null) {
-          console.log('data-getuser', data);
+          resolve(data);
+        }
+      });
+    });
+  }
+  public getUser(telegramId: number | string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.client.get(telegramId as string, (err, data) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (data !== null) {
+          resolve(JSON.parse(data));
+        } else {
           resolve(data);
         }
       });

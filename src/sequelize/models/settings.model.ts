@@ -28,7 +28,7 @@ export class Settings extends Model<SettingsAttributes, SettingsCreationAttribut
 }
 
 export function initSettings(sequelize: Sequelize) {
-  return <SettingsStatic>sequelize.define('chat_bot_user_type', {
+  return <SettingsStatic>sequelize.define('chat_bot_settings', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

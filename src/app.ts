@@ -4,6 +4,7 @@ import logger from './utils/logger';
 import users from './routes/user/user.route';
 import admin from './routes/admin/admin.route';
 import info from './routes/faqs/faqs.route';
+import settings from './routes/settings/settings.route';
 import { db } from './sequelize/models/index';
 
 export default function appFunc() {
@@ -19,6 +20,8 @@ export default function appFunc() {
   app.use('/admin', admin(db));
 
   app.use('/info', info(db));
+
+  app.use('/settings', settings(db));
 
   return app;
 }

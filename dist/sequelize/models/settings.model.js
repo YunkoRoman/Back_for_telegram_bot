@@ -6,7 +6,7 @@ class Settings extends sequelize_1.Model {
 }
 exports.Settings = Settings;
 function initSettings(sequelize) {
-    return sequelize.define('chat_bot_user_type', {
+    return sequelize.define('chat_bot_settings', {
         id: {
             type: sequelize_1.DataTypes.INTEGER,
             autoIncrement: true,

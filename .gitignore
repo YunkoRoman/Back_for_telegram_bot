@@ -1,4 +1,6 @@
 .db_credits
+.idea
+.vscode
 # Logs
 logs
 *.log

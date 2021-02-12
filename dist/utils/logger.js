@@ -1,23 +1,80 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const winston_1 = __importDefault(require("winston"));
-const logger = winston_1.default.createLogger({
-    level: 'info',
-    format: winston_1.default.format.combine(winston_1.default.format.json(), winston_1.default.format.prettyPrint()),
-    defaultMeta: { service: 'user-service' },
+exports.logger = void 0;
+const { createLogger, format, transports, config } = require("winston");
+const { combine, timestamp, json } = format;
+const userLogger = createLogger({
+    levels: config.syslog.levels,
+    defaultMeta: { component: "user-service" },
+    format: combine(timestamp({
+        format: "YYYY-MM-DD HH:mm:ss"
+    }), json()),
     transports: [
-        new winston_1.default.transports.File({ filename: 'error.log', level: 'error' }),
-    ],
+        new transports.Console(),
+        new transports.File({ filename: "error.log" })
+    ]
 });
-//
-// If we're not in production then log to the `console` with the format:
-// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-//
-if (process.env.NODE_ENV !== 'production') {
-    logger.add(new winston_1.default.transports.Console());
-}
-exports.default = logger;
+const adminLogger = createLogger({
+    levels: config.syslog.levels,
+    defaultMeta: { component: "admin-service" },
+    format: combine(timestamp({
+        format: "YYYY-MM-DD HH:mm:ss"
+    }), json()),
+    transports: [
+        new transports.Console(),
+        new transports.File({ filename: "error.log" })
+    ]
+});
+const faqLogger = createLogger({
+    levels: config.syslog.levels,
+    defaultMeta: { component: "admin-service" },
+    format: combine(timestamp({
+        format: "YYYY-MM-DD HH:mm:ss"
+    }), json()),
+    transports: [
+        new transports.Console(),
+        new transports.File({ filename: "error.log" })
+    ]
+});
+const serverLogger = createLogger({
+    levels: config.syslog.levels,
+    defaultMeta: { component: "Server" },
+    format: combine(timestamp({
+        format: "YYYY-MM-DD HH:mm:ss"
+    }), json()),
+    transports: [
+        new transports.Console(),
+        new transports.File({ filename: "error.log" })
+    ]
+});
+const settingLogger = createLogger({
+    levels: config.syslog.levels,
+    defaultMeta: { component: "Setting-service" },
+    format: combine(timestamp({
+        format: "YYYY-MM-DD HH:mm:ss"
+    }), json()),
+    transports: [
+        new transports.Console(),
+        new transports.File({ filename: "error.log" })
+    ]
+});
+const redisLogger = createLogger({
+    levels: config.syslog.levels,
+    defaultMeta: { component: "Redis" },
+    format: combine(timestamp({
+        format: "YYYY-MM-DD HH:mm:ss"
+    }), json()),
+    transports: [
+        new transports.Console(),
+        new transports.File({ filename: "error.log" })
+    ]
+});
+exports.logger = {
+    userLogger: userLogger,
+    adminLogger: adminLogger,
+    faqLogger: faqLogger,
+    serverLogger: serverLogger,
+    settingLogger: settingLogger,
+    redisLogger: redisLogger
+};
 //# sourceMappingURL=logger.js.map

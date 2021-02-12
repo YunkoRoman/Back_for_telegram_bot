@@ -8,22 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateUserFields = exports.hasRole = void 0;
 const http_status_codes_1 = require("http-status-codes");
-const logger_1 = __importDefault(require("./logger"));
-const response_1 = require("./response");
+const logger_1 = require("./logger");
 const validator_1 = require("./validator");
 const index_1 = require("../sequelize/models/index");
+const errorHandler_1 = require("../errors/errorHandler");
+const customErrors_1 = require("../errors/customErrors");
 // eslint-disable-next-line import/prefer-default-export
 function hasRole(roles) {
     return function validateAdminTelegramId(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const telegramIdFromHeader = req.header('X-User-id');
-            logger_1.default.info(telegramIdFromHeader);
+            logger_1.logger.userLogger.info(telegramIdFromHeader);
             const validationErrors = validator_1.isValidTelegramId(telegramIdFromHeader);
             if (validationErrors.length === 0) {
                 try {
@@ -32,19 +30,18 @@ function hasRole(roles) {
                         next();
                     }
                     else {
-                        const error = 'You do not have enough rights';
-                        logger_1.default.error('Trying to access without sufficient rights');
-                        response_1.apiResponse(res, response_1.failedResponse(error), http_status_codes_1.StatusCodes.BAD_REQUEST);
+                        logger_1.logger.userLogger.error('Trying to access without sufficient rights');
+                        return next(new errorHandler_1.ErrorHandler(http_status_codes_1.StatusCodes.FORBIDDEN, customErrors_1.customErrors.FORBIDDEN.message));
                     }
                 }
                 catch (err) {
-                    logger_1.default.error('Internall server error');
-                    throw err;
+                    logger_1.logger.userLogger.error('Internal server error');
+                    next(err);
                 }
             }
             else {
-                logger_1.default.error('No id in header');
-                response_1.apiResponse(res, response_1.failedResponse(validationErrors), http_status_codes_1.StatusCodes.BAD_REQUEST);
+                logger_1.logger.userLogger.error('No id in header');
+                return next(new errorHandler_1.ErrorHandler(http_status_codes_1.StatusCodes.BAD_REQUEST, customErrors_1.customErrors.BAD_REQUEST_NO_TELEGRAM_ID.message));
             }
         });
     };
@@ -53,8 +50,8 @@ exports.hasRole = hasRole;
 function validateUserFields(req, res, next) {
     const errors = validator_1.invalidFields(req.body);
     if (errors.length > 0) {
-        logger_1.default.error('Field validation failed');
-        response_1.apiResponse(res, response_1.failedResponse(errors), http_status_codes_1.StatusCodes.BAD_REQUEST);
+        logger_1.logger.userLogger.error('Field validation failed', { meta: errors });
+        return next(new errorHandler_1.ErrorHandler(http_status_codes_1.StatusCodes.BAD_REQUEST, `${errors}`));
     }
     else {
         next();

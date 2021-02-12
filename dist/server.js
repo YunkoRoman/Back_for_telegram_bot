@@ -4,12 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_1 = __importDefault(require("http"));
-// import RedisUser from './cache/redisUser';
 const app_1 = __importDefault(require("./app"));
-const logger_1 = __importDefault(require("./utils/logger"));
+const logger_1 = require("./utils/logger");
 const PORT = process.env.PORT || 5000;
-console.log('PORT: ', PORT);
 const server = http_1.default.createServer(app_1.default());
-server.listen(PORT, () => logger_1.default.info('running'));
-// const redis: RedisUser = new RedisUser();
+server.listen(PORT, () => logger_1.logger.serverLogger.info(`Server listen port ${PORT}`));
 //# sourceMappingURL=server.js.map

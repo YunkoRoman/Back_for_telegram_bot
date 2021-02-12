@@ -1,6 +1,10 @@
 import { RedisClient, createClient } from 'redis';
 import dotenv from 'dotenv';
 import { UserAddToChat } from '../types/types';
+import {logger} from "../utils/logger";
+import { ErrorHandler } from "../errors/errorHandler";
+import { customErrors } from "../errors/customErrors";
+
 
 export default class RedisUser {
   private client: RedisClient;
@@ -10,7 +14,7 @@ export default class RedisUser {
     dotenv.config();
     this.REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
     // this.REDIS_URL = 'redis://127.0.0.1:6379';
-    console.log('REDIS_URL: ', this.REDIS_URL);
+    logger.redisLogger.info(`REDIS_URL: ${this.REDIS_URL}`);
     this.client = createClient(this.REDIS_URL);
   }
   public testConnection(test: string) {
@@ -28,6 +32,7 @@ export default class RedisUser {
       this.client.setex(user.telegramId, 86400, JSON.stringify(user), (err, data) => {
         if (err) {
           reject(err);
+          logger.redisLogger.error(`${err}`)
         }
         resolve(data);
       });
@@ -38,6 +43,7 @@ export default class RedisUser {
       this.client.get(telegramId as string, (err, data) => {
         if (err) {
           reject(err);
+          logger.redisLogger.error(`${err}`)
         }
 
         if (data !== null) {

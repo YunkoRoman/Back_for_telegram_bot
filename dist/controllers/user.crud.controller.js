@@ -21,13 +21,13 @@ class UserController {
     constructor(userService) {
         this.getAllUsers = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
-                logger_1.logger.userLogger.info("get all users");
+                logger_1.logger.userLogger.info('get all users');
                 const users = yield this.userService.getAllUsers();
                 return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error while getting all users", {
-                    meta: Object.assign({}, error)
+                logger_1.logger.userLogger.error('error while getting all users', {
+                    meta: Object.assign({}, error),
                 });
                 next(error);
             }
@@ -35,24 +35,24 @@ class UserController {
         this.getUserById = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const { telegramId } = req.params;
             try {
-                logger_1.logger.userLogger.info("find user by id");
-                console.log("redis get start");
+                logger_1.logger.userLogger.info('find user by id');
+                console.log('redis get start');
                 const getUserRedis = yield this.redisUserCache.getUser(telegramId);
                 if (getUserRedis !== null) {
-                    logger_1.logger.userLogger.info("getUserRedis: ", getUserRedis);
+                    logger_1.logger.userLogger.info('getUserRedis: ', getUserRedis);
                     return response_1.apiResponse(res, response_1.successResponse(getUserRedis), http_status_codes_1.StatusCodes.OK);
                 }
-                logger_1.logger.userLogger.info("redis get end");
-                logger_1.logger.userLogger.info("ORM START CHECKPOINT");
+                logger_1.logger.userLogger.info('redis get end');
+                logger_1.logger.userLogger.info('ORM START CHECKPOINT');
                 const result = yield this.userService.getUserById(telegramId);
                 if (result.length > 0) {
                     const createdUser = yield this.redisUserCache.setUser(result[0]);
-                    logger_1.logger.userLogger.info("createdUser: ", createdUser);
+                    logger_1.logger.userLogger.info('createdUser: ', createdUser);
                 }
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error while getting user by id", { meta: Object.assign({}, error) });
+                logger_1.logger.userLogger.error('error while getting user by id', { meta: Object.assign({}, error) });
                 next(error);
             }
         });
@@ -63,26 +63,26 @@ class UserController {
             try {
                 // todo error hendler for empty object
                 console.log(user);
-                logger_1.logger.userLogger.info("save new user");
+                logger_1.logger.userLogger.info('save new user');
                 const result = yield this.userService.createUser(user);
                 const createdUser = yield this.redisUserCache.setUser(result);
-                logger_1.logger.userLogger.info("createdUser: ", createdUser);
+                logger_1.logger.userLogger.info('createdUser: ', createdUser);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.CREATED);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error while saving user", { meta: Object.assign({}, error) });
+                logger_1.logger.userLogger.error('error while saving user', { meta: Object.assign({}, error) });
                 next(error);
             }
         });
-        //todo super admin could not update himself
+        // todo super admin could not update himself
         this.updateUserById = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const user = Object.assign(Object.assign({}, req.body), { telegramId: req.params.telegramId });
             console.log(req.params);
             try {
-                logger_1.logger.userLogger.info("update user by id");
+                logger_1.logger.userLogger.info('update user by id');
                 const result = yield this.userService.updateUser(user);
                 if (result) {
-                    if (result !== null) {
+                    if (result[0] !== 0) {
                         const updatedUser = yield this.redisUserCache.setUser(result[1][0]);
                         logger_1.logger.userLogger.info(`updatedUser: ${updatedUser}`);
                     }
@@ -90,57 +90,57 @@ class UserController {
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error while updating user", {
-                    meta: Object.assign({}, error)
+                logger_1.logger.userLogger.error('error while updating user', {
+                    meta: Object.assign({}, error),
                 });
                 next(error);
             }
         });
         this.countAllUsers = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
-                logger_1.logger.userLogger.info("count all users");
+                logger_1.logger.userLogger.info('count all users');
                 const result = yield this.userService.findAndCountAll();
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error while counting users", { meta: Object.assign({}, error) });
+                logger_1.logger.userLogger.error('error while counting users', { meta: Object.assign({}, error) });
                 next(error);
             }
         });
         this.countByType = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const { typeId } = req.params;
             try {
-                logger_1.logger.userLogger.info("count all users");
+                logger_1.logger.userLogger.info('count all users');
                 const result = yield this.userService.findAndCountByType(parseInt(typeId, 10));
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error while counting users by type", { meta: Object.assign({}, error) });
+                logger_1.logger.userLogger.error('error while counting users by type', { meta: Object.assign({}, error) });
                 next(error);
             }
         });
         this.deleteUser = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const { id, telegramId } = req.params;
             try {
-                logger_1.logger.userLogger.info("delete user by id");
+                logger_1.logger.userLogger.info('delete user by id');
                 const result = yield this.userService.deleteUser(telegramId);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error while deleting user", { meta: Object.assign({}, error) });
+                logger_1.logger.userLogger.error('error while deleting user', { meta: Object.assign({}, error) });
                 next(error);
             }
         });
         this.getAllAdmins = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const roleId = user_role_model_1.Role.admin;
             try {
-                logger_1.logger.userLogger.info("get all admins");
+                logger_1.logger.userLogger.info('get all admins');
                 const users = yield this.userService.getAllUsersByRole(roleId);
                 return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error while getting all admins", {
-                    meta: Object.assign({}, error)
+                logger_1.logger.userLogger.error('error while getting all admins', {
+                    meta: Object.assign({}, error),
                 });
                 next(error);
             }
@@ -152,7 +152,7 @@ class UserController {
                 return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error getting users by telegram name", { meta: Object.assign({}, error) });
+                logger_1.logger.userLogger.error('error getting users by telegram name', { meta: Object.assign({}, error) });
                 next(error);
             }
         });
@@ -163,7 +163,7 @@ class UserController {
                 return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error getting users by phone", { meta: Object.assign({}, error) });
+                logger_1.logger.userLogger.error('error getting users by phone', { meta: Object.assign({}, error) });
                 next(error);
             }
         });
@@ -174,7 +174,7 @@ class UserController {
                 return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error getting users by telegram city", { meta: Object.assign({}, error) });
+                logger_1.logger.userLogger.error('error getting users by telegram city', { meta: Object.assign({}, error) });
                 next(error);
             }
         });
@@ -185,7 +185,7 @@ class UserController {
                 return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error getting users by telegram name", { meta: Object.assign({}, error) });
+                logger_1.logger.userLogger.error('error getting users by telegram name', { meta: Object.assign({}, error) });
                 next(error);
             }
         });
@@ -196,7 +196,7 @@ class UserController {
                 return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error getting users by role", { meta: Object.assign({}, error) });
+                logger_1.logger.userLogger.error('error getting users by role', { meta: Object.assign({}, error) });
                 next(error);
             }
         });
@@ -207,7 +207,7 @@ class UserController {
                 return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.userLogger.error("error getting users by type", { meta: Object.assign({}, error) });
+                logger_1.logger.userLogger.error('error getting users by type', { meta: Object.assign({}, error) });
                 next(error);
             }
         });

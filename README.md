@@ -6,4 +6,4 @@ https://intern-task-winter.herokuapp.com/users
 
 # Simple Postman docs
 
-https://www.getpostman.com/collections/950ed6171bdae6eee7eb
+ https://www.getpostman.com/collections/436a18263a0c5f1a580e

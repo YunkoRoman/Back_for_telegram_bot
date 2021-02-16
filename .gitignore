@@ -55,9 +55,9 @@ web_modules/
 .npm
 
 # Optional eslint cache
-.eslintcache
-.eslintrc.*
-.eslintignore
+# .eslintcache
+# .eslintrc.*
+# .eslintignore
 
 # Microbundle cache
 .rpt2_cache/

@@ -1,13 +1,13 @@
 import { RedisClient, createClient } from 'redis';
 import dotenv from 'dotenv';
 import { UserAddToChat } from '../types/types';
-import {logger} from "../utils/logger";
-import { ErrorHandler } from "../errors/errorHandler";
-import { customErrors } from "../errors/customErrors";
-
+import { logger } from '../utils/logger';
+import { ErrorHandler } from '../errors/errorHandler';
+import { customErrors } from '../errors/customErrors';
 
 export default class RedisUser {
   private client: RedisClient;
+
   private REDIS_URL: string;
 
   constructor() {
@@ -17,8 +17,9 @@ export default class RedisUser {
     logger.redisLogger.info(`REDIS_URL: ${this.REDIS_URL}`);
     this.client = createClient(this.REDIS_URL);
   }
+
   public testConnection(test: string) {
-    this.client.get('name', function (err, res) {
+    this.client.get('name', (err, res) => {
       if (err) {
         throw err;
       }
@@ -27,23 +28,25 @@ export default class RedisUser {
       }
     });
   }
+
   public setUser(user: UserAddToChat): Promise<any> {
     return new Promise((resolve, reject) => {
       this.client.setex(user.telegramId, 86400, JSON.stringify(user), (err, data) => {
         if (err) {
           reject(err);
-          logger.redisLogger.error(`${err}`)
+          logger.redisLogger.error(`${err}`);
         }
         resolve(data);
       });
     });
   }
+
   public getUser(telegramId: number | string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.client.get(telegramId as string, (err, data) => {
         if (err) {
           reject(err);
-          logger.redisLogger.error(`${err}`)
+          logger.redisLogger.error(`${err}`);
         }
 
         if (data !== null) {

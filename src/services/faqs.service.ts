@@ -31,14 +31,16 @@ export default class FaqsService {
       },
     })
 
-  public updateCountTest = async (intent: Intent): Promise<FaqModel | null> => {
-    const faq = await this.DB.Faqs.findOne({
-      where: {
-        intentName: intent.name,
-      },
-    });
-    console.log(faq);
-    return faq;
+  public storeIntents = async (intents: FaqModel[]): Promise<FaqModel[]> => {
+    console.log('in service', intents[0]);
+    const result = await this.DB.Faqs.bulkCreate(intents,
+      {
+        // updateOnDuplicate: ['answer'],
+        ignoreDuplicates: true,
+        logging: true,
+      });
+    console.log(result);
+    return result;
   }
 
   // ============ CRUD ==============

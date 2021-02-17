@@ -8,7 +8,8 @@ export default function infoRoute(db: DB) {
   const api = express.Router();
 
   const faqsController = new FaqsController(new FaqsService(db), new UnansweredService(db));
-
+  // ========== FETCH INTENTS ===========
+  api.get('/refresh', faqsController.fetchIntents);
   // ========== UPDATE COUNT ============
   api.post('/update', faqsController.updateCount);
   // ========== CRUD ====================

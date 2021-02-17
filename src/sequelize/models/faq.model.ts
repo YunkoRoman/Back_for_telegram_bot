@@ -56,5 +56,13 @@ export function initFaq(sequelize: Sequelize) {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+
+  }, {
+    indexes: [
+      {
+        unique: true,
+        fields: ['intentName', 'question'],
+      },
+    ],
   });
 }

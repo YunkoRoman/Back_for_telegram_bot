@@ -2,21 +2,44 @@
 /* eslint-disable no-unused-vars */
 import { Request, Response, NextFunction } from 'express';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import DialogFlow from '../dialogflow/dialogflow';
 import { Intent } from '../types/types';
 import { FaqModel } from '../sequelize/models/faq.model';
 import UnansweredService from '../services/unanswered.service';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
 import { logger } from '../utils/logger';
 import FaqsService from '../services/faqs.service';
+import { parseIntents } from '../utils/intent.parser';
 
 export default class FaqsController {
   public faqsService: FaqsService;
+
+  public dialogflowClient = new DialogFlow();
 
   public unansweredService: UnansweredService;
 
   constructor(faqsService: FaqsService, unansweredService: UnansweredService) {
     this.faqsService = faqsService;
     this.unansweredService = unansweredService;
+  }
+
+  public fetchIntents = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
+    const intents: [] = await this.dialogflowClient.listIntents();
+    if (intents.length > 0) {
+      const faqs: FaqModel[] = parseIntents(intents);
+      try {
+        const result = await this.faqsService.storeIntents(faqs);
+        return apiResponse(res, successResponse(result), StatusCodes.OK);
+      } catch (error) {
+        console.log(error);
+        return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
+      }
+    }
+    console.log('in error');
+    return apiResponse(res, failedResponse({}), StatusCodes.INTERNAL_SERVER_ERROR);
   }
 
   public updateCount = async (

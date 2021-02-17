@@ -1,4 +1,5 @@
 import { Op } from 'sequelize';
+import { Intent } from 'types/types';
 import { FaqModel } from '../sequelize/models/faq.model';
 import { DB } from '../sequelize/models/index';
 
@@ -10,59 +11,58 @@ export default class FaqsService {
     this.DB = db;
   }
 
-  public getMostPopular = async (): Promise<FaqModel[]> => {
-    const result = await this.DB.Faqs.findAll({
-      order: [['stats', 'DESC']],
-      limit: 10,
-    });
-    return result;
-  };
+  public getMostPopular = async (): Promise<FaqModel[]> => this.DB.Faqs.findAll({
+    order: [['stats', 'DESC']],
+    limit: 10,
+  });
 
-  public getOnlyPopular = async (): Promise<FaqModel[]> => {
-    const result = await this.DB.Faqs.findAll({
+  public getOnlyPopular = async (): Promise<FaqModel[]> => this.DB.Faqs.findAll({
+    where: {
+      question: {
+        [Op.notIn]: ['faculty', 'university'],
+      },
+    },
+  });
+
+  public updateCount = async (intent: Intent): Promise<FaqModel> => this.DB.Faqs
+    .increment('stats', {
       where: {
-        question: {
-          [Op.notIn]: ['faculty', 'university'],
-        },
+        intentName: intent.name,
+      },
+    })
+
+  public updateCountTest = async (intent: Intent): Promise<FaqModel | null> => {
+    const faq = await this.DB.Faqs.findOne({
+      where: {
+        intentName: intent.name,
       },
     });
-    return result;
-  };
+    console.log(faq);
+    return faq;
+  }
 
   // ============ CRUD ==============
 
-  public getAllFaqs = async (): Promise<FaqModel[]> => {
-    const result = await this.DB.Faqs.findAll();
-    return result;
-  };
+  public getAllFaqs = async (): Promise<FaqModel[]> => this.DB.Faqs.findAll();
 
-  public getFaqById = async (faqId: number): Promise<FaqModel | null> => {
-    const result = await this.DB.Faqs.findOne({ where: { id: faqId } });
-    return result;
-  };
+  public getFaqById = async (faqId: number): Promise<FaqModel | null> => this.DB.Faqs
+    .findOne({ where: { id: faqId } });
 
-  public getFaqByQuestion = async (faq: FaqModel): Promise<FaqModel[]> => {
-    const result = await this.DB.Faqs.findAll({
+  public getFaqByQuestion = async (faq: FaqModel): Promise<FaqModel[]> => this.DB.Faqs
+    .findAll({
       where: {
         question: {
           [Op.like]: faq.question,
         },
       },
     });
-    return result;
-  };
 
-  public addNewFaq = async (faq: FaqModel): Promise<FaqModel> => {
-    const result = await this.DB.Faqs.create(faq);
-    return result;
-  };
+  public addNewFaq = async (faq: FaqModel): Promise<FaqModel> => this.DB.Faqs
+    .create(faq);
 
-  public updateFaqById = async (faq: FaqModel): Promise<FaqModel | any> => {
-    await this.DB.Faqs.update(faq, { where: { id: faq.id } });
-  };
+  public updateFaqById = async (faq: FaqModel): Promise<FaqModel | any> => this.DB.Faqs
+    .update(faq, { where: { id: faq.id } });
 
-  public deleteFaqById = async (faqId: number): Promise<number> => {
-    const result = await this.DB.Faqs.destroy({ where: { id: faqId } });
-    return result;
-  };
+  public deleteFaqById = async (faqId: number): Promise<number> => this.DB.Faqs
+    .destroy({ where: { id: faqId } });
 }

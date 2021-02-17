@@ -9,6 +9,8 @@ export default function infoRoute(db: DB) {
 
   const faqsController = new FaqsController(new FaqsService(db), new UnansweredService(db));
 
+  // ========== UPDATE COUNT ============
+  api.post('/update', faqsController.updateCount);
   // ========== CRUD ====================
   // GET all faqs
   api.get('/all', faqsController.getAllFaqs);

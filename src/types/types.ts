@@ -17,6 +17,12 @@ export interface UserAddToChat {
   typeId: number;
 }
 
+export interface Intent {
+  name: string;
+  displayName: string;
+  fulfillmentMessages: any;
+}
+
 export interface SuccessResponse<T = any> {
   success: true;
   data: T;

@@ -8,6 +8,7 @@ import {
 
 export interface FaqAttributes {
   id: number;
+  intentName: string;
   question: string;
   answer: string;
   stats: number;
@@ -26,6 +27,8 @@ export class Faq extends Model<FaqAttributes, FaqCreationAttributes>
   implements FaqAttributes {
     public id!: number;
 
+    public intentName!: string;
+
     public question!: string;
 
     public answer!: string;
@@ -40,8 +43,15 @@ export function initFaq(sequelize: Sequelize) {
       autoIncrement: true,
       primaryKey: true,
     },
-    question: new DataTypes.STRING(128),
-    answer: new DataTypes.STRING(128),
+    intentName: {
+      type: new DataTypes.STRING(128),
+      unique: true,
+    },
+    question: {
+      type: new DataTypes.STRING(128),
+      unique: true,
+    },
+    answer: new DataTypes.TEXT('long'),
     stats: {
       type: DataTypes.INTEGER,
       defaultValue: 0,

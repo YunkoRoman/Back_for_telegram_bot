@@ -1,38 +1,37 @@
-import express, {NextFunction, Request, Response} from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import bodyparser from 'body-parser';
-import {logger} from './utils/logger';
+import {
+  StatusCodes,
+  getReasonPhrase,
+} from 'http-status-codes';
+import { logger } from './utils/logger';
 import users from './routes/user/user.route';
 import admin from './routes/admin/admin.route';
 import info from './routes/faqs/faqs.route';
-import {db} from './sequelize/models/index';
-import {
-    StatusCodes,
-    getReasonPhrase,
-} from 'http-status-codes';
+import { db } from './sequelize/models/index';
 
 export default function appFunc() {
-    const app = express();
+  const app = express();
 
-    db.sequelize.authenticate().then(() => logger.serverLogger.info('Authenticated'));
+  db.sequelize.authenticate().then(() => logger.serverLogger.info('Authenticated'));
 
-    app.use(bodyparser.json());
-    app.use(bodyparser.urlencoded({extended: true}));
+  app.use(bodyparser.json());
+  app.use(bodyparser.urlencoded({ extended: true }));
 
-    app.use((err: any, req: Request, res: Response, next: NextFunction): void => {
-        logger.serverLogger.error(`Server error ${err.message}  CODE ${err.code}`);
-        res
-            .status(err.status || StatusCodes.INTERNAL_SERVER_ERROR)
-            .json({
-                message: err.message || getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
-                code: err.code
-            });
+  app.use((err: any, req: Request, res: Response, next: NextFunction): void => {
+    logger.serverLogger.error(`Server error ${err.message}  CODE ${err.code}`);
+    res
+      .status(err.status || StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({
+        message: err.message || getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+        code: err.code,
+      });
+  });
+  app.use('/users', users(db));
 
-    });
-    app.use('/users', users(db));
+  app.use('/admin', admin(db));
 
-    app.use('/admin', admin(db));
+  app.use('/info', info(db));
 
-    app.use('/info', info(db));
-
-    return app;
+  return app;
 }

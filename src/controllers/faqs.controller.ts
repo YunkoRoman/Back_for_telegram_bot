@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { Request, Response, NextFunction } from 'express';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
-import { Intent } from 'types/types';
+import { Intent } from '../types/types';
 import { FaqModel } from '../sequelize/models/faq.model';
 import UnansweredService from '../services/unanswered.service';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';

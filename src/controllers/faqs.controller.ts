@@ -32,14 +32,15 @@ export default class FaqsController {
       const faqs: FaqModel[] = parseIntents(intents);
       try {
         const result = await this.faqsService.storeIntents(faqs);
-        return apiResponse(res, successResponse(result), StatusCodes.OK);
+        return apiResponse(res, successResponse({ 'fetched intents count': result.length }), StatusCodes.OK);
       } catch (error) {
-        console.log(error);
+        logger.faqLogger.error('could not save intents as faqs', { meta: { ...error } });
         return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
       }
     }
-    console.log('in error');
-    return apiResponse(res, failedResponse({}), StatusCodes.INTERNAL_SERVER_ERROR);
+    const error = 'no intents received from dialogflow';
+    logger.faqLogger.error(error);
+    return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
   }
 
   public updateCount = async (

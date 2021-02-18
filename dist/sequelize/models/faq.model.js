@@ -12,12 +12,26 @@ function initFaq(sequelize) {
             autoIncrement: true,
             primaryKey: true,
         },
-        question: new sequelize_1.DataTypes.STRING(128),
-        answer: new sequelize_1.DataTypes.STRING(128),
+        intentName: {
+            type: new sequelize_1.DataTypes.STRING(128),
+            unique: true,
+        },
+        question: {
+            type: new sequelize_1.DataTypes.STRING(128),
+            unique: true,
+        },
+        answer: new sequelize_1.DataTypes.TEXT('long'),
         stats: {
             type: sequelize_1.DataTypes.INTEGER,
             defaultValue: 0,
         },
+    }, {
+        indexes: [
+            {
+                unique: true,
+                fields: ['intentName', 'question'],
+            },
+        ],
     });
 }
 exports.initFaq = initFaq;

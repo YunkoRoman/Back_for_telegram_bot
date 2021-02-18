@@ -59,7 +59,6 @@ export default class UserController {
   public createNewUser = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const user: UserAddToChat = req.body;
     user.roleId = Role.regular;
-    user.typeId = 1;
     try {
       // todo error hendler for empty object
 

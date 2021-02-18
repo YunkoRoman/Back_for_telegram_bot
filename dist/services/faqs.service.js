@@ -10,55 +10,81 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
+const logger_1 = require("../utils/logger");
 class FaqsService {
     // eslint-disable-next-line no-shadow
     constructor(db) {
         this.getMostPopular = () => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.Faqs.findAll({
+            return this.DB.Faqs.findAll({
                 order: [['stats', 'DESC']],
                 limit: 10,
             });
-            return result;
         });
         this.getOnlyPopular = () => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.Faqs.findAll({
+            return this.DB.Faqs.findAll({
                 where: {
                     question: {
                         [sequelize_1.Op.notIn]: ['faculty', 'university'],
                     },
                 },
             });
-            return result;
+        });
+        this.updateCount = (intent) => __awaiter(this, void 0, void 0, function* () {
+            return this.DB.Faqs
+                .increment('stats', {
+                where: {
+                    intentName: intent.name,
+                },
+            });
+        });
+        this.storeIntents = (intents) => __awaiter(this, void 0, void 0, function* () {
+            return this.DB.sequelize
+                .transaction((t) => __awaiter(this, void 0, void 0, function* () {
+                let results = [];
+                let updates = [];
+                try {
+                    results = intents.map((intent) => this.DB.Faqs
+                        .findOne({ where: { intentName: intent.intentName }, transaction: t }));
+                    results = yield Promise.all(results);
+                    updates = results.map((res, i) => (res !== null
+                        ? res.update({ answer: intents[i].answer }, { transaction: t })
+                        : this.DB.Faqs.create(Object.assign({}, intents[i]), { transaction: t })));
+                    yield Promise.all(updates);
+                    return updates;
+                }
+                catch (err) {
+                    logger_1.logger.faqLogger.error(err);
+                }
+                return [];
+            }));
         });
         // ============ CRUD ==============
-        this.getAllFaqs = () => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.Faqs.findAll();
-            return result;
-        });
+        this.getAllFaqs = () => __awaiter(this, void 0, void 0, function* () { return this.DB.Faqs.findAll(); });
         this.getFaqById = (faqId) => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.Faqs.findOne({ where: { id: faqId } });
-            return result;
+            return this.DB.Faqs
+                .findOne({ where: { id: faqId } });
         });
         this.getFaqByQuestion = (faq) => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.Faqs.findAll({
+            return this.DB.Faqs
+                .findAll({
                 where: {
                     question: {
                         [sequelize_1.Op.like]: faq.question,
                     },
                 },
             });
-            return result;
         });
         this.addNewFaq = (faq) => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.Faqs.create(faq);
-            return result;
+            return this.DB.Faqs
+                .create(faq);
         });
         this.updateFaqById = (faq) => __awaiter(this, void 0, void 0, function* () {
-            yield this.DB.Faqs.update(faq, { where: { id: faq.id } });
+            return this.DB.Faqs
+                .update(faq, { where: { id: faq.id } });
         });
         this.deleteFaqById = (faqId) => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.Faqs.destroy({ where: { id: faqId } });
-            return result;
+            return this.DB.Faqs
+                .destroy({ where: { id: faqId } });
         });
         this.DB = db;
     }

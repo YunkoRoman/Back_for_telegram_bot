@@ -10,6 +10,10 @@ const faqs_controller_1 = __importDefault(require("../../controllers/faqs.contro
 function infoRoute(db) {
     const api = express_1.default.Router();
     const faqsController = new faqs_controller_1.default(new faqs_service_1.default(db), new unanswered_service_1.default(db));
+    // ========== FETCH INTENTS ===========
+    api.get('/refresh', faqsController.fetchIntents);
+    // ========== UPDATE COUNT ============
+    api.post('/update', faqsController.updateCount);
     // ========== CRUD ====================
     // GET all faqs
     api.get('/all', faqsController.getAllFaqs);

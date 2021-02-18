@@ -1,14 +1,21 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
-import { Request, Response, NextFunction } from "express";
-import { getReasonPhrase, StatusCodes } from "http-status-codes";
-import { FaqModel } from "../sequelize/models/faq.model";
-import UnansweredService from "../services/unanswered.service";
-import { apiResponse, failedResponse, successResponse } from "../utils/response";
-import { logger } from "../utils/logger";
-import FaqsService from "../services/faqs.service";
+import { Request, Response, NextFunction } from 'express';
+import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import DialogFlow from '../dialogflow/dialogflow';
+import { Intent } from '../types/types';
+import { FaqModel } from '../sequelize/models/faq.model';
+import UnansweredService from '../services/unanswered.service';
+import { apiResponse, failedResponse, successResponse } from '../utils/response';
+import { logger } from '../utils/logger';
+import FaqsService from '../services/faqs.service';
+import { parseIntents } from '../utils/intent.parser';
 
 export default class FaqsController {
   public faqsService: FaqsService;
+
+  public dialogflowClient = new DialogFlow();
+
   public unansweredService: UnansweredService;
 
   constructor(faqsService: FaqsService, unansweredService: UnansweredService) {
@@ -16,142 +23,209 @@ export default class FaqsController {
     this.unansweredService = unansweredService;
   }
 
-  public getAllFaqs = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+  public fetchIntents = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
+    const intents: [] = await this.dialogflowClient.listIntents();
+    if (intents.length > 0) {
+      const faqs: FaqModel[] = parseIntents(intents);
+      try {
+        const result = await this.faqsService.storeIntents(faqs);
+        return apiResponse(res, successResponse({ 'fetched intents count': result.length }), StatusCodes.OK);
+      } catch (error) {
+        logger.faqLogger.error('could not save intents as faqs', { meta: { ...error } });
+        return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
+      }
+    }
+    const error = 'no intents received from dialogflow';
+    logger.faqLogger.error(error);
+    return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
+  }
+
+  public updateCount = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
+    const { queryResult } = req.body;
+    const intent:Intent = {
+      fulfillmentMessages: queryResult.fulfillmentMessages,
+      name: queryResult.intent.name,
+      displayName: queryResult.intent.displayName,
+    };
     try {
-      logger.faqLogger.info("get all faqs");
+      const result = await this.faqsService.updateCount(intent);
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.faqLogger.error('unable to update count', {
+        meta: { ...error },
+      });
+      next(error);
+    }
+  };
+
+  public getAllFaqs = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
+    try {
+      logger.faqLogger.info('get all faqs');
       const faqs = await this.faqsService.getAllFaqs();
       return apiResponse(res, successResponse(faqs), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("error while getting all faqs", {
-        meta: { ...error }
+      logger.faqLogger.error('error while getting all faqs', {
+        meta: { ...error },
       });
       next(error);
     }
   };
 
-  public getFaqById = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+  public getFaqById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
     const { id } = req.params;
     try {
-      logger.faqLogger.info("get faq by id");
+      logger.faqLogger.info('get faq by id');
       const faqs = await this.faqsService.getFaqById(parseInt(id, 10));
       return apiResponse(res, successResponse(faqs), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("error while getting faq by id", {
-        meta: { ...error }
+      logger.faqLogger.error('error while getting faq by id', {
+        meta: { ...error },
       });
       next(error);
     }
   };
 
-  public getFaqByQuestion = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+  public getFaqByQuestion = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
     const faq = <FaqModel>(<unknown>req.query);
     try {
-      logger.faqLogger.info("get faq by question");
+      logger.faqLogger.info('get faq by question');
       const faqs = await this.faqsService.getFaqByQuestion(faq);
       return apiResponse(res, successResponse(faqs), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("error while getting faq by question", {
-        meta: { ...error }
+      logger.faqLogger.error('error while getting faq by question', {
+        meta: { ...error },
       });
       next(error);
     }
   };
 
   // Hardcoded info ID!!!
-  public getFacultyInfo = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+  public getFacultyInfo = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
     const faqId = 1;
     try {
-      logger.faqLogger.info("get faculty info");
+      logger.faqLogger.info('get faculty info');
       const result = await this.faqsService.getFaqById(faqId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to get faculty info", {
-        meta: { ...error }
+      logger.faqLogger.error('unable to get faculty info', {
+        meta: { ...error },
       });
       next(error);
     }
   };
 
-  public getUniversityInfo = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+  public getUniversityInfo = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
     // University qustion id
     const faqId = 2;
     try {
-      logger.faqLogger.info("get university info");
+      logger.faqLogger.info('get university info');
       const result = await this.faqsService.getFaqById(faqId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to get university info", {
-        meta: { ...error }
+      logger.faqLogger.error('unable to get university info', {
+        meta: { ...error },
       });
       next(error);
     }
   };
 
-  public getPopularFaqs = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+  public getPopularFaqs = async (
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
     try {
-      logger.faqLogger.info("get popular faqs");
+      logger.faqLogger.info('get popular faqs');
       const result = await this.faqsService.getOnlyPopular();
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to get popular faqs", {
-        meta: { ...error }
+      logger.faqLogger.error('unable to get popular faqs', {
+        meta: { ...error },
       });
       next(error);
     }
   };
+
   public getAllUnanswered = async (
-    req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
     try {
-      logger.faqLogger.info("get unanswered");
+      logger.faqLogger.info('get unanswered');
       const result = await this.unansweredService.getAllUnanswered();
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to get unanswered");
+      logger.faqLogger.error('unable to get unanswered');
       next(error);
     }
   };
+
   public addFaq = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<Response | undefined> => {
     const faq: FaqModel = req.body;
     try {
-      logger.faqLogger.info("add faq");
+      logger.faqLogger.info('add faq');
       const result = await this.faqsService.addNewFaq(faq);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("error while adding faq", {
-        meta: { ...error }
+      logger.faqLogger.error('error while adding faq', {
+        meta: { ...error },
       });
       next(error);
     }
   };
 
   public addUnanswered = async (
-    req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
     const newUnansd = {
-      ...req.body
+      ...req.body,
     };
     try {
-      logger.faqLogger.info("crete unanswered");
+      logger.faqLogger.info('crete unanswered');
       const result = await this.unansweredService.addNewUnanswered(newUnansd);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to create unanswered");
+      logger.faqLogger.error('unable to create unanswered');
       next(error);
     }
   };
 
   public getUnansweredByQuestion = async (
-    req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<Response | undefined> => {
     const { question } = req.params;
     try {
-      logger.faqLogger.info("get unanswered by question");
+      logger.faqLogger.info('get unanswered by question');
       const result = await this.unansweredService.getUnansweredByQuestion(question);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to get unanswered by question");
+      logger.faqLogger.error('unable to get unanswered by question');
       next(error);
     }
   };

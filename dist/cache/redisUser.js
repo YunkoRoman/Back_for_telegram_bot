@@ -15,7 +15,7 @@ class RedisUser {
         this.client = redis_1.createClient(this.REDIS_URL);
     }
     testConnection(test) {
-        this.client.get('name', function (err, res) {
+        this.client.get('name', (err, res) => {
             if (err) {
                 throw err;
             }

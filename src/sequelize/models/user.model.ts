@@ -1,4 +1,6 @@
-import { Sequelize, Model, DataTypes, Optional, BuildOptions } from 'sequelize';
+import {
+  Sequelize, Model, DataTypes, Optional, BuildOptions,
+} from 'sequelize';
 import { PHONE_REGEX } from '../../types/types';
 
 export interface UserAttributes {
@@ -63,7 +65,7 @@ export function initUser(sequelize: Sequelize) {
     },
     name: {
       type: new DataTypes.STRING(32),
-      allowNull: false,
+      allowNull: true,
     },
     phoneNumber: {
       type: new DataTypes.STRING(64),

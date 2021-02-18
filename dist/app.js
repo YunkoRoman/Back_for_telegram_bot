@@ -5,12 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const http_status_codes_1 = require("http-status-codes");
 const logger_1 = require("./utils/logger");
 const user_route_1 = __importDefault(require("./routes/user/user.route"));
 const admin_route_1 = __importDefault(require("./routes/admin/admin.route"));
 const faqs_route_1 = __importDefault(require("./routes/faqs/faqs.route"));
 const index_1 = require("./sequelize/models/index");
-const http_status_codes_1 = require("http-status-codes");
 function appFunc() {
     const app = express_1.default();
     index_1.db.sequelize.authenticate().then(() => logger_1.logger.serverLogger.info('Authenticated'));
@@ -22,7 +22,7 @@ function appFunc() {
             .status(err.status || http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)
             .json({
             message: err.message || http_status_codes_1.getReasonPhrase(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR),
-            code: err.code
+            code: err.code,
         });
     });
     app.use('/users', user_route_1.default(index_1.db));

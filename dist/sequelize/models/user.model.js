@@ -27,7 +27,7 @@ function initUser(sequelize) {
         },
         name: {
             type: new sequelize_1.DataTypes.STRING(32),
-            allowNull: false,
+            allowNull: true,
         },
         phoneNumber: {
             type: new sequelize_1.DataTypes.STRING(64),

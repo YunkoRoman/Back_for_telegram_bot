@@ -1,8 +1,7 @@
-import { Op, Transaction } from 'sequelize';
+import { Op } from 'sequelize';
 import { Intent } from 'types/types';
-import { resolve } from 'path';
 import { logger } from '../utils/logger';
-import { Faq, FaqModel } from '../sequelize/models/faq.model';
+import { FaqModel } from '../sequelize/models/faq.model';
 import { DB } from '../sequelize/models/index';
 
 export default class FaqsService {
@@ -33,22 +32,24 @@ export default class FaqsService {
       },
     })
 
-  public storeIntents = async (intents: FaqModel[]): Promise<any> => {
-    try {
-      intents.forEach(async (intent) => {
-        const faq = await this.DB.Faqs
-          .findOne({ where: { intentName: intent.intentName } });
-        if (faq) {
-          return faq.update({ answer: intent.answer });
-        }
-        return this.DB.Faqs.create({ ...intent });
-      });
-      return intents;
-    } catch (err) {
-      logger.faqLogger.error(err);
-    }
-    return [];
-  };
+  public storeIntents = async (intents: FaqModel[]): Promise<any> => this.DB.sequelize
+    .transaction(async (t) => {
+      let results = [];
+      let updates = [];
+      try {
+        results = intents.map((intent) => this.DB.Faqs
+          .findOne({ where: { intentName: intent.intentName }, transaction: t }));
+        results = await Promise.all(results);
+        updates = results.map((res, i) => (res !== null
+          ? res.update({ answer: intents[i].answer }, { transaction: t })
+          : this.DB.Faqs.create({ ...intents[i] }, { transaction: t })));
+        await Promise.all(updates);
+        return updates;
+      } catch (err) {
+        logger.faqLogger.error(err);
+      }
+      return [];
+    })
 
   // ============ CRUD ==============
 

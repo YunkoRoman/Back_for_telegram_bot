@@ -100,7 +100,6 @@ export default class UserService {
     return result;
   };
 
-
   public updateUser = async (user: UserAddToChat): Promise<any> => {
     const result = await this.DB.User.update(user, {
       where: {

@@ -1,6 +1,8 @@
-import { Op } from 'sequelize';
+import { Op, Transaction } from 'sequelize';
 import { Intent } from 'types/types';
-import { FaqModel } from '../sequelize/models/faq.model';
+import { resolve } from 'path';
+import { logger } from '../utils/logger';
+import { Faq, FaqModel } from '../sequelize/models/faq.model';
 import { DB } from '../sequelize/models/index';
 
 export default class FaqsService {
@@ -31,17 +33,22 @@ export default class FaqsService {
       },
     })
 
-  public storeIntents = async (intents: FaqModel[]): Promise<FaqModel[]> => {
-    console.log('in service', intents[0]);
-    const result = await this.DB.Faqs.bulkCreate(intents,
-      {
-        // updateOnDuplicate: ['answer'],
-        ignoreDuplicates: true,
-        logging: true,
+  public storeIntents = async (intents: FaqModel[]): Promise<any> => {
+    try {
+      intents.forEach(async (intent) => {
+        const faq = await this.DB.Faqs
+          .findOne({ where: { intentName: intent.intentName } });
+        if (faq) {
+          return faq.update({ answer: intent.answer });
+        }
+        return this.DB.Faqs.create({ ...intent });
       });
-    console.log(result);
-    return result;
-  }
+      return intents;
+    } catch (err) {
+      logger.faqLogger.error(err);
+    }
+    return [];
+  };
 
   // ============ CRUD ==============
 

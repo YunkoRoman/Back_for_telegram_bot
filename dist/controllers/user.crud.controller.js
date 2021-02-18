@@ -59,7 +59,6 @@ class UserController {
         this.createNewUser = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const user = req.body;
             user.roleId = user_role_model_1.Role.regular;
-            user.typeId = 1;
             try {
                 // todo error hendler for empty object
                 console.log(user);

@@ -38,21 +38,25 @@ class FaqsService {
             });
         });
         this.storeIntents = (intents) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                intents.forEach((intent) => __awaiter(this, void 0, void 0, function* () {
-                    const faq = yield this.DB.Faqs
-                        .findOne({ where: { intentName: intent.intentName } });
-                    if (faq) {
-                        return faq.update({ answer: intent.answer });
-                    }
-                    return this.DB.Faqs.create(Object.assign({}, intent));
-                }));
-                return intents;
-            }
-            catch (err) {
-                logger_1.logger.faqLogger.error(err);
-            }
-            return [];
+            return this.DB.sequelize
+                .transaction((t) => __awaiter(this, void 0, void 0, function* () {
+                let results = [];
+                let updates = [];
+                try {
+                    results = intents.map((intent) => this.DB.Faqs
+                        .findOne({ where: { intentName: intent.intentName }, transaction: t }));
+                    results = yield Promise.all(results);
+                    updates = results.map((res, i) => (res !== null
+                        ? res.update({ answer: intents[i].answer }, { transaction: t })
+                        : this.DB.Faqs.create(Object.assign({}, intents[i]), { transaction: t })));
+                    yield Promise.all(updates);
+                    return updates;
+                }
+                catch (err) {
+                    logger_1.logger.faqLogger.error(err);
+                }
+                return [];
+            }));
         });
         // ============ CRUD ==============
         this.getAllFaqs = () => __awaiter(this, void 0, void 0, function* () { return this.DB.Faqs.findAll(); });

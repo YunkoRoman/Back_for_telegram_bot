@@ -44,11 +44,11 @@ export function initFaq(sequelize: Sequelize) {
       primaryKey: true,
     },
     intentName: {
-      type: new DataTypes.STRING(128),
+      type: new DataTypes.TEXT('long'),
       unique: true,
     },
     question: {
-      type: new DataTypes.STRING(128),
+      type: new DataTypes.TEXT('long'),
       unique: true,
     },
     answer: new DataTypes.TEXT('long'),

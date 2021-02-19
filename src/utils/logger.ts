@@ -93,6 +93,21 @@ const redisLogger = createLogger({
     new transports.File({ filename: "error.log" })
   ]
 });
+const middlewarwLogger = createLogger({
+  levels: config.syslog.levels,
+  defaultMeta: { component: "middleware" },
+  format: combine(
+    timestamp({
+      format: "YYYY-MM-DD HH:mm:ss"
+    }),
+    json()
+  ),
+
+  transports: [
+    new transports.Console(),
+    new transports.File({ filename: "error.log" })
+  ]
+});
 
 export const logger = {
   userLogger: userLogger,
@@ -100,5 +115,6 @@ export const logger = {
   faqLogger: faqLogger,
   serverLogger: serverLogger,
   settingLogger: settingLogger,
-  redisLogger: redisLogger
+  redisLogger: redisLogger,
+  middlewarwLogger: middlewarwLogger
 };

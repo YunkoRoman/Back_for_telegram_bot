@@ -49,9 +49,9 @@ export default class UserController {
       logger.redisLogger.info("redis get end");
       logger.userLogger.info("ORM START CHECKPOINT");
       const result = await this.userService.getUserById(telegramId);
-      if (result.length > 0) {
-        const createdUser = await this.redisUserCache.setUser(result[0] as UserAddToChat);
-        logger.redisLogger.info("createdUser: ", { User: createdUser });
+      if (getUserRedis !== null) {
+        logger.userLogger.info('getUserRedis: ', getUserRedis);
+        return apiResponse(res, successResponse(getUserRedis), StatusCodes.OK);
       }
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {

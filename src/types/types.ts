@@ -14,7 +14,7 @@ export interface UserAddToChat {
   city: string;
   step: JSON;
   roleId: number;
-  typeId: number;
+  typeId: string;
 }
 
 export interface Intent {

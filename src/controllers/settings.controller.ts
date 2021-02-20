@@ -2,7 +2,7 @@
 import { Request, Response, NextFunction } from "express";
 import { getReasonPhrase, StatusCodes } from "http-status-codes";
 import { SettingsModel } from "sequelize/models/settings.model";
-import { apiResponse, failedResponse, successResponse } from "../utils/response";
+import { apiResponse, successResponse } from "../utils/response";
 import { logger } from "../utils/logger";
 import SettingsService from "../services/settings.service";
 

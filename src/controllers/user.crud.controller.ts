@@ -50,7 +50,7 @@ export default class UserController {
       logger.userLogger.info("ORM START CHECKPOINT");
       const result = await this.userService.getUserById(telegramId);
       if (getUserRedis !== null) {
-        logger.userLogger.info('getUserRedis: ', getUserRedis);
+        logger.userLogger.info("getUserRedis: ", getUserRedis);
         return apiResponse(res, successResponse(getUserRedis), StatusCodes.OK);
       }
       return apiResponse(res, successResponse(result), StatusCodes.OK);
@@ -140,13 +140,9 @@ export default class UserController {
       logger.userLogger.info("delete user by id", { Data: telegramId });
       const result = await this.userService.deleteUser(telegramId);
       if (result === 0) return apiResponse(res, failedResponse(customErrors.NOT_FOUND.message), StatusCodes.NOT_FOUND);
+      const deleteUser = await this.redisUserCache.deleteUser(telegramId);
+      logger.redisLogger.info(`User deleted from redis`, { User: deleteUser });
 
-      const getUserRedis = await this.redisUserCache.getUser(telegramId);
-      if (getUserRedis !== null) {
-        logger.redisLogger.info("getUserRedis: ", { User: getUserRedis });
-        const deleteUser = await this.redisUserCache.deleteUser(telegramId);
-        logger.redisLogger.info(`User deleted from redis`, { User: deleteUser });
-      }
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.userLogger.error("error while deleting user", {

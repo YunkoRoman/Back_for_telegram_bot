@@ -69,9 +69,10 @@ export default class RedisUser {
       });
     });
   }
+
   public deleteUser(telegramId: number | string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.client.del(telegramId as string, (err: any, data: any)=> {
+      this.client.del(telegramId as string, (err: any, data: any) => {
         if (err) {
           reject(err);
           logger.redisLogger.error(`${err}`);
@@ -82,8 +83,7 @@ export default class RedisUser {
         } else {
           resolve(data);
         }
-      })
+      });
     });
   }
-
 }

@@ -45,8 +45,8 @@ class UserController {
                 logger_1.logger.userLogger.info('redis get end');
                 logger_1.logger.userLogger.info('ORM START CHECKPOINT');
                 const result = yield this.userService.getUserById(telegramId);
-                if (result.length > 0) {
-                    const createdUser = yield this.redisUserCache.setUser(result[0]);
+                if (result !== null) {
+                    const createdUser = yield this.redisUserCache.setUser(result);
                     logger_1.logger.userLogger.info('createdUser: ', createdUser);
                 }
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);

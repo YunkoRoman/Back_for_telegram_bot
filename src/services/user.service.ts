@@ -30,8 +30,8 @@ export default class UserService {
 
   // =============== CRUD =================
 
-  public getUserById = async (userId: number | string): Promise<UserModel[]> => {
-    const result = await this.DB.User.findAll({
+  public getUserById = async (userId: number | string): Promise<UserModel | null> => {
+    const result = await this.DB.User.findOne({
       where: {
         telegramId: {
           [Op.eq]: userId,

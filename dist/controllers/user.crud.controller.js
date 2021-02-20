@@ -123,6 +123,8 @@ class UserController {
             try {
                 logger_1.logger.userLogger.info('delete user by id');
                 const result = yield this.userService.deleteUser(telegramId);
+                const delUserRedis = yield this.redisUserCache.delUser(telegramId);
+                console.log('DEL CAHCHED USER: ', delUserRedis);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
@@ -202,7 +204,7 @@ class UserController {
         this.getUserByType = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const { type } = req.params;
             try {
-                const users = yield this.userService.getAllUsersByRole(parseInt(type, 10));
+                const users = yield this.userService.getAllUsersByType(type);
                 return response_1.apiResponse(res, response_1.successResponse(users), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {

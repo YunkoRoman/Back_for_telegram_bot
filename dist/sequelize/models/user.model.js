@@ -47,7 +47,7 @@ function initUser(sequelize) {
             type: sequelize_1.DataTypes.INTEGER,
         },
         typeId: {
-            type: sequelize_1.DataTypes.INTEGER,
+            type: sequelize_1.DataTypes.STRING(32),
         },
     });
 }

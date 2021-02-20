@@ -3,7 +3,7 @@ import validator from 'validator';
 import { Role } from '../sequelize/models/user.role.model';
 
 // eslint-disable-next-line import/prefer-default-export
-export function isValidTelegramId(telegramId:any) {
+export function isValidTelegramId(telegramId: any) {
   const errors = [];
   if (!telegramId) {
     errors.push('Please provide user telegram id');
@@ -25,8 +25,8 @@ export function invalidFields(user: UserAddToChat) {
   if (user.roleId && ![Role.regular, Role.admin, Role.superAdmin].includes(user.roleId)) {
     errors.push('User role is invalid');
   }
-  if (user.typeId && ![1, 2, 3, 4, 5].includes(user.typeId)) {
-    errors.push('User type is invalid');
-  }
+  // if (user.typeId && ![1, 2, 3, 4, 5].includes(user.typeId)) {
+  //   errors.push('User type is invalid');
+  // }
   return errors;
 }

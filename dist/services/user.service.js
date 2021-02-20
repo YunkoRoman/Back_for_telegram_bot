@@ -29,7 +29,7 @@ class UserService {
         });
         // =============== CRUD =================
         this.getUserById = (userId) => __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.DB.User.findAll({
+            const result = yield this.DB.User.findOne({
                 where: {
                     telegramId: {
                         [sequelize_1.Op.eq]: userId,

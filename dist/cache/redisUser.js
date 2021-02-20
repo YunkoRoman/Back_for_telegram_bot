@@ -24,6 +24,17 @@ class RedisUser {
             }
         });
     }
+    delUser(telegramId) {
+        return new Promise((resolve, reject) => {
+            this.client.del(telegramId, (err, data) => {
+                if (err) {
+                    reject(err);
+                    logger_1.logger.redisLogger.error(`${err}`);
+                }
+                resolve(data);
+            });
+        });
+    }
     setUser(user) {
         return new Promise((resolve, reject) => {
             this.client.setex(user.telegramId, 86400, JSON.stringify(user), (err, data) => {

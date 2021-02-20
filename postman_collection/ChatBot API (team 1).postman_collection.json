@@ -1,2870 +1,2512 @@
 {
-	"info": {
-		"_postman_id": "8ae76166-6417-4b99-968c-45b813162f10",
-		"name": "ChatBot API (team 1)",
-		"description": "This is documentation for first team API. If you see \"/admin\" in request route it means you need to put in headers value of telegram_id with user that is admin, write now this is user with telegram_id 1, so you need key: \"X-User-id\", value: \"1\". All info that you need to use this API you will find below.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "User",
-			"item": [
-				{
-					"name": "Create user",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "telegramId",
-									"value": "88",
-									"type": "text"
-								},
-								{
-									"key": "telegramName",
-									"value": "@telegram_name",
-									"type": "text"
-								},
-								{
-									"key": "name",
-									"value": "no name",
-									"type": "text"
-								},
-								{
-									"key": "step",
-									"value": "{step: \"created\"}",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/users",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Create user",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "telegramId",
-											"value": "88",
-											"type": "text"
-										},
-										{
-											"key": "telegramName",
-											"value": "@telegram_name",
-											"type": "text"
-										},
-										{
-											"key": "name",
-											"value": "no name",
-											"type": "text"
-										},
-										{
-											"key": "step",
-											"value": "{step: \"created\"}",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users"
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "260"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"104-Mr41nlEK8GNFF3WtsgvZVYG1Ol4\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:26:36 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 54,\n        \"telegramId\": \"88\",\n        \"telegramName\": \"@telegram_name\",\n        \"name\": \"no name\",\n        \"step\": \"{step: \\\"created\\\"}\",\n        \"roleId\": 0,\n        \"typeId\": 1,\n        \"updatedAt\": \"2021-02-12T09:26:36.231Z\",\n        \"createdAt\": \"2021-02-12T09:26:36.231Z\",\n        \"phoneNumber\": null,\n        \"city\": null\n    }\n}"
-						}
-					]
-				},
-				{
-					"name": "Delete user",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/users/:telegramId",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"users",
-								":telegramId"
-							],
-							"variable": [
-								{
-									"key": "telegramId",
-									"value": "87"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "user does not exist",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/:telegramId",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										":telegramId"
-									],
-									"variable": [
-										{
-											"key": "telegramId",
-											"value": "89"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "25"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"19-aOl0HDXwLOG3EpLVfee/jIH5OC8\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 08:27:23 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": 0\n}"
-						},
-						{
-							"name": "Delete user",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/87",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"87"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "25"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"19-Odyx+SVI5Qj1tCdGAgkg26u4+j4\""
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 11 Feb 2021 19:25:38 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": 1\n}"
-						}
-					]
-				},
-				{
-					"name": "Regular user update",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "name",
-									"type": "text"
-								},
-								{
-									"key": "city",
-									"value": "city",
-									"type": "text"
-								},
-								{
-									"key": "typeId",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "step",
-									"value": "{step: \"first step\"}",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/users/:telegramId/",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"users",
-								":telegramId",
-								""
-							],
-							"variable": [
-								{
-									"key": "telegramId",
-									"value": "87",
-									"type": "string"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "user does not exist",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "name",
-											"value": "name",
-											"type": "text"
-										},
-										{
-											"key": "city",
-											"value": "city",
-											"type": "text"
-										},
-										{
-											"key": "typeId",
-											"value": "1",
-											"type": "text"
-										},
-										{
-											"key": "step",
-											"value": "{step: \"first step\"}",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/:telegramId/",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										":telegramId",
-										""
-									],
-									"variable": [
-										{
-											"key": "telegramId",
-											"value": "8890",
-											"type": "string"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "30"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"1e-D0JNDgEt5pz/vN8NMi6Dewyzh7o\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 08:19:01 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        0,\n        []\n    ]\n}"
-						},
-						{
-							"name": "user exist",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "name",
-											"value": "name",
-											"type": "text"
-										},
-										{
-											"key": "city",
-											"value": "city",
-											"type": "text"
-										},
-										{
-											"key": "typeId",
-											"value": "1",
-											"type": "text"
-										},
-										{
-											"key": "step",
-											"value": "{step: \"first step\"}",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/87/",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"87",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "268"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"10c-eApS/F9nwhRB/uNsYQJvukpxkgs\""
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 11 Feb 2021 20:13:28 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        1,\n        [\n            {\n                \"id\": 50,\n                \"telegramId\": \"87\",\n                \"telegramName\": \"@telegram_name\",\n                \"name\": \"name\",\n                \"phoneNumber\": null,\n                \"city\": \"city\",\n                \"step\": \"{step: \\\"first step\\\"}\",\n                \"roleId\": 0,\n                \"typeId\": 1,\n                \"createdAt\": \"2021-02-11T19:46:55.766Z\",\n                \"updatedAt\": \"2021-02-11T20:13:28.523Z\"\n            }\n        ]\n    ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Update user role",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "X-User-id",
-								"value": "1",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "roleId",
-									"value": "1",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/users/admins/:telegramId",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"users",
-								"admins",
-								":telegramId"
-							],
-							"variable": [
-								{
-									"key": "telegramId",
-									"value": "87"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "not admin",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "X-User-id",
-										"value": "4",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "roleId",
-											"value": "1",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/admins/:telegramId",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"admins",
-										":telegramId"
-									],
-									"variable": [
-										{
-											"key": "telegramId",
-											"value": "87"
-										}
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Content-Security-Policy",
-									"value": "default-src 'none'"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "136"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 08:25:52 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>Forbidden</pre>\n    </body>\n</html>"
-						},
-						{
-							"name": "user exist",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "X-User-id",
-										"value": "1",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "roleId",
-											"value": "1",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/admins/:telegramId",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"admins",
-										":telegramId"
-									],
-									"variable": [
-										{
-											"key": "telegramId",
-											"value": "87"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "268"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"10c-LnnMvFC79ruHO3+q/HEiR3On9Hk\""
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 11 Feb 2021 20:19:40 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        1,\n        [\n            {\n                \"id\": 50,\n                \"telegramId\": \"87\",\n                \"telegramName\": \"@telegram_name\",\n                \"name\": \"name\",\n                \"phoneNumber\": null,\n                \"city\": \"city\",\n                \"step\": \"{step: \\\"first step\\\"}\",\n                \"roleId\": 1,\n                \"typeId\": 1,\n                \"createdAt\": \"2021-02-11T19:46:55.766Z\",\n                \"updatedAt\": \"2021-02-11T20:19:40.427Z\"\n            }\n        ]\n    ]\n}"
-						},
-						{
-							"name": "user does not exist",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "X-User-id",
-										"value": "1",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "roleId",
-											"value": "1",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/admins/:telegramId",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"admins",
-										":telegramId"
-									],
-									"variable": [
-										{
-											"key": "telegramId",
-											"value": "872432"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "30"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"1e-D0JNDgEt5pz/vN8NMi6Dewyzh7o\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 08:20:56 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        0,\n        []\n    ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Get user by telegramId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"response": [
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/:telegramId",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										":telegramId"
-									],
-									"variable": [
-										{
-											"key": "telegramId",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "233"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"e9-Lw9xuTomBFaq6ETLsrVRS1V6iH4\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 08:47:00 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 24,\n        \"telegramId\": \"1\",\n        \"telegramName\": \"T_Name6\",\n        \"name\": \"Name6\",\n        \"roleId\": 1,\n        \"typeId\": 1,\n        \"updatedAt\": \"2021-02-11T09:59:17.157Z\",\n        \"createdAt\": \"2021-02-11T09:59:17.157Z\",\n        \"phoneNumber\": null,\n        \"city\": null,\n        \"step\": null\n    }\n}"
-						},
-						{
-							"name": "user not found",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/:telegramId",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										":telegramId"
-									],
-									"variable": [
-										{
-											"key": "telegramId",
-											"value": "1213"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "26"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"1a-s3B6blipWxCo2IriQlJeaz0uh7I\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 08:47:09 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": []\n}"
-						}
-					]
-				},
-				{
-					"name": "Get user by name",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/users/name/:name",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"users",
-								"name",
-								":name"
-							],
-							"variable": [
-								{
-									"key": "name",
-									"value": "John"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/name/:name",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name",
-											"value": "John"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "242"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"f2-MjHpRvU15Fq2cxPWCcEfr4YvFbM\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 08:59:01 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 28,\n            \"telegramId\": \"01\",\n            \"telegramName\": \"@telegram_name\",\n            \"name\": \"John\",\n            \"phoneNumber\": null,\n            \"city\": null,\n            \"step\": null,\n            \"roleId\": 0,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:31:45.705Z\",\n            \"updatedAt\": \"2021-02-11T17:26:38.262Z\"\n        }\n    ]\n}"
-						},
-						{
-							"name": "user not found",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/name/:name",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"name",
-										":name"
-									],
-									"variable": [
-										{
-											"key": "name",
-											"value": "John112"
-										}
-									]
-								}
-							},
-							"status": "Service Unavailable",
-							"code": 503,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:00:21 GMT"
-								},
-								{
-									"key": "Content-Length",
-									"value": "506"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-cache, no-store"
-								}
-							],
-							"cookie": [],
-							"body": "<!DOCTYPE html>\n<html>\n    <head>\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n        <meta charset=\"utf-8\">\n        <title>Application Error</title>\n        <style media=\"screen\">\n\t\t  html,body,iframe {\n\t\t\tmargin: 0;\n\t\t\tpadding: 0;\n\t\t  }\n\t\t  html,body {\n\t\t\theight: 100%;\n\t\t\toverflow: hidden;\n\t\t  }\n\t\t  iframe {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tborder: 0;\n\t\t  }\n\t\t</style>\n    </head>\n    <body>\n        <iframe src=\"//www.herokucdn.com/error-pages/application-error.html\"></iframe>\n    </body>\n</html>"
-						}
-					]
-				},
-				{
-					"name": "Get user by telegram name",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"response": [
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/telegram_name/:telegramName",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"telegram_name",
-										":telegramName"
-									],
-									"variable": [
-										{
-											"key": "telegramName",
-											"value": "NewTelegramName"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "276"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"114-cwrQL0THISWn7iyLlT1f9kX7dMk\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 08:58:09 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 53,\n            \"telegramId\": \"999\",\n            \"telegramName\": \"NewTelegramName\",\n            \"name\": \"NewName\",\n            \"phoneNumber\": \"NewPhoneNumber\",\n            \"city\": \"NewCity\",\n            \"step\": \"{param: value}\",\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-12T07:41:36.888Z\",\n            \"updatedAt\": \"2021-02-12T08:21:42.561Z\"\n        }\n    ]\n}"
-						},
-						{
-							"name": "user not found",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/telegram_name/:telegramName",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"telegram_name",
-										":telegramName"
-									],
-									"variable": [
-										{
-											"key": "telegramName",
-											"value": "NewTelegramName1"
-										}
-									]
-								}
-							},
-							"status": "Service Unavailable",
-							"code": 503,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:02:57 GMT"
-								},
-								{
-									"key": "Content-Length",
-									"value": "506"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-cache, no-store"
-								}
-							],
-							"cookie": [],
-							"body": "<!DOCTYPE html>\n<html>\n    <head>\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n        <meta charset=\"utf-8\">\n        <title>Application Error</title>\n        <style media=\"screen\">\n\t\t  html,body,iframe {\n\t\t\tmargin: 0;\n\t\t\tpadding: 0;\n\t\t  }\n\t\t  html,body {\n\t\t\theight: 100%;\n\t\t\toverflow: hidden;\n\t\t  }\n\t\t  iframe {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tborder: 0;\n\t\t  }\n\t\t</style>\n    </head>\n    <body>\n        <iframe src=\"//www.herokucdn.com/error-pages/application-error.html\"></iframe>\n    </body>\n</html>"
-						}
-					]
-				},
-				{
-					"name": "Get user by city",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/users/city/:city",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"users",
-								"city",
-								":city"
-							],
-							"variable": [
-								{
-									"key": "city",
-									"value": "Dnipro1"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/city/:city",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"city",
-										":city"
-									],
-									"variable": [
-										{
-											"key": "city",
-											"value": "Dnipro1"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "251"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"fb-sg04DegVPm+m29su+CNZcEJZP80\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:11:00 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 26,\n            \"telegramId\": \"3\",\n            \"telegramName\": \"T_Name6\",\n            \"name\": \"name3\",\n            \"phoneNumber\": \"3809855612132\",\n            \"city\": \"Dnipro1\",\n            \"step\": null,\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:17:04.810Z\",\n            \"updatedAt\": \"2021-02-11T10:49:05.568Z\"\n        }\n    ]\n}"
-						},
-						{
-							"name": "User not found",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/city/:city",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"city",
-										":city"
-									],
-									"variable": [
-										{
-											"key": "city",
-											"value": "Dnipro"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "26"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"1a-s3B6blipWxCo2IriQlJeaz0uh7I\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:11:48 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": []\n}"
-						}
-					]
-				},
-				{
-					"name": "Get user by phone number",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/users/phone/:phoneNumber",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"users",
-								"phone",
-								":phoneNumber"
-							],
-							"variable": [
-								{
-									"key": "phoneNumber",
-									"value": "0254554665522"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/phone/:phoneNumber",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"phone",
-										":phoneNumber"
-									],
-									"variable": [
-										{
-											"key": "phoneNumber",
-											"value": "0254554665522"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "256"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"100-en+wnTzCKM0YX8qnA8jXjDe7su4\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:09:02 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 52,\n            \"telegramId\": \"52\",\n            \"telegramName\": \"sdfdfRoma\",\n            \"name\": \"Rsfsdfoma\",\n            \"phoneNumber\": \"0254554665522\",\n            \"city\": \"Lv252iv\",\n            \"step\": {},\n            \"roleId\": 2,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T22:03:51.690Z\",\n            \"updatedAt\": \"2021-02-11T22:03:51.690Z\"\n        }\n    ]\n}"
-						},
-						{
-							"name": "user not found",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/phone/:phoneNumber",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"phone",
-										":phoneNumber"
-									],
-									"variable": [
-										{
-											"key": "phoneNumber",
-											"value": "02545546655221"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "26"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"1a-s3B6blipWxCo2IriQlJeaz0uh7I\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:10:31 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": []\n}"
-						}
-					]
-				},
-				{
-					"name": "Get user by roleId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/users/role/:roleId",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"users",
-								"role",
-								":roleId"
-							],
-							"variable": [
-								{
-									"key": "roleId",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/x-www-form-urlencoded",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": []
-								},
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/role/:roleId",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"role",
-										":roleId"
-									],
-									"variable": [
-										{
-											"key": "roleId",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "712"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"2c8-xtr4zZpewf82tPR9iCGKrJQYBvQ\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:13:01 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 53,\n            \"telegramId\": \"999\",\n            \"telegramName\": \"NewTelegramName\",\n            \"name\": \"NewName\",\n            \"phoneNumber\": \"NewPhoneNumber\",\n            \"city\": \"NewCity\",\n            \"step\": \"{param: value}\",\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-12T07:41:36.888Z\",\n            \"updatedAt\": \"2021-02-12T08:21:42.561Z\"\n        },\n        {\n            \"id\": 25,\n            \"telegramId\": \"2\",\n            \"telegramName\": \"T_Name6\",\n            \"name\": \"Name6\",\n            \"phoneNumber\": null,\n            \"city\": null,\n            \"step\": null,\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:06:19.764Z\",\n            \"updatedAt\": \"2021-02-11T10:06:19.764Z\"\n        },\n        {\n            \"id\": 26,\n            \"telegramId\": \"3\",\n            \"telegramName\": \"T_Name6\",\n            \"name\": \"name3\",\n            \"phoneNumber\": \"3809855612132\",\n            \"city\": \"Dnipro1\",\n            \"step\": null,\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:17:04.810Z\",\n            \"updatedAt\": \"2021-02-11T10:49:05.568Z\"\n        }\n    ]\n}"
-						},
-						{
-							"name": "user not found",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/role/:role",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"role",
-										":role"
-									],
-									"variable": [
-										{
-											"key": "role",
-											"value": "4"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "26"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"1a-s3B6blipWxCo2IriQlJeaz0uh7I\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:13:49 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": []\n}"
-						}
-					]
-				},
-				{
-					"name": "Get user by typeId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/users/type/:typeId",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"users",
-								"type",
-								":typeId"
-							],
-							"variable": [
-								{
-									"key": "typeId",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "User not found",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/type/:typeId",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"type",
-										":typeId"
-									],
-									"variable": [
-										{
-											"key": "typeId",
-											"value": "5"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "26"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"1a-s3B6blipWxCo2IriQlJeaz0uh7I\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:16:58 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": []\n}"
-						},
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/users/type/:typeId",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"users",
-										"type",
-										":typeId"
-									],
-									"variable": [
-										{
-											"key": "typeId",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "712"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"2c8-xtr4zZpewf82tPR9iCGKrJQYBvQ\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:16:31 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 53,\n            \"telegramId\": \"999\",\n            \"telegramName\": \"NewTelegramName\",\n            \"name\": \"NewName\",\n            \"phoneNumber\": \"NewPhoneNumber\",\n            \"city\": \"NewCity\",\n            \"step\": \"{param: value}\",\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-12T07:41:36.888Z\",\n            \"updatedAt\": \"2021-02-12T08:21:42.561Z\"\n        },\n        {\n            \"id\": 25,\n            \"telegramId\": \"2\",\n            \"telegramName\": \"T_Name6\",\n            \"name\": \"Name6\",\n            \"phoneNumber\": null,\n            \"city\": null,\n            \"step\": null,\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:06:19.764Z\",\n            \"updatedAt\": \"2021-02-11T10:06:19.764Z\"\n        },\n        {\n            \"id\": 26,\n            \"telegramId\": \"3\",\n            \"telegramName\": \"T_Name6\",\n            \"name\": \"name3\",\n            \"phoneNumber\": \"3809855612132\",\n            \"city\": \"Dnipro1\",\n            \"step\": null,\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:17:04.810Z\",\n            \"updatedAt\": \"2021-02-11T10:49:05.568Z\"\n        }\n    ]\n}"
-						}
-					]
-				}
-			],
-			"description": "This is CRUD communication for user table. If the request need to specify some parameter to do something with user it's doing as Path Variable, you can also see how to add user \"step\" in Create user example, it's doing by the same way in user update.\nMost of the examples show the successful response and not, the second one could be if there is no such user or your parameters are wrong."
-		},
-		{
-			"name": "FAQ",
-			"item": [
-				{
-					"name": "Get popular questions",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/info/popular",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"info",
-								"popular"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/info/popular",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"info",
-										"popular"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "165"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"a5-Q1m8MjmhGXR+BKorTArMGMKFUd0\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:37:49 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 3,\n            \"question\": \"Test2\",\n            \"answer\": \"Test answer2\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-11T20:31:22.259Z\",\n            \"updatedAt\": \"2021-02-11T20:31:22.259Z\"\n        }\n    ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Get all FAQ",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "X-User-id",
-								"value": "1",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/admin/faqs",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"admin",
-								"faqs"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Get all FAQ",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "X-User-id",
-										"value": "1",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/admin/faqs",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"admin",
-										"faqs"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "479"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"1df-Ie0UIf5VEOzmXtK30PWyy7dQ610\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:42:01 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"question\": \"faculty\",\n            \"answer\": \"Here is our faculty info\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-10T19:06:46.846Z\",\n            \"updatedAt\": \"2021-02-10T19:06:46.846Z\"\n        },\n        {\n            \"id\": 2,\n            \"question\": \"university\",\n            \"answer\": \"Here is our university info\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-10T19:06:46.846Z\",\n            \"updatedAt\": \"2021-02-10T19:06:46.846Z\"\n        },\n        {\n            \"id\": 3,\n            \"question\": \"Test2\",\n            \"answer\": \"Test answer2\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-11T20:31:22.259Z\",\n            \"updatedAt\": \"2021-02-11T20:31:22.259Z\"\n        }\n    ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Get unanswered questions",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/info/unanswered",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"info",
-								"unanswered"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Get unanswered questions",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/info/unanswered",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"info",
-										"unanswered"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "143"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"8f-u0Cu3rgv7euzQXhHHts4Z5WKby4\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:49:54 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"question\": \"test\",\n            \"stats\": null,\n            \"createdAt\": \"2021-02-11T19:46:52.062Z\",\n            \"updatedAt\": \"2021-02-11T19:46:52.062Z\"\n        }\n    ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Push to db unanswered question",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "question",
-									"value": "test",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/info/unanswered",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"info",
-								"unanswered"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Push to db unanswered question",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "question",
-											"value": "test",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/info/unanswered",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"info",
-										"unanswered"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "141"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"8d-qiheIJXcgiaItBDvXLqz4VB/tLo\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:52:52 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 2,\n        \"question\": \"test\",\n        \"updatedAt\": \"2021-02-12T09:52:52.161Z\",\n        \"createdAt\": \"2021-02-12T09:52:52.161Z\",\n        \"stats\": null\n    }\n}"
-						}
-					]
-				},
-				{
-					"name": "Get one FAQ",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/info/faq?question=faculty",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"info",
-								"faq"
-							],
-							"query": [
-								{
-									"key": "question",
-									"value": "faculty"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "get info about \"faculty\"",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/info/faq?question=faculty",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"info",
-										"faq"
-									],
-									"query": [
-										{
-											"key": "question",
-											"value": "faculty"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "179"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"b3-8qnXnvskDVRMLSGwQjjCeRix688\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:53:55 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"question\": \"faculty\",\n            \"answer\": \"Here is our faculty info\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-10T19:06:46.846Z\",\n            \"updatedAt\": \"2021-02-10T19:06:46.846Z\"\n        }\n    ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Get popular questions",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/info/popular",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"info",
-								"popular"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Get popular questions",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/info/popular",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"info",
-										"popular"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "165"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"a5-Q1m8MjmhGXR+BKorTArMGMKFUd0\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 09:58:06 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 3,\n            \"question\": \"Test2\",\n            \"answer\": \"Test answer2\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-11T20:31:22.259Z\",\n            \"updatedAt\": \"2021-02-11T20:31:22.259Z\"\n        }\n    ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Edit FAQ info",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "X-User-id",
-								"value": "1",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "answer",
-									"value": "about faculty",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/admin/:FAQ_Question",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"admin",
-								":FAQ_Question"
-							],
-							"variable": [
-								{
-									"key": "FAQ_Question",
-									"value": "faculty"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "X-User-id",
-										"value": "1",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "answer",
-											"value": "about faculty",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/admin/:FAQ_Question",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"admin",
-										":FAQ_Question"
-									],
-									"variable": [
-										{
-											"key": "FAQ_Question",
-											"value": "faculty"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "16"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"10-oV4hJxRVSENxc/wX8+mA4/Pe4tA\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 10:04:22 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true\n}"
-						},
-						{
-							"name": "such FAQ does not exist",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "X-User-id",
-										"value": "1",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "answer",
-											"value": "about faculty",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/admin/:FAQ_Question",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"admin",
-										":FAQ_Question"
-									],
-									"variable": [
-										{
-											"key": "FAQ_Question",
-											"value": "faculty1"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Content-Security-Policy",
-									"value": "default-src 'none'"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "153"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 10:08:58 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>Cannot PUT /admin/faculty1</pre>\n    </body>\n</html>"
-						}
-					]
-				},
-				{
-					"name": "Add popular question",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "question",
-									"value": "popular question",
-									"type": "text"
-								},
-								{
-									"key": "answer",
-									"value": "answer",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "https://intern-task-winter.herokuapp.com/info/faq",
-							"protocol": "https",
-							"host": [
-								"intern-task-winter",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"info",
-								"faq"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Add popular question",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "question",
-											"value": "popular question",
-											"type": "text"
-										},
-										{
-											"key": "answer",
-											"value": "answer",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "https://intern-task-winter.herokuapp.com/info/faq",
-									"protocol": "https",
-									"host": [
-										"intern-task-winter",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"info",
-										"faq"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "Cowboy"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "168"
-								},
-								{
-									"key": "Etag",
-									"value": "W/\"a8-vvhj0acc3q86V4LnqXL1wEjVp5w\""
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 12 Feb 2021 10:08:36 GMT"
-								},
-								{
-									"key": "Via",
-									"value": "1.1 vegur"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"stats\": 0,\n        \"id\": 5,\n        \"question\": \"popular question\",\n        \"answer\": \"answer\",\n        \"updatedAt\": \"2021-02-12T10:08:36.971Z\",\n        \"createdAt\": \"2021-02-12T10:08:36.971Z\"\n    }\n}"
-						}
-					]
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "8ae76166-6417-4b99-968c-45b813162f10",
+    "name": "ChatBot API (team 1)",
+    "description": "This is documentation for first team API. If you see \"/admin\" in request route it means you need to put in headers value of telegram_id with user that is admin, write now this is user with telegram_id 1, so you need key: \"X-User-id\", value: \"1\". All info that you need to use this API you will find below.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Create user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "telegramId",
+                  "value": "88",
+                  "type": "text"
+                },
+                {
+                  "key": "telegramName",
+                  "value": "@telegram_name",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "no name",
+                  "type": "text"
+                },
+                {
+                  "key": "step",
+                  "value": "{step: \"created\"}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/users",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["users"]
+            }
+          },
+          "response": [
+            {
+              "name": "Create user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "telegramId",
+                      "value": "88",
+                      "type": "text"
+                    },
+                    {
+                      "key": "telegramName",
+                      "value": "@telegram_name",
+                      "type": "text"
+                    },
+                    {
+                      "key": "name",
+                      "value": "no name",
+                      "type": "text"
+                    },
+                    {
+                      "key": "step",
+                      "value": "{step: \"created\"}",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "260"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"104-Mr41nlEK8GNFF3WtsgvZVYG1Ol4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:26:36 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 54,\n        \"telegramId\": \"88\",\n        \"telegramName\": \"@telegram_name\",\n        \"name\": \"no name\",\n        \"step\": \"{step: \\\"created\\\"}\",\n        \"roleId\": 0,\n        \"typeId\": 1,\n        \"updatedAt\": \"2021-02-12T09:26:36.231Z\",\n        \"createdAt\": \"2021-02-12T09:26:36.231Z\",\n        \"phoneNumber\": null,\n        \"city\": null\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete user",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/users/:telegramId",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["users", ":telegramId"],
+              "variable": [
+                {
+                  "key": "telegramId",
+                  "value": "87"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "user does not exist",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/:telegramId",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", ":telegramId"],
+                  "variable": [
+                    {
+                      "key": "telegramId",
+                      "value": "89"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "25"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"19-aOl0HDXwLOG3EpLVfee/jIH5OC8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 08:27:23 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": 0\n}"
+            },
+            {
+              "name": "Delete user",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/87",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "87"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "25"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"19-Odyx+SVI5Qj1tCdGAgkg26u4+j4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 11 Feb 2021 19:25:38 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": 1\n}"
+            }
+          ]
+        },
+        {
+          "name": "Regular user update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "name",
+                  "value": "name",
+                  "type": "text"
+                },
+                {
+                  "key": "city",
+                  "value": "city",
+                  "type": "text"
+                },
+                {
+                  "key": "typeId",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "step",
+                  "value": "{step: \"first step\"}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/users/:telegramId/",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["users", ":telegramId", ""],
+              "variable": [
+                {
+                  "key": "telegramId",
+                  "value": "87",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "user does not exist",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": "name",
+                      "type": "text"
+                    },
+                    {
+                      "key": "city",
+                      "value": "city",
+                      "type": "text"
+                    },
+                    {
+                      "key": "typeId",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "step",
+                      "value": "{step: \"first step\"}",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/:telegramId/",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", ":telegramId", ""],
+                  "variable": [
+                    {
+                      "key": "telegramId",
+                      "value": "8890",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "30"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"1e-D0JNDgEt5pz/vN8NMi6Dewyzh7o\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 08:19:01 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        0,\n        []\n    ]\n}"
+            },
+            {
+              "name": "user exist",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": "name",
+                      "type": "text"
+                    },
+                    {
+                      "key": "city",
+                      "value": "city",
+                      "type": "text"
+                    },
+                    {
+                      "key": "typeId",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "step",
+                      "value": "{step: \"first step\"}",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/87/",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "87", ""]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "268"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"10c-eApS/F9nwhRB/uNsYQJvukpxkgs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 11 Feb 2021 20:13:28 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        1,\n        [\n            {\n                \"id\": 50,\n                \"telegramId\": \"87\",\n                \"telegramName\": \"@telegram_name\",\n                \"name\": \"name\",\n                \"phoneNumber\": null,\n                \"city\": \"city\",\n                \"step\": \"{step: \\\"first step\\\"}\",\n                \"roleId\": 0,\n                \"typeId\": 1,\n                \"createdAt\": \"2021-02-11T19:46:55.766Z\",\n                \"updatedAt\": \"2021-02-11T20:13:28.523Z\"\n            }\n        ]\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update user role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-User-id",
+                "value": "1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "roleId",
+                  "value": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/users/admins/:telegramId",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["users", "admins", ":telegramId"],
+              "variable": [
+                {
+                  "key": "telegramId",
+                  "value": "87"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "not admin",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-id",
+                    "value": "4",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "roleId",
+                      "value": "1",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/admins/:telegramId",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "admins", ":telegramId"],
+                  "variable": [
+                    {
+                      "key": "telegramId",
+                      "value": "87"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "html",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "136"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 08:25:52 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>Forbidden</pre>\n    </body>\n</html>"
+            },
+            {
+              "name": "user exist",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-id",
+                    "value": "1",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "roleId",
+                      "value": "1",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/admins/:telegramId",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "admins", ":telegramId"],
+                  "variable": [
+                    {
+                      "key": "telegramId",
+                      "value": "87"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "268"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"10c-LnnMvFC79ruHO3+q/HEiR3On9Hk\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 11 Feb 2021 20:19:40 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        1,\n        [\n            {\n                \"id\": 50,\n                \"telegramId\": \"87\",\n                \"telegramName\": \"@telegram_name\",\n                \"name\": \"name\",\n                \"phoneNumber\": null,\n                \"city\": \"city\",\n                \"step\": \"{step: \\\"first step\\\"}\",\n                \"roleId\": 1,\n                \"typeId\": 1,\n                \"createdAt\": \"2021-02-11T19:46:55.766Z\",\n                \"updatedAt\": \"2021-02-11T20:19:40.427Z\"\n            }\n        ]\n    ]\n}"
+            },
+            {
+              "name": "user does not exist",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-id",
+                    "value": "1",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "roleId",
+                      "value": "1",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/admins/:telegramId",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "admins", ":telegramId"],
+                  "variable": [
+                    {
+                      "key": "telegramId",
+                      "value": "872432"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "30"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"1e-D0JNDgEt5pz/vN8NMi6Dewyzh7o\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 08:20:56 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        0,\n        []\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get user by telegramId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": null
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/:telegramId",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", ":telegramId"],
+                  "variable": [
+                    {
+                      "key": "telegramId",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "233"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"e9-Lw9xuTomBFaq6ETLsrVRS1V6iH4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 08:47:00 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 24,\n        \"telegramId\": \"1\",\n        \"telegramName\": \"T_Name6\",\n        \"name\": \"Name6\",\n        \"roleId\": 1,\n        \"typeId\": 1,\n        \"updatedAt\": \"2021-02-11T09:59:17.157Z\",\n        \"createdAt\": \"2021-02-11T09:59:17.157Z\",\n        \"phoneNumber\": null,\n        \"city\": null,\n        \"step\": null\n    }\n}"
+            },
+            {
+              "name": "user not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/:telegramId",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", ":telegramId"],
+                  "variable": [
+                    {
+                      "key": "telegramId",
+                      "value": "1213"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "26"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"1a-s3B6blipWxCo2IriQlJeaz0uh7I\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 08:47:09 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get user by name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/users/name/:name",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["users", "name", ":name"],
+              "variable": [
+                {
+                  "key": "name",
+                  "value": "John"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/name/:name",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "name", ":name"],
+                  "variable": [
+                    {
+                      "key": "name",
+                      "value": "John"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "242"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"f2-MjHpRvU15Fq2cxPWCcEfr4YvFbM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 08:59:01 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 28,\n            \"telegramId\": \"01\",\n            \"telegramName\": \"@telegram_name\",\n            \"name\": \"John\",\n            \"phoneNumber\": null,\n            \"city\": null,\n            \"step\": null,\n            \"roleId\": 0,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:31:45.705Z\",\n            \"updatedAt\": \"2021-02-11T17:26:38.262Z\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "user not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/name/:name",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "name", ":name"],
+                  "variable": [
+                    {
+                      "key": "name",
+                      "value": "John112"
+                    }
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "html",
+              "header": [
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:00:21 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "506"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store"
+                }
+              ],
+              "cookie": [],
+              "body": "<!DOCTYPE html>\n<html>\n    <head>\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n        <meta charset=\"utf-8\">\n        <title>Application Error</title>\n        <style media=\"screen\">\n\t\t  html,body,iframe {\n\t\t\tmargin: 0;\n\t\t\tpadding: 0;\n\t\t  }\n\t\t  html,body {\n\t\t\theight: 100%;\n\t\t\toverflow: hidden;\n\t\t  }\n\t\t  iframe {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tborder: 0;\n\t\t  }\n\t\t</style>\n    </head>\n    <body>\n        <iframe src=\"//www.herokucdn.com/error-pages/application-error.html\"></iframe>\n    </body>\n</html>"
+            }
+          ]
+        },
+        {
+          "name": "Get user by telegram name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": null
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/telegram_name/:telegramName",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "telegram_name", ":telegramName"],
+                  "variable": [
+                    {
+                      "key": "telegramName",
+                      "value": "NewTelegramName"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "276"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"114-cwrQL0THISWn7iyLlT1f9kX7dMk\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 08:58:09 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 53,\n            \"telegramId\": \"999\",\n            \"telegramName\": \"NewTelegramName\",\n            \"name\": \"NewName\",\n            \"phoneNumber\": \"NewPhoneNumber\",\n            \"city\": \"NewCity\",\n            \"step\": \"{param: value}\",\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-12T07:41:36.888Z\",\n            \"updatedAt\": \"2021-02-12T08:21:42.561Z\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "user not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/telegram_name/:telegramName",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "telegram_name", ":telegramName"],
+                  "variable": [
+                    {
+                      "key": "telegramName",
+                      "value": "NewTelegramName1"
+                    }
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "html",
+              "header": [
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:02:57 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "506"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store"
+                }
+              ],
+              "cookie": [],
+              "body": "<!DOCTYPE html>\n<html>\n    <head>\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n        <meta charset=\"utf-8\">\n        <title>Application Error</title>\n        <style media=\"screen\">\n\t\t  html,body,iframe {\n\t\t\tmargin: 0;\n\t\t\tpadding: 0;\n\t\t  }\n\t\t  html,body {\n\t\t\theight: 100%;\n\t\t\toverflow: hidden;\n\t\t  }\n\t\t  iframe {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tborder: 0;\n\t\t  }\n\t\t</style>\n    </head>\n    <body>\n        <iframe src=\"//www.herokucdn.com/error-pages/application-error.html\"></iframe>\n    </body>\n</html>"
+            }
+          ]
+        },
+        {
+          "name": "Get user by city",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/users/city/:city",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["users", "city", ":city"],
+              "variable": [
+                {
+                  "key": "city",
+                  "value": "Dnipro1"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/city/:city",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "city", ":city"],
+                  "variable": [
+                    {
+                      "key": "city",
+                      "value": "Dnipro1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "251"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"fb-sg04DegVPm+m29su+CNZcEJZP80\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:11:00 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 26,\n            \"telegramId\": \"3\",\n            \"telegramName\": \"T_Name6\",\n            \"name\": \"name3\",\n            \"phoneNumber\": \"3809855612132\",\n            \"city\": \"Dnipro1\",\n            \"step\": null,\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:17:04.810Z\",\n            \"updatedAt\": \"2021-02-11T10:49:05.568Z\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "User not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/city/:city",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "city", ":city"],
+                  "variable": [
+                    {
+                      "key": "city",
+                      "value": "Dnipro"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "26"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"1a-s3B6blipWxCo2IriQlJeaz0uh7I\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:11:48 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get user by phone number",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/users/phone/:phoneNumber",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["users", "phone", ":phoneNumber"],
+              "variable": [
+                {
+                  "key": "phoneNumber",
+                  "value": "0254554665522"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/phone/:phoneNumber",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "phone", ":phoneNumber"],
+                  "variable": [
+                    {
+                      "key": "phoneNumber",
+                      "value": "0254554665522"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "256"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"100-en+wnTzCKM0YX8qnA8jXjDe7su4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:09:02 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 52,\n            \"telegramId\": \"52\",\n            \"telegramName\": \"sdfdfRoma\",\n            \"name\": \"Rsfsdfoma\",\n            \"phoneNumber\": \"0254554665522\",\n            \"city\": \"Lv252iv\",\n            \"step\": {},\n            \"roleId\": 2,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T22:03:51.690Z\",\n            \"updatedAt\": \"2021-02-11T22:03:51.690Z\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "user not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/phone/:phoneNumber",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "phone", ":phoneNumber"],
+                  "variable": [
+                    {
+                      "key": "phoneNumber",
+                      "value": "02545546655221"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "26"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"1a-s3B6blipWxCo2IriQlJeaz0uh7I\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:10:31 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get user by roleId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/users/role/:roleId",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["users", "role", ":roleId"],
+              "variable": [
+                {
+                  "key": "roleId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": []
+                },
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/role/:roleId",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "role", ":roleId"],
+                  "variable": [
+                    {
+                      "key": "roleId",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "712"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"2c8-xtr4zZpewf82tPR9iCGKrJQYBvQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:13:01 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 53,\n            \"telegramId\": \"999\",\n            \"telegramName\": \"NewTelegramName\",\n            \"name\": \"NewName\",\n            \"phoneNumber\": \"NewPhoneNumber\",\n            \"city\": \"NewCity\",\n            \"step\": \"{param: value}\",\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-12T07:41:36.888Z\",\n            \"updatedAt\": \"2021-02-12T08:21:42.561Z\"\n        },\n        {\n            \"id\": 25,\n            \"telegramId\": \"2\",\n            \"telegramName\": \"T_Name6\",\n            \"name\": \"Name6\",\n            \"phoneNumber\": null,\n            \"city\": null,\n            \"step\": null,\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:06:19.764Z\",\n            \"updatedAt\": \"2021-02-11T10:06:19.764Z\"\n        },\n        {\n            \"id\": 26,\n            \"telegramId\": \"3\",\n            \"telegramName\": \"T_Name6\",\n            \"name\": \"name3\",\n            \"phoneNumber\": \"3809855612132\",\n            \"city\": \"Dnipro1\",\n            \"step\": null,\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:17:04.810Z\",\n            \"updatedAt\": \"2021-02-11T10:49:05.568Z\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "user not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/role/:role",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "role", ":role"],
+                  "variable": [
+                    {
+                      "key": "role",
+                      "value": "4"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "26"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"1a-s3B6blipWxCo2IriQlJeaz0uh7I\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:13:49 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get user by typeId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/users/type/:typeId",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["users", "type", ":typeId"],
+              "variable": [
+                {
+                  "key": "typeId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "User not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/type/:typeId",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "type", ":typeId"],
+                  "variable": [
+                    {
+                      "key": "typeId",
+                      "value": "5"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "26"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"1a-s3B6blipWxCo2IriQlJeaz0uh7I\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:16:58 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": []\n}"
+            },
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/users/type/:typeId",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["users", "type", ":typeId"],
+                  "variable": [
+                    {
+                      "key": "typeId",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "712"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"2c8-xtr4zZpewf82tPR9iCGKrJQYBvQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:16:31 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 53,\n            \"telegramId\": \"999\",\n            \"telegramName\": \"NewTelegramName\",\n            \"name\": \"NewName\",\n            \"phoneNumber\": \"NewPhoneNumber\",\n            \"city\": \"NewCity\",\n            \"step\": \"{param: value}\",\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-12T07:41:36.888Z\",\n            \"updatedAt\": \"2021-02-12T08:21:42.561Z\"\n        },\n        {\n            \"id\": 25,\n            \"telegramId\": \"2\",\n            \"telegramName\": \"T_Name6\",\n            \"name\": \"Name6\",\n            \"phoneNumber\": null,\n            \"city\": null,\n            \"step\": null,\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:06:19.764Z\",\n            \"updatedAt\": \"2021-02-11T10:06:19.764Z\"\n        },\n        {\n            \"id\": 26,\n            \"telegramId\": \"3\",\n            \"telegramName\": \"T_Name6\",\n            \"name\": \"name3\",\n            \"phoneNumber\": \"3809855612132\",\n            \"city\": \"Dnipro1\",\n            \"step\": null,\n            \"roleId\": 1,\n            \"typeId\": 1,\n            \"createdAt\": \"2021-02-11T10:17:04.810Z\",\n            \"updatedAt\": \"2021-02-11T10:49:05.568Z\"\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ],
+      "description": "This is CRUD communication for user table. If the request need to specify some parameter to do something with user it's doing as Path Variable, you can also see how to add user \"step\" in Create user example, it's doing by the same way in user update.\nMost of the examples show the successful response and not, the second one could be if there is no such user or your parameters are wrong."
+    },
+    {
+      "name": "FAQ",
+      "item": [
+        {
+          "name": "Get popular questions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/info/popular",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["info", "popular"]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/info/popular",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["info", "popular"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "165"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"a5-Q1m8MjmhGXR+BKorTArMGMKFUd0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:37:49 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 3,\n            \"question\": \"Test2\",\n            \"answer\": \"Test answer2\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-11T20:31:22.259Z\",\n            \"updatedAt\": \"2021-02-11T20:31:22.259Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get all FAQ",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-User-id",
+                "value": "1",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/admin/faqs",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["admin", "faqs"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get all FAQ",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-id",
+                    "value": "1",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/admin/faqs",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["admin", "faqs"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "479"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"1df-Ie0UIf5VEOzmXtK30PWyy7dQ610\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:42:01 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"question\": \"faculty\",\n            \"answer\": \"Here is our faculty info\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-10T19:06:46.846Z\",\n            \"updatedAt\": \"2021-02-10T19:06:46.846Z\"\n        },\n        {\n            \"id\": 2,\n            \"question\": \"university\",\n            \"answer\": \"Here is our university info\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-10T19:06:46.846Z\",\n            \"updatedAt\": \"2021-02-10T19:06:46.846Z\"\n        },\n        {\n            \"id\": 3,\n            \"question\": \"Test2\",\n            \"answer\": \"Test answer2\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-11T20:31:22.259Z\",\n            \"updatedAt\": \"2021-02-11T20:31:22.259Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get unanswered questions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/info/unanswered",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["info", "unanswered"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get unanswered questions",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/info/unanswered",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["info", "unanswered"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "143"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"8f-u0Cu3rgv7euzQXhHHts4Z5WKby4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:49:54 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"question\": \"test\",\n            \"stats\": null,\n            \"createdAt\": \"2021-02-11T19:46:52.062Z\",\n            \"updatedAt\": \"2021-02-11T19:46:52.062Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Push to db unanswered question",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "question",
+                  "value": "test",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/info/unanswered",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["info", "unanswered"]
+            }
+          },
+          "response": [
+            {
+              "name": "Push to db unanswered question",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "question",
+                      "value": "test",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/info/unanswered",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["info", "unanswered"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "141"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"8d-qiheIJXcgiaItBDvXLqz4VB/tLo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:52:52 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 2,\n        \"question\": \"test\",\n        \"updatedAt\": \"2021-02-12T09:52:52.161Z\",\n        \"createdAt\": \"2021-02-12T09:52:52.161Z\",\n        \"stats\": null\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get one FAQ",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/info/faq?question=faculty",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["info", "faq"],
+              "query": [
+                {
+                  "key": "question",
+                  "value": "faculty"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get info about \"faculty\"",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/info/faq?question=faculty",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["info", "faq"],
+                  "query": [
+                    {
+                      "key": "question",
+                      "value": "faculty"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "179"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"b3-8qnXnvskDVRMLSGwQjjCeRix688\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:53:55 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"question\": \"faculty\",\n            \"answer\": \"Here is our faculty info\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-10T19:06:46.846Z\",\n            \"updatedAt\": \"2021-02-10T19:06:46.846Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get popular questions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/info/popular",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["info", "popular"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get popular questions",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/info/popular",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["info", "popular"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "165"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"a5-Q1m8MjmhGXR+BKorTArMGMKFUd0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 09:58:06 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 3,\n            \"question\": \"Test2\",\n            \"answer\": \"Test answer2\",\n            \"stats\": 0,\n            \"createdAt\": \"2021-02-11T20:31:22.259Z\",\n            \"updatedAt\": \"2021-02-11T20:31:22.259Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Edit FAQ info",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-User-id",
+                "value": "1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "answer",
+                  "value": "about faculty",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/admin/:FAQ_Question",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["admin", ":FAQ_Question"],
+              "variable": [
+                {
+                  "key": "FAQ_Question",
+                  "value": "faculty"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-id",
+                    "value": "1",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "answer",
+                      "value": "about faculty",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/admin/:FAQ_Question",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["admin", ":FAQ_Question"],
+                  "variable": [
+                    {
+                      "key": "FAQ_Question",
+                      "value": "faculty"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "16"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"10-oV4hJxRVSENxc/wX8+mA4/Pe4tA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 10:04:22 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true\n}"
+            },
+            {
+              "name": "such FAQ does not exist",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-id",
+                    "value": "1",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "answer",
+                      "value": "about faculty",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/admin/:FAQ_Question",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["admin", ":FAQ_Question"],
+                  "variable": [
+                    {
+                      "key": "FAQ_Question",
+                      "value": "faculty1"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "html",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "153"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 10:08:58 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>Cannot PUT /admin/faculty1</pre>\n    </body>\n</html>"
+            }
+          ]
+        },
+        {
+          "name": "Add popular question",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "question",
+                  "value": "popular question",
+                  "type": "text"
+                },
+                {
+                  "key": "answer",
+                  "value": "answer",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://intern-task-winter.herokuapp.com/info/faq",
+              "protocol": "https",
+              "host": ["intern-task-winter", "herokuapp", "com"],
+              "path": ["info", "faq"]
+            }
+          },
+          "response": [
+            {
+              "name": "Add popular question",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "question",
+                      "value": "popular question",
+                      "type": "text"
+                    },
+                    {
+                      "key": "answer",
+                      "value": "answer",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://intern-task-winter.herokuapp.com/info/faq",
+                  "protocol": "https",
+                  "host": ["intern-task-winter", "herokuapp", "com"],
+                  "path": ["info", "faq"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "Cowboy"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "168"
+                },
+                {
+                  "key": "Etag",
+                  "value": "W/\"a8-vvhj0acc3q86V4LnqXL1wEjVp5w\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 12 Feb 2021 10:08:36 GMT"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 vegur"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"stats\": 0,\n        \"id\": 5,\n        \"question\": \"popular question\",\n        \"answer\": \"answer\",\n        \"updatedAt\": \"2021-02-12T10:08:36.971Z\",\n        \"createdAt\": \"2021-02-12T10:08:36.971Z\"\n    }\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

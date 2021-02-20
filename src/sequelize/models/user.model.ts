@@ -1,6 +1,4 @@
-import {
-  Sequelize, Model, DataTypes, Optional, BuildOptions,
-} from 'sequelize';
+import { Sequelize, Model, DataTypes, Optional, BuildOptions } from 'sequelize';
 import { PHONE_REGEX } from '../../types/types';
 
 export interface UserAttributes {
@@ -12,7 +10,7 @@ export interface UserAttributes {
   city: string | null;
   step: JSON;
   roleId: number;
-  typeId: number;
+  typeId: string;
 }
 
 export interface UserModel extends Model<UserAttributes>, UserAttributes {}
@@ -41,7 +39,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 
   public roleId!: number;
 
-  public typeId!: number;
+  public typeId!: string;
 }
 
 export function initUser(sequelize: Sequelize) {
@@ -85,7 +83,7 @@ export function initUser(sequelize: Sequelize) {
       type: DataTypes.INTEGER,
     },
     typeId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(32),
     },
   });
 }

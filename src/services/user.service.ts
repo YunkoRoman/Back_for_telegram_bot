@@ -85,7 +85,7 @@ export default class UserService {
     return result;
   };
 
-  public getAllUsersByType = async (typeId: number): Promise<UserModel[]> => {
+  public getAllUsersByType = async (typeId: string): Promise<UserModel[]> => {
     const result = await this.DB.User.findAll({ where: { typeId } });
     return result;
   };

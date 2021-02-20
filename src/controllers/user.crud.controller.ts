@@ -46,7 +46,7 @@ export default class UserController {
       logger.userLogger.info('ORM START CHECKPOINT');
       const result = await this.userService.getUserById(telegramId);
       if (result !== null) {
-        const createdUser = await this.redisUserCache.setUser(result as UserAddToChat);
+        const createdUser = await this.redisUserCache.setUser(result as any);
         logger.userLogger.info('createdUser: ', createdUser);
       }
       return apiResponse(res, successResponse(result), StatusCodes.OK);
@@ -208,7 +208,7 @@ export default class UserController {
   public getUserByType = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const { type } = req.params;
     try {
-      const users = await this.userService.getAllUsersByRole(parseInt(type, 10));
+      const users = await this.userService.getAllUsersByType(type);
       return apiResponse(res, successResponse(users), StatusCodes.OK);
     } catch (error) {
       logger.userLogger.error('error getting users by type', { meta: { ...error } });

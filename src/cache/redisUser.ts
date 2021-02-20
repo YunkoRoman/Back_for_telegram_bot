@@ -29,6 +29,18 @@ export default class RedisUser {
     });
   }
 
+  public delUser(telegramId: number | string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.client.del(telegramId as string, (err, data) => {
+        if (err) {
+          reject(err);
+          logger.redisLogger.error(`${err}`);
+        }
+        resolve(data);
+      });
+    });
+  }
+
   public setUser(user: UserAddToChat): Promise<any> {
     return new Promise((resolve, reject) => {
       this.client.setex(user.telegramId, 86400, JSON.stringify(user), (err, data) => {

@@ -127,6 +127,8 @@ export default class UserController {
     try {
       logger.userLogger.info('delete user by id');
       const result = await this.userService.deleteUser(telegramId);
+      const delUserRedis = await this.redisUserCache.delUser(telegramId);
+      console.log('DEL CAHCHED USER: ', delUserRedis);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.userLogger.error('error while deleting user', { meta: { ...error } });
@@ -148,11 +150,7 @@ export default class UserController {
     }
   };
 
-  public getUserByTelegramName = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response | undefined> => {
+  public getUserByTelegramName = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const { telegramName } = req.params;
     try {
       const users = await this.userService.getAllUsersByTelName(telegramName);
@@ -163,11 +161,7 @@ export default class UserController {
     }
   };
 
-  public getUserByPhone = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response | undefined> => {
+  public getUserByPhone = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const { phone } = req.params;
     try {
       const users = await this.userService.getAllUsersByPhone(phone);
@@ -178,11 +172,7 @@ export default class UserController {
     }
   };
 
-  public getUserByCity = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response | undefined> => {
+  public getUserByCity = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const { city } = req.params;
     try {
       const users = await this.userService.getAllUsersByCity(city);
@@ -193,11 +183,7 @@ export default class UserController {
     }
   };
 
-  public getUserByName = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response | undefined> => {
+  public getUserByName = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const { name } = req.params;
     try {
       const users = await this.userService.getAllUsersByName(name);
@@ -208,11 +194,7 @@ export default class UserController {
     }
   };
 
-  public getUserByRole = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response | undefined> => {
+  public getUserByRole = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const { role } = req.params;
     try {
       const users = await this.userService.getAllUsersByRole(parseInt(role, 10));
@@ -223,11 +205,7 @@ export default class UserController {
     }
   };
 
-  public getUserByType = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response | undefined> => {
+  public getUserByType = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
     const { type } = req.params;
     try {
       const users = await this.userService.getAllUsersByRole(parseInt(type, 10));

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateUserFields = exports.hasRole = void 0;
+exports.validateUserFields = exports.check_idMiddleware = exports.hasRole = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const logger_1 = require("./logger");
 const validator_1 = require("./validator");
@@ -30,32 +30,51 @@ function hasRole(roles) {
                         next();
                     }
                     else {
-                        logger_1.logger.userLogger.error('Trying to access without sufficient rights');
+                        logger_1.logger.middlewarwLogger.error('Trying to access without sufficient rights');
                         return next(new errorHandler_1.ErrorHandler(http_status_codes_1.StatusCodes.FORBIDDEN, customErrors_1.customErrors.FORBIDDEN.message));
                     }
                 }
                 catch (err) {
-                    logger_1.logger.userLogger.error('Internal server error');
+                    logger_1.logger.middlewarwLogger.error('Internal server error');
                     next(err);
                 }
             }
             else {
                 logger_1.logger.userLogger.error('No id in header');
-                return next(new errorHandler_1.ErrorHandler(http_status_codes_1.StatusCodes.BAD_REQUEST, customErrors_1.customErrors.BAD_REQUEST_NO_TELEGRAM_ID.message));
+                return next(new errorHandler_1.ErrorHandler(http_status_codes_1.StatusCodes.BAD_REQUEST, customErrors_1.customErrors.BAD_REQUEST_NO_TELEGRAM_ID.messageHeader));
             }
         });
     };
 }
 exports.hasRole = hasRole;
+function check_idMiddleware(req, res, next) {
+    const { telegramId, id } = req.params;
+    let idForCheck;
+    telegramId ? (idForCheck = telegramId) : (idForCheck = id);
+    try {
+        const validationErrors = validator_1.isValidTelegramId(idForCheck);
+        console.log(validationErrors);
+        if (validationErrors.length === 0) {
+            next();
+        }
+        else {
+            logger_1.logger.middlewarwLogger.error(validationErrors, { Data: telegramId });
+            return next(new errorHandler_1.ErrorHandler(http_status_codes_1.StatusCodes.BAD_REQUEST, validationErrors[0]));
+        }
+    }
+    catch (error) {
+        logger_1.logger.userLogger.error('No telegram_id in params');
+        next(error);
+    }
+}
+exports.check_idMiddleware = check_idMiddleware;
 function validateUserFields(req, res, next) {
     const errors = validator_1.invalidFields(req.body);
     if (errors.length > 0) {
         logger_1.logger.userLogger.error('Field validation failed', { meta: errors });
         return next(new errorHandler_1.ErrorHandler(http_status_codes_1.StatusCodes.BAD_REQUEST, `${errors}`));
     }
-    else {
-        next();
-    }
+    next();
 }
 exports.validateUserFields = validateUserFields;
 //# sourceMappingURL=middlewares.js.map

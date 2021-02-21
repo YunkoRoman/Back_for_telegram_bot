@@ -1,4 +1,6 @@
-import { Sequelize, Model, DataTypes, Optional, BuildOptions } from 'sequelize';
+import {
+  Sequelize, Model, DataTypes, Optional, BuildOptions,
+} from 'sequelize';
 import { PHONE_REGEX } from '../../types/types';
 
 export interface UserAttributes {

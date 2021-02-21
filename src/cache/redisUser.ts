@@ -2,8 +2,6 @@ import { RedisClient, createClient } from 'redis';
 import dotenv from 'dotenv';
 import { UserAddToChat } from '../types/types';
 import { logger } from '../utils/logger';
-import { ErrorHandler } from '../errors/errorHandler';
-import { customErrors } from '../errors/customErrors';
 
 export default class RedisUser {
   private client: RedisClient;
@@ -69,9 +67,10 @@ export default class RedisUser {
       });
     });
   }
+
   public deleteUser(telegramId: number | string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.client.del(telegramId as string, (err: any, data: any)=> {
+      this.client.del(telegramId as string, (err: any, data: any) => {
         if (err) {
           reject(err);
           logger.redisLogger.error(`${err}`);
@@ -82,8 +81,7 @@ export default class RedisUser {
         } else {
           resolve(data);
         }
-      })
+      });
     });
   }
-
 }

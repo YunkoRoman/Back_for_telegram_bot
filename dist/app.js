@@ -16,6 +16,7 @@ function appFunc() {
     index_1.db.sequelize.authenticate().then(() => logger_1.logger.serverLogger.info('Authenticated'));
     app.use(body_parser_1.default.json());
     app.use(body_parser_1.default.urlencoded({ extended: true }));
+    // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
         logger_1.logger.serverLogger.error(`Server error ${err.message}  CODE ${err.code}`);
         res

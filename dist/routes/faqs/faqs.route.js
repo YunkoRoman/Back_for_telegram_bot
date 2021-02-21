@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const unanswered_service_1 = __importDefault(require("../../services/unanswered.service"));
 const faqs_service_1 = __importDefault(require("../../services/faqs.service"));
 const faqs_controller_1 = __importDefault(require("../../controllers/faqs.controller"));
+const middlewares_1 = require("../../utils/middlewares");
 function infoRoute(db) {
     const api = express_1.default.Router();
     const faqsController = new faqs_controller_1.default(new faqs_service_1.default(db), new unanswered_service_1.default(db));
@@ -23,7 +24,7 @@ function infoRoute(db) {
     api.get('/faq', faqsController.getFaqByQuestion);
     api.post('/faq', faqsController.addFaq);
     // GET faq by id
-    api.get('/faq/:id', faqsController.getFaqById);
+    api.get('/faq/:id', middlewares_1.check_idMiddleware, faqsController.getFaqById);
     api.get('/unanswered', faqsController.getAllUnanswered);
     api.get('/unanswered/:question', faqsController.getUnansweredByQuestion);
     api.post('/unanswered', faqsController.addUnanswered);

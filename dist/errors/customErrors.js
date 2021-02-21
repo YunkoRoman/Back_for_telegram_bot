@@ -7,10 +7,14 @@ exports.customErrors = {
         message: "Data is not present"
     },
     BAD_REQUEST_NO_ROLE_ID: {
-        message: "Role id is not present"
+        message: "Role ID is not present"
     },
     BAD_REQUEST_NO_TELEGRAM_ID: {
-        message: "Telegram id is not present, in header (X-User-id)"
+        messageHeader: "Telegram ID is not present, in header (X-User-id)",
+        messageParams: "Telegram ID is not present"
+    },
+    BAD_REQUEST_TYPE_ID_NO_NUMBER: {
+        message: "id type must be a number"
     },
     //404
     NOT_FOUND: {
@@ -19,6 +23,6 @@ exports.customErrors = {
     //403
     FORBIDDEN: {
         message: "user does not have access rights"
-    }
+    },
 };
 //# sourceMappingURL=customErrors.js.map

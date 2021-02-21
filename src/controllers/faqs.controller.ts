@@ -1,17 +1,15 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
-import { Request, Response, NextFunction } from "express";
-import { getReasonPhrase, StatusCodes } from "http-status-codes";
-import DialogFlow from "../dialogflow/dialogflow";
-import { Intent } from "../types/types";
-import { FaqModel } from "../sequelize/models/faq.model";
-import UnansweredService from "../services/unanswered.service";
-import { apiResponse, failedResponse, successResponse } from "../utils/response";
-import { logger } from "../utils/logger";
-import FaqsService from "../services/faqs.service";
-import { parseIntents } from "../utils/intent.parser";
-
-
+import { Request, Response, NextFunction } from 'express';
+import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import DialogFlow from '../dialogflow/dialogflow';
+import { Intent } from '../types/types';
+import { FaqModel } from '../sequelize/models/faq.model';
+import UnansweredService from '../services/unanswered.service';
+import { apiResponse, failedResponse, successResponse } from '../utils/response';
+import { logger } from '../utils/logger';
+import FaqsService from '../services/faqs.service';
+import { parseIntents } from '../utils/intent.parser';
 
 export default class FaqsController {
   public faqsService: FaqsService;
@@ -28,7 +26,8 @@ export default class FaqsController {
   public fetchIntents = async (
     req: Request,
     res: Response,
-    next: NextFunction): Promise<Response> => {
+    next: NextFunction,
+  ): Promise<Response> => {
     try {
       const intents: [] = await this.dialogflowClient.listIntents();
 
@@ -36,43 +35,42 @@ export default class FaqsController {
         const faqs: FaqModel[] = parseIntents(intents);
         try {
           const result = await this.faqsService.storeIntents(faqs);
-          return apiResponse(res, successResponse({ "fetched intents count": result.length }), StatusCodes.OK);
+          return apiResponse(res, successResponse({ 'fetched intents count': result.length }), StatusCodes.OK);
         } catch (error) {
-          logger.faqLogger.error("could not save intents as faqs", {
+          logger.faqLogger.error('could not save intents as faqs', {
             requestPath: req.originalUrl,
-            meta: { ...error }
+            meta: { ...error },
           });
           return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
         }
       }
-      logger.faqLogger.error("no intents received from dialogflow", { requestPath: req.originalUrl });
-      return apiResponse(res, failedResponse("no intents received from dialogflow"), StatusCodes.BAD_REQUEST);
+      logger.faqLogger.error('no intents received from dialogflow', { requestPath: req.originalUrl });
+      return apiResponse(res, failedResponse('no intents received from dialogflow'), StatusCodes.BAD_REQUEST);
     } catch (error) {
-
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`, { requestPath: req.originalUrl });
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
     }
   };
 
-
   public updateCount = async (
     req: Request,
     res: Response,
-    next: NextFunction): Promise<Response> => {
+    next: NextFunction,
+  ): Promise<Response> => {
     const { queryResult } = req.body;
     const intent: Intent = {
       fulfillmentMessages: queryResult.fulfillmentMessages,
       name: queryResult.intent.name,
-      displayName: queryResult.intent.displayName
+      displayName: queryResult.intent.displayName,
     };
     try {
       const result = await this.faqsService.updateCount(intent);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to update count", {
+      logger.faqLogger.error('unable to update count', {
         requestPath: req.originalUrl,
         Data: intent,
-        meta: { ...error }
+        meta: { ...error },
       });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
@@ -82,15 +80,16 @@ export default class FaqsController {
   public getAllFaqs = async (
     req: Request,
     res: Response,
-    next: NextFunction): Promise<Response> => {
+    next: NextFunction,
+  ): Promise<Response> => {
     try {
-      logger.faqLogger.info("get all faqs");
+      logger.faqLogger.info('get all faqs');
       const faqs = await this.faqsService.getAllFaqs();
       return apiResponse(res, successResponse(faqs), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("error while getting all faqs", {
+      logger.faqLogger.error('error while getting all faqs', {
         requestPath: req.originalUrl,
-        meta: { ...error }
+        meta: { ...error },
       });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
@@ -100,20 +99,18 @@ export default class FaqsController {
   public getFaqById = async (
     req: Request,
     res: Response,
-    next: NextFunction): Promise<Response> => {
+    next: NextFunction,
+  ): Promise<Response> => {
     const { id } = req.params;
     try {
-
-      logger.faqLogger.info("get faq by id", {Data: id});
+      logger.faqLogger.info('get faq by id', { Data: id });
       const faqs = await this.faqsService.getFaqById(parseInt(id, 10));
       return apiResponse(res, successResponse(faqs), StatusCodes.OK);
-
-
     } catch (error) {
-      logger.faqLogger.error("error while getting faq by id", {
+      logger.faqLogger.error('error while getting faq by id', {
         requestPath: req.originalUrl,
         Data: id,
-        meta: { ...error }
+        meta: { ...error },
       });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
@@ -123,18 +120,19 @@ export default class FaqsController {
   public getFaqByQuestion = async (
     req: Request,
     res: Response,
-    next: NextFunction): Promise<Response> => {
+    next: NextFunction,
+  ): Promise<Response> => {
     const faq = <FaqModel>(<unknown>req.query);
     try {
       console.log(req.originalUrl);
-      logger.faqLogger.info("get faq by question", {Data: faq});
+      logger.faqLogger.info('get faq by question', { Data: faq });
       const faqs = await this.faqsService.getFaqByQuestion(faq);
       return apiResponse(res, successResponse(faqs), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("error while getting faq by question", {
+      logger.faqLogger.error('error while getting faq by question', {
         requestPath: req.originalUrl,
         Data: faq,
-        meta: { ...error }
+        meta: { ...error },
       });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
@@ -145,16 +143,17 @@ export default class FaqsController {
   public getFacultyInfo = async (
     req: Request,
     res: Response,
-    next: NextFunction): Promise<Response> => {
+    next: NextFunction,
+  ): Promise<Response> => {
     const faqId = 1;
     try {
-      logger.faqLogger.info("get faculty info");
+      logger.faqLogger.info('get faculty info');
       const result = await this.faqsService.getFaqById(faqId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to get faculty info", {
+      logger.faqLogger.error('unable to get faculty info', {
         requestPath: req.originalUrl,
-        meta: { ...error }
+        meta: { ...error },
       });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
@@ -164,17 +163,18 @@ export default class FaqsController {
   public getUniversityInfo = async (
     req: Request,
     res: Response,
-    next: NextFunction): Promise<Response> => {
+    next: NextFunction,
+  ): Promise<Response> => {
     // University qustion id
     const faqId = 2;
     try {
-      logger.faqLogger.info("get university info");
+      logger.faqLogger.info('get university info');
       const result = await this.faqsService.getFaqById(faqId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to get university info", {
+      logger.faqLogger.error('unable to get university info', {
         requestPath: req.originalUrl,
-        meta: { ...error }
+        meta: { ...error },
       });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
@@ -184,15 +184,16 @@ export default class FaqsController {
   public getPopularFaqs = async (
     req: Request,
     res: Response,
-    next: NextFunction): Promise<Response> => {
+    next: NextFunction,
+  ): Promise<Response> => {
     try {
-      logger.faqLogger.info("get popular faqs");
+      logger.faqLogger.info('get popular faqs');
       const result = await this.faqsService.getOnlyPopular();
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to get popular faqs", {
+      logger.faqLogger.error('unable to get popular faqs', {
         requestPath: req.originalUrl,
-        meta: { ...error }
+        meta: { ...error },
       });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
@@ -202,13 +203,14 @@ export default class FaqsController {
   public getAllUnanswered = async (
     req: Request,
     res: Response,
-    next: NextFunction): Promise<Response> => {
+    next: NextFunction,
+  ): Promise<Response> => {
     try {
-      logger.faqLogger.info("get unanswered");
+      logger.faqLogger.info('get unanswered');
       const result = await this.unansweredService.getAllUnanswered();
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to get unanswered", { requestPath: req.originalUrl, meta: error });
+      logger.faqLogger.error('unable to get unanswered', { requestPath: req.originalUrl, meta: error });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
     }
@@ -217,18 +219,18 @@ export default class FaqsController {
   public addFaq = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<Response | undefined> => {
     const faq: FaqModel = req.body;
     try {
-      logger.faqLogger.info("add faq", {Data: faq});
+      logger.faqLogger.info('add faq', { Data: faq });
       const result = await this.faqsService.addNewFaq(faq);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("error while adding faq", {
+      logger.faqLogger.error('error while adding faq', {
         requestPath: req.originalUrl,
         Data: faq,
-        meta: { ...error }
+        meta: { ...error },
       });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
@@ -238,19 +240,20 @@ export default class FaqsController {
   public addUnanswered = async (
     req: Request,
     res: Response,
-    next: NextFunction): Promise<Response> => {
+    next: NextFunction,
+  ): Promise<Response> => {
     const newUnansd = {
-      ...req.body
+      ...req.body,
     };
     try {
-      logger.faqLogger.info("crete unanswered", {Data: newUnansd});
+      logger.faqLogger.info('crete unanswered', { Data: newUnansd });
       const result = await this.unansweredService.addNewUnanswered(newUnansd);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to create unanswered", {
+      logger.faqLogger.error('unable to create unanswered', {
         requestPath: req.originalUrl,
         Data: newUnansd,
-        meta: error
+        meta: error,
       });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
@@ -260,14 +263,15 @@ export default class FaqsController {
   public getUnansweredByQuestion = async (
     req: Request,
     res: Response,
-    next: NextFunction): Promise<Response> => {
+    next: NextFunction,
+  ): Promise<Response> => {
     const { question } = req.params;
     try {
-      logger.faqLogger.info("get unanswered by question", {Data: question});
+      logger.faqLogger.info('get unanswered by question', { Data: question });
       const result = await this.unansweredService.getUnansweredByQuestion(question);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
-      logger.faqLogger.error("unable to get unanswered by question", { requestPath: req.originalUrl,Data: question, meta: error });
+      logger.faqLogger.error('unable to get unanswered by question', { requestPath: req.originalUrl, Data: question, meta: error });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
       return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
     }

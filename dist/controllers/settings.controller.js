@@ -14,59 +14,70 @@ const response_1 = require("../utils/response");
 const logger_1 = require("../utils/logger");
 class SettingsController {
     constructor(settingsService) {
-        this.getAllSettings = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        this.getAllSettings = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                logger_1.logger.settingLogger.info("get all settings");
+                logger_1.logger.settingLogger.info('get all settings');
                 const settings = yield this.settingsService.getAllSettings();
                 return response_1.apiResponse(res, response_1.successResponse(settings), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.settingLogger.error("error while getting all settings", {
-                    meta: Object.assign({}, error)
+                logger_1.logger.settingLogger.error('error while getting all settings', {
+                    Path: req.originalUrl,
+                    meta: Object.assign({}, error),
                 });
-                next(error);
+                logger_1.logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+                return response_1.apiResponse(res, response_1.failedResponse(error), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
-        this.udpdateById = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        this.udpdateById = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const setting = Object.assign(Object.assign({}, req.body), { id: req.params.id });
             try {
-                const setting = Object.assign(Object.assign({}, req.body), { id: req.params.id });
-                logger_1.logger.settingLogger.info("update setting");
+                logger_1.logger.settingLogger.info('update setting', { Data: setting });
                 const settings = yield this.settingsService.updateSetting(setting);
                 return response_1.apiResponse(res, response_1.successResponse(settings), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.settingLogger.error("error while updating", {
-                    meta: Object.assign({}, error)
+                logger_1.logger.settingLogger.error('error while updating', {
+                    Data: setting,
+                    Path: req.originalUrl,
+                    meta: Object.assign({}, error),
                 });
-                next(error);
+                logger_1.logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+                return response_1.apiResponse(res, response_1.failedResponse(error), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
-        this.createSetting = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        this.createSetting = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { setting } = req.body;
             try {
-                const { setting } = req.body;
-                logger_1.logger.settingLogger.info("create setting");
+                logger_1.logger.settingLogger.info('create setting', { Data: setting });
                 const settings = yield this.settingsService.createSetting(setting);
                 return response_1.apiResponse(res, response_1.successResponse(settings), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.settingLogger.error("error while creating", {
-                    meta: Object.assign({}, error)
+                logger_1.logger.settingLogger.error('error while creating', {
+                    Data: setting,
+                    Path: req.originalUrl,
+                    meta: Object.assign({}, error),
                 });
-                next(error);
+                logger_1.logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+                return response_1.apiResponse(res, response_1.failedResponse(error), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
-        this.deleteValue = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        this.deleteValue = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { value } = req.body;
             try {
-                const { value } = req.body;
-                logger_1.logger.settingLogger.info("delete setting");
+                logger_1.logger.settingLogger.info('delete setting', { Data: value });
                 const settings = yield this.settingsService.deleteValue(value);
                 return response_1.apiResponse(res, response_1.successResponse(settings), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
-                logger_1.logger.settingLogger.error("error while deleting setting", {
-                    meta: Object.assign({}, error)
+                logger_1.logger.settingLogger.error('error while deleting setting', {
+                    Data: value,
+                    Path: req.originalUrl,
+                    meta: Object.assign({}, error),
                 });
-                next(error);
+                logger_1.logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+                return response_1.apiResponse(res, response_1.failedResponse(error), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
         this.settingsService = settingsService;

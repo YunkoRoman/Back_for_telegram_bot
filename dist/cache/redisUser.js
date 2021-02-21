@@ -62,6 +62,22 @@ class RedisUser {
             });
         });
     }
+    deleteUser(telegramId) {
+        return new Promise((resolve, reject) => {
+            this.client.del(telegramId, (err, data) => {
+                if (err) {
+                    reject(err);
+                    logger_1.logger.redisLogger.error(`${err}`);
+                }
+                if (data !== null) {
+                    resolve(JSON.parse(data));
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        });
+    }
 }
 exports.default = RedisUser;
 //# sourceMappingURL=redisUser.js.map

@@ -49,7 +49,7 @@ export default class FaqsService {
         logger.faqLogger.error(err);
       }
       return [];
-    })
+    });
 
   // ============ CRUD ==============
 

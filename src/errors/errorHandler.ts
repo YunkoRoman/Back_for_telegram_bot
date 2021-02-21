@@ -12,4 +12,5 @@ export class ErrorHandler extends Error {
         this.code = code;
         Error.captureStackTrace(this, this.constructor);
     }
+
 }

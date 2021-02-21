@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
-import { Request, Response, NextFunction } from "express";
-import { getReasonPhrase, StatusCodes } from "http-status-codes";
-import { SettingsModel } from "sequelize/models/settings.model";
-import { apiResponse, failedResponse, successResponse } from "../utils/response";
-import { logger } from "../utils/logger";
-import SettingsService from "../services/settings.service";
+import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { SettingsModel } from 'sequelize/models/settings.model';
+import { apiResponse, failedResponse, successResponse } from '../utils/response';
+import { logger } from '../utils/logger';
+import SettingsService from '../services/settings.service';
 
 export default class SettingsController {
   public settingsService: SettingsService;
@@ -14,67 +13,79 @@ export default class SettingsController {
   }
 
   public getAllSettings = async (
-    req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+    req: Request, res: Response,
+  ): Promise<Response> => {
     try {
-      logger.settingLogger.info("get all settings");
+      logger.settingLogger.info('get all settings');
       const settings = await this.settingsService.getAllSettings();
       return apiResponse(res, successResponse(settings), StatusCodes.OK);
     } catch (error) {
-      logger.settingLogger.error("error while getting all settings", {
-        meta: { ...error }
+      logger.settingLogger.error('error while getting all settings', {
+        Path: req.originalUrl,
+        meta: { ...error },
       });
-      next(error);
+      logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+      return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
     }
   };
 
   public udpdateById = async (
-    req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+    req: Request, res: Response,
+  ): Promise<Response> => {
+    const setting: SettingsModel = {
+      ...req.body,
+      id: req.params.id,
+    };
     try {
-      const setting: SettingsModel = {
-        ...req.body,
-        id: req.params.id
-      };
-      logger.settingLogger.info("update setting");
+      logger.settingLogger.info('update setting', { Data: setting });
       const settings = await this.settingsService.updateSetting(setting);
       return apiResponse(res, successResponse(settings), StatusCodes.OK);
     } catch (error) {
-      logger.settingLogger.error("error while updating", {
-        meta: { ...error }
+      logger.settingLogger.error('error while updating', {
+        Data: setting,
+        Path: req.originalUrl,
+        meta: { ...error },
       });
-      next(error);
-
+      logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+      return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
     }
   };
 
   public createSetting = async (
-    req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+    req: Request, res: Response,
+  ): Promise<Response> => {
+    const { setting } = req.body;
     try {
-      const { setting } = req.body;
-      logger.settingLogger.info("create setting");
+      logger.settingLogger.info('create setting', { Data: setting });
       const settings = await this.settingsService.createSetting(setting);
       return apiResponse(res, successResponse(settings), StatusCodes.OK);
     } catch (error) {
-      logger.settingLogger.error("error while creating", {
-        meta: { ...error }
+      logger.settingLogger.error('error while creating', {
+        Data: setting,
+        Path: req.originalUrl,
+        meta: { ...error },
       });
-      next(error);
-
+      logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+      return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
     }
   };
 
   public deleteValue = async (
-    req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+    req: Request, res: Response,
+  ): Promise<Response> => {
+    const { value } = req.body;
     try {
-      const { value } = req.body;
-      logger.settingLogger.info("delete setting");
+      logger.settingLogger.info('delete setting', { Data: value });
       const settings = await this.settingsService.deleteValue(value);
       return apiResponse(res, successResponse(settings), StatusCodes.OK);
     } catch (error) {
-      logger.settingLogger.error("error while deleting setting", {
-        meta: { ...error }
+      logger.settingLogger.error('error while deleting setting', {
+        Data: value,
+        Path: req.originalUrl,
+        meta: { ...error },
       });
-      next(error);
-
+      logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+      return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
     }
   };
 }

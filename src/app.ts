@@ -18,6 +18,7 @@ export default function appFunc() {
   app.use(bodyparser.json());
   app.use(bodyparser.urlencoded({ extended: true }));
 
+  // eslint-disable-next-line no-unused-vars
   app.use((err: any, req: Request, res: Response, next: NextFunction): void => {
     logger.serverLogger.error(`Server error ${err.message}  CODE ${err.code}`);
     res

@@ -6,8 +6,9 @@ module.exports = {
       autoIncrement: true,
       primaryKey: true,
     },
-    question: new Sequelize.DataTypes.STRING(128),
-    answer: new Sequelize.DataTypes.STRING(128),
+    question: new Sequelize.DataTypes.TEXT('long'),
+    answer: new Sequelize.DataTypes.TEXT('long'),
+    intentName: new Sequelize.DataTypes.TEXT('long'),
     stats: {
       type: Sequelize.DataTypes.INTEGER,
       defaultValue: 0,

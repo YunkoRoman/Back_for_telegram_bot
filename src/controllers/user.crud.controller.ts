@@ -119,7 +119,7 @@ export default class UserController {
     const { typeId } = req.params;
     try {
       logger.userLogger.info('count all users', { Data: typeId });
-      const result = await this.userService.findAndCountByType(parseInt(typeId, 10));
+      const result = await this.userService.findAndCountByType(typeId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.userLogger.error('error while counting users by type', {

@@ -21,7 +21,7 @@ export default class UserService {
     return result;
   };
 
-  public findAndCountByType = async (idOfType: number): Promise<{ rows: UserModel[]; count: number }> => {
+  public findAndCountByType = async (idOfType: string): Promise<{ rows: UserModel[]; count: number }> => {
     const result = await this.DB.User.findAndCountAll({
       where: { typeId: idOfType },
     });

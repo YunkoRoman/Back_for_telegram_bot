@@ -115,7 +115,7 @@ class UserController {
             const { typeId } = req.params;
             try {
                 logger_1.logger.userLogger.info('count all users', { Data: typeId });
-                const result = yield this.userService.findAndCountByType(parseInt(typeId, 10));
+                const result = yield this.userService.findAndCountByType(typeId);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {

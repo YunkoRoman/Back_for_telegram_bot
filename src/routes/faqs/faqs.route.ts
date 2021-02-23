@@ -5,7 +5,6 @@ import { DB } from '../../sequelize/models/index';
 import FaqsController from '../../controllers/faqs.controller';
 import { check_idMiddleware } from '../../utils/middlewares';
 
-
 export default function infoRoute(db: DB) {
   const api = express.Router();
 
@@ -22,6 +21,8 @@ export default function infoRoute(db: DB) {
 
   api.get('/university', faqsController.getUniversityInfo);
 
+  api.get('/contacts', faqsController.getContactsInfo);
+
   api.get('/popular', faqsController.getPopularFaqs);
 
   api.get('/faq', faqsController.getFaqByQuestion);
@@ -29,7 +30,9 @@ export default function infoRoute(db: DB) {
   api.post('/faq', faqsController.addFaq);
 
   // GET faq by id
-  api.get('/faq/:id',check_idMiddleware, faqsController.getFaqById);
+  api.get('/faq/:id', check_idMiddleware, faqsController.getFaqById);
+
+  api.get('/faq/intent', faqsController.getFaqByIntentName);
 
   api.get('/unanswered', faqsController.getAllUnanswered);
 

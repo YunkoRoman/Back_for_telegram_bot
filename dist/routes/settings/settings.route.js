@@ -12,13 +12,13 @@ function settingsRoute(db) {
     const settingsController = new settings_controller_1.default(new settings_service_1.default(db));
     // ========== CRUD ====================
     // GET all settings
-    api.get("/", settingsController.getAllSettings);
+    api.get('/', settingsController.getAllSettings);
     // CREATE param
-    api.post("/", settingsController.createSetting);
+    api.post('/', settingsController.createSetting);
     // Edit value
-    api.put("/:id", middlewares_1.check_idMiddleware, settingsController.udpdateById);
+    api.put('/:id', middlewares_1.check_idMiddleware, settingsController.udpdateById);
     // Remove value
-    api.delete("/", settingsController.deleteValue);
+    api.delete('/', settingsController.deleteValue);
     return api;
 }
 exports.default = settingsRoute;

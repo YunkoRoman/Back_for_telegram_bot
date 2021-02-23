@@ -66,7 +66,6 @@ class AdminController {
         });
         this.editFacultyInfo = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const faqToEdit = req.body;
-            // Faculty qustion id
             faqToEdit.intentName = types_1.FACULTY_FAQ_INTENT_NAME;
             try {
                 logger_1.logger.adminLogger.info('edit faculty info', { Data: faqToEdit });

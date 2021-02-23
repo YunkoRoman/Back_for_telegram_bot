@@ -14,7 +14,7 @@ function usersRoute(db) {
     // ========== CRUD ====================
     // GET all admins
     api.get('/admins', middlewares_1.hasRole([user_role_model_1.Role.superAdmin]), userController.getAllAdmins);
-    //Count all users by type
+    // Count all users by type
     api.get('/admins/countByTypes', middlewares_1.hasRole([user_role_model_1.Role.superAdmin]), userController.countAllUsersTypes);
     // Add admin
     api.put('/admins/:telegramId', [middlewares_1.hasRole([user_role_model_1.Role.superAdmin])], userController.updateUserById);

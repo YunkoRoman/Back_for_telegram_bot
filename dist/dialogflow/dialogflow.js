@@ -13,27 +13,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dialogflow_1 = __importDefault(require("@google-cloud/dialogflow"));
+const logger_1 = require("../utils/logger");
 class DialogFlow {
     constructor() {
         this.listIntents = () => __awaiter(this, void 0, void 0, function* () {
-            const projectAgentPath = this.intentsClient.agentPath('newagent-dayq');
-            console.log(projectAgentPath);
+            const projectAgentPath = this.intentsClient.agentPath(this.projectId);
+            logger_1.logger.serverLogger.info(projectAgentPath);
             const request = {
                 parent: projectAgentPath,
             };
             // Send the request for listing intents.
             const [response] = yield this.intentsClient.listIntents(request);
-            // response.forEach((intent) => {
-            //   // intent.messages.forEach(mes => console.log(mes.text));
-            //   console.log(intent);
-            //   console.log('_______________');
-            //   console.log('_______________');
-            // });
             return response;
         });
-        this.intentsClient = new dialogflow_1.default.IntentsClient({
-            keyFilename: './newagent-dayq-ab419956af39.json/',
-        });
+        this.projectId = process.env.PROJECT_ID;
+        const privateKey = (process.env.NODE_ENV === 'production') ? JSON.parse(process.env.DIALOGFLOW_PRIVATE_KEY) : process.env.DIALOGFLOW_PRIVATE_KEY;
+        const clientEmail = process.env.DIALOGFLOW_CLIENT_EMAIL;
+        const configDialogFlow = {
+            credentials: {
+                private_key: privateKey,
+                client_email: clientEmail,
+            },
+        };
+        this.intentsClient = new dialogflow_1.default.IntentsClient(configDialogFlow);
     }
 }
 exports.default = DialogFlow;

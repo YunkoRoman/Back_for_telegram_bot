@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ErrorHandler = void 0;
+// eslint-disable-next-line import/prefer-default-export
 class ErrorHandler extends Error {
     constructor(status, msg, code) {
         super(msg);

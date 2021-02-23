@@ -11,6 +11,8 @@ const user_route_1 = __importDefault(require("./routes/user/user.route"));
 const admin_route_1 = __importDefault(require("./routes/admin/admin.route"));
 const faqs_route_1 = __importDefault(require("./routes/faqs/faqs.route"));
 const index_1 = require("./sequelize/models/index");
+const user_role_model_1 = require("./sequelize/models/user.role.model");
+const middlewares_1 = require("./utils/middlewares");
 function appFunc() {
     const app = express_1.default();
     index_1.db.sequelize.authenticate().then(() => logger_1.logger.serverLogger.info('Authenticated'));
@@ -27,7 +29,7 @@ function appFunc() {
         });
     });
     app.use('/users', user_route_1.default(index_1.db));
-    app.use('/admin', admin_route_1.default(index_1.db));
+    app.use('/admin', middlewares_1.hasRole([user_role_model_1.Role.admin, user_role_model_1.Role.superAdmin]), admin_route_1.default(index_1.db));
     app.use('/info', faqs_route_1.default(index_1.db));
     return app;
 }

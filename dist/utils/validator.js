@@ -21,15 +21,9 @@ function isValidTelegramId(telegramId) {
 exports.isValidTelegramId = isValidTelegramId;
 function invalidFields(user) {
     const errors = [];
-    // errors.push(...isValidTelegramId(user.telegramId));
-    // if (user.phoneNumber) {
-    // }
     if (user.roleId && ![user_role_model_1.Role.regular, user_role_model_1.Role.admin, user_role_model_1.Role.superAdmin].includes(user.roleId)) {
         errors.push('User role is invalid');
     }
-    // if (user.typeId && ![1, 2, 3, 4, 5].includes(user.typeId)) {
-    //   errors.push('User type is invalid');
-    // }
     return errors;
 }
 exports.invalidFields = invalidFields;

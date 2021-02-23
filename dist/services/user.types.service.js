@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 class UserTypesService {
-    // eslint-disable-next-line no-shadow
     constructor(db) {
         // ============ CRUD ==============
         this.getAllUserTypes = () => __awaiter(this, void 0, void 0, function* () {

@@ -120,27 +120,30 @@ class UserController {
                 let Teacher = 0;
                 let Student = 0;
                 let Other = 0;
-                for (const user of result) {
+                result.forEach((user) => {
                     const type = user.typeId;
                     switch (type) {
                         case 'Applicant':
-                            Applicant++;
+                            Applicant += 1;
                             break;
                         case 'Parents':
-                            Parents++;
+                            Parents += 1;
                             break;
                         case 'Teacher':
-                            Teacher++;
+                            Teacher += 1;
                             break;
                         case 'Student':
-                            Student++;
+                            Student += 1;
                             break;
                         case 'Other':
-                            Other++;
+                            Other += 1;
                             break;
+                        default: break;
                     }
-                }
-                return response_1.apiResponse(res, response_1.successResponse({ Applicant, Parents, Teacher, Student, Other }), http_status_codes_1.StatusCodes.OK);
+                });
+                return response_1.apiResponse(res, response_1.successResponse({
+                    Applicant, Parents, Teacher, Student, Other,
+                }), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
                 logger_1.logger.userLogger.error('error while counting users type stats', { Path: req.originalUrl, meta: Object.assign({}, error) });

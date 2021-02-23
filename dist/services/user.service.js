@@ -21,7 +21,6 @@ class UserService {
             const result = yield this.DB.User.findAll({
                 where: {
                     typeId: {
-                        // [Op.or]: ['Applicant', 'Parents', 'Teacher', 'Student', 'Other'],
                         [sequelize_1.Op.not]: null,
                     },
                 },

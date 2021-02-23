@@ -74,10 +74,7 @@ export default class UserController {
     }
   };
 
-  public updateUserById = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response | undefined> => {
+  public updateUserById = async (req: Request, res: Response): Promise<Response | undefined> => {
     const user: UserAddToChat = {
       ...req.body,
       telegramId: req.params.telegramId,
@@ -114,6 +111,18 @@ export default class UserController {
       return apiResponse(res, failedResponse(error.message), StatusCodes.INTERNAL_SERVER_ERROR);
     }
   };
+  //------------------------------------------------------------
+  public countAllUsersTypes = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      logger.userLogger.info('count all users types');
+      const result = await this.userService.getStatsOfAllUsersByType();
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.userLogger.error('error while counting users type stats', { Path: req.originalUrl, meta: { ...error } });
+      logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+      return apiResponse(res, failedResponse(error.message), StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  };
 
   public countByType = async (req: Request, res: Response): Promise<Response> => {
     const { typeId } = req.params;
@@ -138,8 +147,7 @@ export default class UserController {
       logger.userLogger.info('delete user by id', { Data: telegramId });
       const result = await this.userService.deleteUser(telegramId);
       if (result === 0) {
-        return apiResponse(res, failedResponse(customErrors.NOT_FOUND.message),
-          StatusCodes.NOT_FOUND);
+        return apiResponse(res, failedResponse(customErrors.NOT_FOUND.message), StatusCodes.NOT_FOUND);
       }
       const deleteUser = await this.redisUserCache.deleteUser(telegramId);
       logger.redisLogger.info('User deleted from redis', { User: deleteUser });
@@ -171,10 +179,7 @@ export default class UserController {
     }
   };
 
-  public getUserByTelegramName = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response | undefined> => {
+  public getUserByTelegramName = async (req: Request, res: Response): Promise<Response | undefined> => {
     const { telegramName } = req.params;
     try {
       logger.userLogger.info('get user by telegram name', { Data: telegramName });
@@ -192,10 +197,7 @@ export default class UserController {
     }
   };
 
-  public getUserByPhone = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response | undefined> => {
+  public getUserByPhone = async (req: Request, res: Response): Promise<Response | undefined> => {
     const { phone } = req.params;
     try {
       logger.userLogger.info('get user by phone', { Data: phone });
@@ -212,10 +214,7 @@ export default class UserController {
     }
   };
 
-  public getUserByCity = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response | undefined> => {
+  public getUserByCity = async (req: Request, res: Response): Promise<Response | undefined> => {
     const { city } = req.params;
     try {
       logger.userLogger.info(' getting users by telegram city', { Data: city });
@@ -232,10 +231,7 @@ export default class UserController {
     }
   };
 
-  public getUserByName = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response> => {
+  public getUserByName = async (req: Request, res: Response): Promise<Response> => {
     const { name } = req.params;
     try {
       logger.userLogger.info(' getting users by telegram name', { Data: name });
@@ -252,10 +248,7 @@ export default class UserController {
     }
   };
 
-  public getUserByRole = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response> => {
+  public getUserByRole = async (req: Request, res: Response): Promise<Response> => {
     const { id } = req.params;
     try {
       logger.userLogger.info(' getting users by role', { Data: id });
@@ -273,10 +266,7 @@ export default class UserController {
     }
   };
 
-  public getUserByType = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response | undefined> => {
+  public getUserByType = async (req: Request, res: Response): Promise<Response | undefined> => {
     const { type } = req.params;
     try {
       logger.userLogger.info('error getting users by type', { Data: type });

@@ -16,6 +16,17 @@ export default class UserService {
     return result;
   };
 
+  public getStatsOfAllUsersByType = async (): Promise<UserModel[]> => {
+    const result = await this.DB.User.findAll({
+      where: {
+        typeId: {
+          [Op.not]: null,
+        },
+      },
+    });
+    return result;
+  };
+
   public findAndCountAll = async (): Promise<{ rows: UserModel[]; count: number }> => {
     const result = await this.DB.User.findAndCountAll();
     return result;

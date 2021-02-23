@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { Request, Response, NextFunction } from 'express';
-import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import { UserAddToChat } from 'types/types';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
 import { logger } from '../utils/logger';
@@ -38,18 +37,18 @@ export default class UserController {
     const { telegramId } = req.params;
     try {
       logger.userLogger.info('find user by id', { Data: telegramId });
-      console.log('redis get start');
+      logger.userLogger.info('redis get start');
       const getUserRedis = await this.redisUserCache.getUser(telegramId);
       if (getUserRedis !== null) {
-        logger.redisLogger.info('getUserRedis: ', { User: getUserRedis });
+        logger.userLogger.info('getUserRedis: ', getUserRedis);
         return apiResponse(res, successResponse(getUserRedis), StatusCodes.OK);
       }
       logger.redisLogger.info('redis get end');
       logger.userLogger.info('ORM START CHECKPOINT');
       const result = await this.userService.getUserById(telegramId);
-      if (getUserRedis !== null) {
-        logger.userLogger.info('getUserRedis: ', getUserRedis);
-        return apiResponse(res, successResponse(getUserRedis), StatusCodes.OK);
+      if (result !== null) {
+        const createdUser = await this.redisUserCache.setUser(result as any);
+        logger.userLogger.info('createdUser: ', createdUser);
       }
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
@@ -75,8 +74,7 @@ export default class UserController {
     }
   };
 
-  // todo super admin could not update himself
-  public updateUserById = async (req: Request, res: Response, next: NextFunction): Promise<Response | undefined> => {
+  public updateUserById = async (req: Request, res: Response): Promise<Response | undefined> => {
     const user: UserAddToChat = {
       ...req.body,
       telegramId: req.params.telegramId,
@@ -114,11 +112,48 @@ export default class UserController {
     }
   };
 
+  public countAllUsersTypes = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      logger.userLogger.info('count all users types');
+      const result = await this.userService.getStatsOfAllUsersByType();
+      let Applicant = 0;
+      let Parents = 0;
+      let Teacher = 0;
+      let Student = 0;
+      let Other = 0;
+      for (const user of result) {
+        const type = user.typeId;
+        switch (type) {
+          case 'Applicant':
+            Applicant++;
+            break;
+          case 'Parents':
+            Parents++;
+            break;
+          case 'Teacher':
+            Teacher++;
+            break;
+          case 'Student':
+            Student++;
+            break;
+          case 'Other':
+            Other++;
+            break;
+        }
+      }
+      return apiResponse(res, successResponse({ Applicant, Parents, Teacher, Student, Other }), StatusCodes.OK);
+    } catch (error) {
+      logger.userLogger.error('error while counting users type stats', { Path: req.originalUrl, meta: { ...error } });
+      logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+      return apiResponse(res, failedResponse(error.message), StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  };
+
   public countByType = async (req: Request, res: Response): Promise<Response> => {
     const { typeId } = req.params;
     try {
       logger.userLogger.info('count all users', { Data: typeId });
-      const result = await this.userService.findAndCountByType(parseInt(typeId, 10));
+      const result = await this.userService.findAndCountByType(typeId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.userLogger.error('error while counting users by type', {
@@ -132,14 +167,15 @@ export default class UserController {
   };
 
   public deleteUser = async (req: Request, res: Response): Promise<Response> => {
-    const { id, telegramId } = req.params;
+    const { telegramId } = req.params;
     try {
       logger.userLogger.info('delete user by id', { Data: telegramId });
       const result = await this.userService.deleteUser(telegramId);
-      if (result === 0) return apiResponse(res, failedResponse(customErrors.NOT_FOUND.message), StatusCodes.NOT_FOUND);
+      if (result === 0) {
+        return apiResponse(res, failedResponse(customErrors.NOT_FOUND.message), StatusCodes.NOT_FOUND);
+      }
       const deleteUser = await this.redisUserCache.deleteUser(telegramId);
       logger.redisLogger.info('User deleted from redis', { User: deleteUser });
-
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.userLogger.error('error while deleting user', {
@@ -168,11 +204,7 @@ export default class UserController {
     }
   };
 
-  public getUserByTelegramName = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response | undefined> => {
+  public getUserByTelegramName = async (req: Request, res: Response): Promise<Response | undefined> => {
     const { telegramName } = req.params;
     try {
       logger.userLogger.info('get user by telegram name', { Data: telegramName });
@@ -190,11 +222,7 @@ export default class UserController {
     }
   };
 
-  public getUserByPhone = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<Response | undefined> => {
+  public getUserByPhone = async (req: Request, res: Response): Promise<Response | undefined> => {
     const { phone } = req.params;
     try {
       logger.userLogger.info('get user by phone', { Data: phone });
@@ -211,10 +239,7 @@ export default class UserController {
     }
   };
 
-  public getUserByCity = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response | undefined> => {
+  public getUserByCity = async (req: Request, res: Response): Promise<Response | undefined> => {
     const { city } = req.params;
     try {
       logger.userLogger.info(' getting users by telegram city', { Data: city });
@@ -231,10 +256,7 @@ export default class UserController {
     }
   };
 
-  public getUserByName = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response> => {
+  public getUserByName = async (req: Request, res: Response): Promise<Response> => {
     const { name } = req.params;
     try {
       logger.userLogger.info(' getting users by telegram name', { Data: name });
@@ -251,10 +273,7 @@ export default class UserController {
     }
   };
 
-  public getUserByRole = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response> => {
+  public getUserByRole = async (req: Request, res: Response): Promise<Response> => {
     const { id } = req.params;
     try {
       logger.userLogger.info(' getting users by role', { Data: id });
@@ -272,15 +291,11 @@ export default class UserController {
     }
   };
 
-  public getUserByType = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response> => {
+  public getUserByType = async (req: Request, res: Response): Promise<Response | undefined> => {
     const { type } = req.params;
     try {
       logger.userLogger.info('error getting users by type', { Data: type });
-
-      const users = await this.userService.getAllUsersByRole(parseInt(type, 10));
+      const users = await this.userService.getAllUsersByType(type);
       return apiResponse(res, successResponse(users), StatusCodes.OK);
     } catch (error) {
       logger.userLogger.error('error getting users by type', {

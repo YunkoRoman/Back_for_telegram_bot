@@ -17,6 +17,17 @@ class UserService {
             const result = yield this.DB.User.findAll();
             return result;
         });
+        this.getStatsOfAllUsersByType = () => __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.DB.User.findAll({
+                where: {
+                    typeId: {
+                        // [Op.or]: ['Applicant', 'Parents', 'Teacher', 'Student', 'Other'],
+                        [sequelize_1.Op.not]: null,
+                    },
+                },
+            });
+            return result;
+        });
         this.findAndCountAll = () => __awaiter(this, void 0, void 0, function* () {
             const result = yield this.DB.User.findAndCountAll();
             return result;

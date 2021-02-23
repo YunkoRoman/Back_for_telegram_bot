@@ -2,7 +2,9 @@ const {
   createLogger, format, transports, config,
 } = require('winston');
 
-const { combine, timestamp, json } = format;
+const {
+  combine, timestamp, json, prettyPrint,
+} = format;
 
 const userLogger = createLogger({
   levels: config.syslog.levels,
@@ -12,6 +14,7 @@ const userLogger = createLogger({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
     json(),
+    prettyPrint(),
   ),
 
   transports: [
@@ -28,6 +31,7 @@ const adminLogger = createLogger({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
     json(),
+    prettyPrint(),
   ),
 
   transports: [
@@ -43,6 +47,7 @@ const faqLogger = createLogger({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
     json(),
+    prettyPrint(),
   ),
 
   transports: [
@@ -58,6 +63,7 @@ const serverLogger = createLogger({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
     json(),
+    prettyPrint(),
   ),
 
   transports: [
@@ -73,6 +79,7 @@ const settingLogger = createLogger({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
     json(),
+    prettyPrint(),
   ),
 
   transports: [
@@ -89,6 +96,7 @@ const redisLogger = createLogger({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
     json(),
+    prettyPrint(),
   ),
 
   transports: [
@@ -104,6 +112,7 @@ const middlewarwLogger = createLogger({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
     json(),
+    prettyPrint(),
   ),
 
   transports: [
@@ -112,6 +121,7 @@ const middlewarwLogger = createLogger({
   ],
 });
 
+// eslint-disable-next-line import/prefer-default-export
 export const logger = {
   userLogger,
   adminLogger,

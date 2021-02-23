@@ -2,8 +2,6 @@ import { RedisClient, createClient } from 'redis';
 import dotenv from 'dotenv';
 import { UserAddToChat } from '../types/types';
 import { logger } from '../utils/logger';
-import { ErrorHandler } from '../errors/errorHandler';
-import { customErrors } from '../errors/customErrors';
 
 export default class RedisUser {
   private client: RedisClient;

@@ -64,12 +64,16 @@ class FaqsService {
             return this.DB.Faqs
                 .findOne({ where: { id: faqId } });
         });
+        this.getFaqByIntent = (intentNameParam) => __awaiter(this, void 0, void 0, function* () {
+            return this.DB.Faqs
+                .findOne({ where: { intentName: intentNameParam } });
+        });
         this.getFaqByQuestion = (faq) => __awaiter(this, void 0, void 0, function* () {
             return this.DB.Faqs
                 .findAll({
                 where: {
                     question: {
-                        [sequelize_1.Op.like]: faq.question,
+                        [sequelize_1.Op.substring]: faq.question,
                     },
                 },
             });
@@ -78,13 +82,13 @@ class FaqsService {
             return this.DB.Faqs
                 .create(faq);
         });
-        this.updateFaqById = (faq) => __awaiter(this, void 0, void 0, function* () {
+        this.updateFaqByIntentName = (faq) => __awaiter(this, void 0, void 0, function* () {
             return this.DB.Faqs
-                .update(faq, { where: { id: faq.id } });
+                .update(faq, { where: { intentName: faq.intentName } });
         });
-        this.deleteFaqById = (faqId) => __awaiter(this, void 0, void 0, function* () {
+        this.deleteFaqByIntentName = (faqIntentName) => __awaiter(this, void 0, void 0, function* () {
             return this.DB.Faqs
-                .destroy({ where: { id: faqId } });
+                .destroy({ where: { intentName: faqIntentName } });
         });
         this.DB = db;
     }

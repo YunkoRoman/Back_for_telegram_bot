@@ -36,6 +36,9 @@ export default function adminStats(db: DB) {
   // Put university answer
   api.put('/university', hasRole([Role.admin, Role.superAdmin]), adminController.editUniversityInfo);
 
+  // Put contacts answer
+  api.put('/contacts', hasRole([Role.admin, Role.superAdmin]), adminController.editContactsInfo);
+
   // Get all categories
   api.get('/categories', hasRole([Role.admin, Role.superAdmin]), adminController.getAllUserTypes);
 

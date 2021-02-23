@@ -13,11 +13,11 @@ function initFaq(sequelize) {
             primaryKey: true,
         },
         intentName: {
-            type: new sequelize_1.DataTypes.STRING(128),
+            type: new sequelize_1.DataTypes.TEXT('long'),
             unique: true,
         },
         question: {
-            type: new sequelize_1.DataTypes.STRING(128),
+            type: new sequelize_1.DataTypes.TEXT('long'),
             unique: true,
         },
         answer: new sequelize_1.DataTypes.TEXT('long'),

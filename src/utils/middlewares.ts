@@ -4,7 +4,6 @@ import {
 } from 'http-status-codes';
 import { Role } from '../sequelize/models/user.role.model';
 import { logger } from './logger';
-import { apiResponse, failedResponse } from './response';
 import { invalidFields, isValidTelegramId } from './validator';
 import { db } from '../sequelize/models/index';
 import { ErrorHandler } from '../errors/errorHandler';
@@ -35,7 +34,8 @@ export function hasRole(roles: Role[]) {
       }
     } else {
       logger.userLogger.error('No id in header');
-      return next(new ErrorHandler(StatusCodes.BAD_REQUEST, customErrors.BAD_REQUEST_NO_TELEGRAM_ID.messageHeader));
+      return next(new ErrorHandler(StatusCodes.BAD_REQUEST,
+        customErrors.BAD_REQUEST_NO_TELEGRAM_ID.messageHeader));
     }
   };
 }

@@ -1,12 +1,9 @@
-/* eslint-disable no-unused-vars */
-import { Request, Response, NextFunction } from 'express';
-import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import { SettingsModel } from 'sequelize/models/settings.model';
-import validator from 'validator';
-import { apiResponse, successResponse } from '../utils/response';
+import { apiResponse, failedResponse, successResponse } from '../utils/response';
 import { logger } from '../utils/logger';
 import SettingsService from '../services/settings.service';
-import { customErrors } from '../errors/customErrors';
 
 export default class SettingsController {
   public settingsService: SettingsService;
@@ -35,12 +32,11 @@ export default class SettingsController {
   public udpdateById = async (
     req: Request, res: Response,
   ): Promise<Response> => {
+    const setting: SettingsModel = {
+      ...req.body,
+      id: req.params.id,
+    };
     try {
-      const setting: SettingsModel = {
-        ...req.body,
-        id: req.params.id,
-      };
-
       logger.settingLogger.info('update setting', { Data: setting });
       const settings = await this.settingsService.updateSetting(setting);
       return apiResponse(res, successResponse(settings), StatusCodes.OK);
@@ -58,8 +54,8 @@ export default class SettingsController {
   public createSetting = async (
     req: Request, res: Response,
   ): Promise<Response> => {
+    const { setting } = req.body;
     try {
-      const { setting } = req.body;
       logger.settingLogger.info('create setting', { Data: setting });
       const settings = await this.settingsService.createSetting(setting);
       return apiResponse(res, successResponse(settings), StatusCodes.OK);
@@ -77,8 +73,8 @@ export default class SettingsController {
   public deleteValue = async (
     req: Request, res: Response,
   ): Promise<Response> => {
+    const { value } = req.body;
     try {
-      const { value } = req.body;
       logger.settingLogger.info('delete setting', { Data: value });
       const settings = await this.settingsService.deleteValue(value);
       return apiResponse(res, successResponse(settings), StatusCodes.OK);

@@ -20,7 +20,7 @@ export default class UserService {
     const result = await this.DB.User.findAll({
       where: {
         typeId: {
-          [Op.not]: null,
+          [Op.ne]: null,
         },
       },
     });

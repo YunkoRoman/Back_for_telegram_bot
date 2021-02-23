@@ -15,7 +15,7 @@ export default function usersRoute(db: DB) {
   api.get('/admins', hasRole([Role.superAdmin]), userController.getAllAdmins);
 
   //Count all users by type
-  api.get('/admins/countByTypes', hasRole([Role.superAdmin]), userController.getAllAdmins);
+  api.get('/admins/countByTypes', hasRole([Role.superAdmin]), userController.countAllUsersTypes);
 
   // Add admin
   api.put('/admins/:telegramId', [hasRole([Role.superAdmin])], userController.updateUserById);

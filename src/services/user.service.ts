@@ -20,7 +20,8 @@ export default class UserService {
     const result = await this.DB.User.findAll({
       where: {
         typeId: {
-          [Op.or]: ['Applicant', 'Parents', 'Teacher', 'Student', 'Other'],
+          // [Op.or]: ['Applicant', 'Parents', 'Teacher', 'Student', 'Other'],
+          [Op.not]: null,
         },
       },
     });

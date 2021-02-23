@@ -111,12 +111,37 @@ export default class UserController {
       return apiResponse(res, failedResponse(error.message), StatusCodes.INTERNAL_SERVER_ERROR);
     }
   };
-  //------------------------------------------------------------
+
   public countAllUsersTypes = async (req: Request, res: Response): Promise<Response> => {
     try {
       logger.userLogger.info('count all users types');
       const result = await this.userService.getStatsOfAllUsersByType();
-      return apiResponse(res, successResponse(result), StatusCodes.OK);
+      let Applicant = 0;
+      let Parents = 0;
+      let Teacher = 0;
+      let Student = 0;
+      let Other = 0;
+      for (const user of result) {
+        const type = user.typeId;
+        switch (type) {
+          case 'Applicant':
+            Applicant++;
+            break;
+          case 'Parents':
+            Parents++;
+            break;
+          case 'Teacher':
+            Teacher++;
+            break;
+          case 'Student':
+            Student++;
+            break;
+          case 'Other':
+            Other++;
+            break;
+        }
+      }
+      return apiResponse(res, successResponse({ Applicant, Parents, Teacher, Student, Other }), StatusCodes.OK);
     } catch (error) {
       logger.userLogger.error('error while counting users type stats', { Path: req.originalUrl, meta: { ...error } });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);

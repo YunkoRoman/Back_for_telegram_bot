@@ -31,13 +31,13 @@ export default function adminStats(db: DB) {
   api.get('/count/:typeId', hasRole([Role.admin, Role.superAdmin]), userController.countByType);
 
   // Put faculty answer
-  api.put('/faculty',hasRole([Role.admin, Role.superAdmin]) , adminController.editFacultyInfo);
+  api.put('/faculty', hasRole([Role.admin, Role.superAdmin]), adminController.editFacultyInfo);
 
   // Put university answer
-  api.put('/university',hasRole([Role.admin, Role.superAdmin]), adminController.editUniversityInfo);
+  api.put('/university', hasRole([Role.admin, Role.superAdmin]), adminController.editUniversityInfo);
 
   // Get all categories
-  api.get('/categories',hasRole([Role.admin, Role.superAdmin]),  adminController.getAllUserTypes);
+  api.get('/categories', hasRole([Role.admin, Role.superAdmin]), adminController.getAllUserTypes);
 
   // Create new user category
   api.post('/categories', hasRole([Role.admin, Role.superAdmin]), adminController.addNewType);

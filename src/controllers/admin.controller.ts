@@ -7,10 +7,8 @@ import UserService from 'services/user.service';
 import UserTypesService from 'services/user.types.service';
 import { UserTypeModel } from 'sequelize/models/user.type.model';
 import UnansweredService from 'services/unanswered.service';
-import validator from 'validator';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
 import { logger } from '../utils/logger';
-import { customErrors } from '../errors/customErrors';
 
 export default class AdminController {
   private faqsService: FaqsService;

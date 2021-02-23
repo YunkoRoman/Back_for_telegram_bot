@@ -18,13 +18,15 @@ export default class UnansweredService {
   };
 
   public getUnansweredById = async (
-    unansweredId: number): Promise<UnanswdQuestionModel | null> => {
+    unansweredId: number,
+  ): Promise<UnanswdQuestionModel | null> => {
     const result = await this.DB.UnanswdQuestions.findOne({ where: { id: unansweredId } });
     return result;
   };
 
   public getUnansweredByQuestion = async (
-    unansweredQuestion: string): Promise<UnanswdQuestionModel[]> => {
+    unansweredQuestion: string,
+  ): Promise<UnanswdQuestionModel[]> => {
     const result = await this.DB.UnanswdQuestions.findAll({
       where: {
         question: {
@@ -36,13 +38,15 @@ export default class UnansweredService {
   };
 
   public addNewUnanswered = async (
-    unanswered: UnanswdQuestionModel): Promise<UnanswdQuestionModel> => {
+    unanswered: UnanswdQuestionModel,
+  ): Promise<UnanswdQuestionModel> => {
     const result = await this.DB.UnanswdQuestions.create(unanswered);
     return result;
   };
 
   public updateUnansweredById = async (
-    unanswered: UnanswdQuestionModel): Promise<UnanswdQuestionModel | any> => {
+    unanswered: UnanswdQuestionModel,
+  ): Promise<UnanswdQuestionModel | any> => {
     await this.DB.UnanswdQuestions.update(unanswered, { where: { id: unanswered.id } });
   };
 

@@ -1,7 +1,6 @@
-/* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 import { Request, Response, NextFunction } from 'express';
-import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import DialogFlow from '../dialogflow/dialogflow';
 import {
   CONTACTS_FAQ_INTENT_NAME, FACULTY_FAQ_INTENT_NAME, Intent, UNIVERCITY_FAQ_INTENT_NAME,

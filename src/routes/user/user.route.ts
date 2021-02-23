@@ -14,7 +14,7 @@ export default function usersRoute(db: DB) {
   // GET all admins
   api.get('/admins', hasRole([Role.superAdmin]), userController.getAllAdmins);
 
-  //Count all users by type
+  // Count all users by type
   api.get('/admins/countByTypes', hasRole([Role.superAdmin]), userController.countAllUsersTypes);
 
   // Add admin

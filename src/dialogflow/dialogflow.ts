@@ -1,5 +1,5 @@
 import dialogflow from '@google-cloud/dialogflow';
-
+import { logger } from '../utils/logger';
 
 export default class DialogFlow {
   private intentsClient;
@@ -7,9 +7,8 @@ export default class DialogFlow {
   private projectId;
 
   constructor() {
-
     this.projectId = process.env.PROJECT_ID as string;
-    const privateKey = (process.env.NODE_ENV=="production") ? JSON.parse(process.env.DIALOGFLOW_PRIVATE_KEY as string) : process.env.DIALOGFLOW_PRIVATE_KEY
+    const privateKey = (process.env.NODE_ENV === 'production') ? JSON.parse(process.env.DIALOGFLOW_PRIVATE_KEY as string) : process.env.DIALOGFLOW_PRIVATE_KEY;
 
     const clientEmail = process.env.DIALOGFLOW_CLIENT_EMAIL;
     const configDialogFlow = {
@@ -22,9 +21,8 @@ export default class DialogFlow {
   }
 
   public listIntents = async (): Promise<any> => {
-
     const projectAgentPath = this.intentsClient.agentPath(this.projectId);
-    console.log(projectAgentPath);
+    logger.serverLogger.info(projectAgentPath);
     const request = {
       parent: projectAgentPath,
     };

@@ -4,7 +4,6 @@ import { DB } from '../sequelize/models/index';
 export default class UserTypesService {
   private DB;
 
-  // eslint-disable-next-line no-shadow
   constructor(db: DB) {
     this.DB = db;
   }

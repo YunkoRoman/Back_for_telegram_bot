@@ -121,27 +121,30 @@ export default class UserController {
       let Teacher = 0;
       let Student = 0;
       let Other = 0;
-      for (const user of result) {
+      result.forEach((user) => {
         const type = user.typeId;
         switch (type) {
           case 'Applicant':
-            Applicant++;
+            Applicant += 1;
             break;
           case 'Parents':
-            Parents++;
+            Parents += 1;
             break;
           case 'Teacher':
-            Teacher++;
+            Teacher += 1;
             break;
           case 'Student':
-            Student++;
+            Student += 1;
             break;
           case 'Other':
-            Other++;
+            Other += 1;
             break;
+          default: break;
         }
-      }
-      return apiResponse(res, successResponse({ Applicant, Parents, Teacher, Student, Other }), StatusCodes.OK);
+      });
+      return apiResponse(res, successResponse({
+        Applicant, Parents, Teacher, Student, Other,
+      }), StatusCodes.OK);
     } catch (error) {
       logger.userLogger.error('error while counting users type stats', { Path: req.originalUrl, meta: { ...error } });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
@@ -172,7 +175,8 @@ export default class UserController {
       logger.userLogger.info('delete user by id', { Data: telegramId });
       const result = await this.userService.deleteUser(telegramId);
       if (result === 0) {
-        return apiResponse(res, failedResponse(customErrors.NOT_FOUND.message), StatusCodes.NOT_FOUND);
+        return apiResponse(res, failedResponse(customErrors.NOT_FOUND.message),
+          StatusCodes.NOT_FOUND);
       }
       const deleteUser = await this.redisUserCache.deleteUser(telegramId);
       logger.redisLogger.info('User deleted from redis', { User: deleteUser });
@@ -204,7 +208,10 @@ export default class UserController {
     }
   };
 
-  public getUserByTelegramName = async (req: Request, res: Response): Promise<Response | undefined> => {
+  public getUserByTelegramName = async (
+    req: Request,
+    res: Response,
+  ): Promise<Response | undefined> => {
     const { telegramName } = req.params;
     try {
       logger.userLogger.info('get user by telegram name', { Data: telegramName });

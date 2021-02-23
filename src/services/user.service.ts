@@ -20,7 +20,6 @@ export default class UserService {
     const result = await this.DB.User.findAll({
       where: {
         typeId: {
-          // [Op.or]: ['Applicant', 'Parents', 'Teacher', 'Student', 'Other'],
           [Op.not]: null,
         },
       },
@@ -33,7 +32,11 @@ export default class UserService {
     return result;
   };
 
-  public findAndCountByType = async (idOfType: string): Promise<{ rows: UserModel[]; count: number }> => {
+  public findAndCountByType = async (idOfType: string):
+  Promise<{
+    rows: UserModel[];
+    count: number
+  }> => {
     const result = await this.DB.User.findAndCountAll({
       where: { typeId: idOfType },
     });

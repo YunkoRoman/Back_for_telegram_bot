@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/prefer-default-export
 export const customErrors = {
   // 400
   BAD_REQUEST_NO_DATA: {

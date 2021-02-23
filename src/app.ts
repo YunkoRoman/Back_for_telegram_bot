@@ -9,6 +9,8 @@ import users from './routes/user/user.route';
 import admin from './routes/admin/admin.route';
 import info from './routes/faqs/faqs.route';
 import { db } from './sequelize/models/index';
+import { Role } from './sequelize/models/user.role.model';
+import { hasRole } from './utils/middlewares';
 
 export default function appFunc() {
   const app = express();
@@ -30,7 +32,7 @@ export default function appFunc() {
   });
   app.use('/users', users(db));
 
-  app.use('/admin', admin(db));
+  app.use('/admin', hasRole([Role.admin, Role.superAdmin]), admin(db));
 
   app.use('/info', info(db));
 

@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { Request, Response, NextFunction } from 'express';
-import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import FaqsService from 'services/faqs.service';
 import { FaqModel } from 'sequelize/models/faq.model';
 import UserService from 'services/user.service';
@@ -83,7 +82,6 @@ export default class AdminController {
 
   public editFacultyInfo = async (req: Request, res: Response): Promise<Response> => {
     const faqToEdit: FaqModel = req.body;
-    // Faculty qustion id
     faqToEdit.intentName = FACULTY_FAQ_INTENT_NAME;
     try {
       logger.adminLogger.info('edit faculty info', { Data: faqToEdit });

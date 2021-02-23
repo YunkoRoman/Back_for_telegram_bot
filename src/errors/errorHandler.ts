@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/prefer-default-export
 export class ErrorHandler extends Error {
     name = 'Controller Error';
 

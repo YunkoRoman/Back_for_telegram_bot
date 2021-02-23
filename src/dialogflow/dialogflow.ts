@@ -9,7 +9,7 @@ export default class DialogFlow {
   constructor() {
 
     this.projectId = process.env.PROJECT_ID as string;
-    const privateKey = JSON.parse(process.env.DIALOGFLOW_PRIVATE_KEY as string);
+    const privateKey = (process.env.NODE_ENV=="production") ? JSON.parse(process.env.DIALOGFLOW_PRIVATE_KEY as string) : process.env.DIALOGFLOW_PRIVATE_KEY
     console.log(privateKey);
     const clientEmail = process.env.DIALOGFLOW_CLIENT_EMAIL;
     console.log(clientEmail);

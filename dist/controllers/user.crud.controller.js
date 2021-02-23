@@ -111,6 +111,43 @@ class UserController {
                 return response_1.apiResponse(res, response_1.failedResponse(error.message), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
+        this.countAllUsersTypes = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                logger_1.logger.userLogger.info('count all users types');
+                const result = yield this.userService.getStatsOfAllUsersByType();
+                let Applicant = 0;
+                let Parents = 0;
+                let Teacher = 0;
+                let Student = 0;
+                let Other = 0;
+                for (const user of result) {
+                    const type = user.typeId;
+                    switch (type) {
+                        case 'Applicant':
+                            Applicant++;
+                            break;
+                        case 'Parents':
+                            Parents++;
+                            break;
+                        case 'Teacher':
+                            Teacher++;
+                            break;
+                        case 'Student':
+                            Student++;
+                            break;
+                        case 'Other':
+                            Other++;
+                            break;
+                    }
+                }
+                return response_1.apiResponse(res, response_1.successResponse({ Applicant, Parents, Teacher, Student, Other }), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.logger.userLogger.error('error while counting users type stats', { Path: req.originalUrl, meta: Object.assign({}, error) });
+                logger_1.logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+                return response_1.apiResponse(res, response_1.failedResponse(error.message), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
         this.countByType = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { typeId } = req.params;
             try {

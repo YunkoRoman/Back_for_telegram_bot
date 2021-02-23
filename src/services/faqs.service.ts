@@ -58,11 +58,14 @@ export default class FaqsService {
   public getFaqById = async (faqId: number): Promise<FaqModel | null> => this.DB.Faqs
     .findOne({ where: { id: faqId } });
 
+  public getFaqByIntent = async (intentNameParam: string): Promise<FaqModel | null> => this.DB.Faqs
+    .findOne({ where: { intentName: intentNameParam } });
+
   public getFaqByQuestion = async (faq: FaqModel): Promise<FaqModel[]> => this.DB.Faqs
     .findAll({
       where: {
         question: {
-          [Op.like]: faq.question,
+          [Op.substring]: faq.question,
         },
       },
     });
@@ -70,9 +73,9 @@ export default class FaqsService {
   public addNewFaq = async (faq: FaqModel): Promise<FaqModel> => this.DB.Faqs
     .create(faq);
 
-  public updateFaqById = async (faq: FaqModel): Promise<FaqModel | any> => this.DB.Faqs
-    .update(faq, { where: { id: faq.id } });
+  public updateFaqByIntentName = async (faq: FaqModel): Promise<FaqModel | any> => this.DB.Faqs
+    .update(faq, { where: { intentName: faq.intentName } });
 
-  public deleteFaqById = async (faqId: number): Promise<number> => this.DB.Faqs
-    .destroy({ where: { id: faqId } });
+  public deleteFaqByIntentName = async (faqIntentName: string): Promise<number> => this.DB.Faqs
+    .destroy({ where: { intentName: faqIntentName } });
 }

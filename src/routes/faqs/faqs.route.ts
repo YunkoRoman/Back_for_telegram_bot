@@ -21,6 +21,8 @@ export default function infoRoute(db: DB) {
 
   api.get('/university', faqsController.getUniversityInfo);
 
+  api.get('/contacts', faqsController.getContactsInfo);
+
   api.get('/popular', faqsController.getPopularFaqs);
 
   api.get('/faq', faqsController.getFaqByQuestion);
@@ -29,6 +31,8 @@ export default function infoRoute(db: DB) {
 
   // GET faq by id
   api.get('/faq/:id', check_idMiddleware, faqsController.getFaqById);
+
+  api.get('/faq/intent', faqsController.getFaqByIntentName);
 
   api.get('/unanswered', faqsController.getAllUnanswered);
 

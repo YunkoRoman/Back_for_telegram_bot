@@ -20,11 +20,13 @@ function infoRoute(db) {
     api.get('/all', faqsController.getAllFaqs);
     api.get('/faculty', faqsController.getFacultyInfo);
     api.get('/university', faqsController.getUniversityInfo);
+    api.get('/contacts', faqsController.getContactsInfo);
     api.get('/popular', faqsController.getPopularFaqs);
     api.get('/faq', faqsController.getFaqByQuestion);
     api.post('/faq', faqsController.addFaq);
     // GET faq by id
     api.get('/faq/:id', middlewares_1.check_idMiddleware, faqsController.getFaqById);
+    api.get('/faq/intent', faqsController.getFaqByIntentName);
     api.get('/unanswered', faqsController.getAllUnanswered);
     api.get('/unanswered/:question', faqsController.getUnansweredByQuestion);
     api.post('/unanswered', faqsController.addUnanswered);

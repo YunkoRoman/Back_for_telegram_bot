@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_codes_1 = require("http-status-codes");
+const types_1 = require("../types/types");
 const response_1 = require("../utils/response");
 const logger_1 = require("../utils/logger");
 class AdminController {
@@ -47,10 +48,10 @@ class AdminController {
         this.editUniversityInfo = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const faqToEdit = req.body;
             // University qustion id
-            faqToEdit.id = 2;
+            faqToEdit.intentName = types_1.UNIVERCITY_FAQ_INTENT_NAME;
             try {
                 logger_1.logger.adminLogger.info('edit university info', { Data: faqToEdit });
-                const result = yield this.faqsService.updateFaqById(faqToEdit);
+                const result = yield this.faqsService.updateFaqByIntentName(faqToEdit);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
@@ -66,14 +67,32 @@ class AdminController {
         this.editFacultyInfo = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const faqToEdit = req.body;
             // Faculty qustion id
-            faqToEdit.id = 1;
+            faqToEdit.intentName = types_1.FACULTY_FAQ_INTENT_NAME;
             try {
                 logger_1.logger.adminLogger.info('edit faculty info', { Data: faqToEdit });
-                const result = yield this.faqsService.updateFaqById(faqToEdit);
+                const result = yield this.faqsService.updateFaqByIntentName(faqToEdit);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
                 logger_1.logger.adminLogger.error('unable to edit faculty info', {
+                    Path: req.originalUrl,
+                    Data: faqToEdit,
+                    meta: Object.assign({}, error),
+                });
+                logger_1.logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+                return response_1.apiResponse(res, response_1.failedResponse(error.message), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
+        this.editContactsInfo = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const faqToEdit = req.body;
+            faqToEdit.intentName = types_1.CONTACTS_FAQ_INTENT_NAME;
+            try {
+                logger_1.logger.adminLogger.info('edit contacts info', { Data: faqToEdit });
+                const result = yield this.faqsService.updateFaqByIntentName(faqToEdit);
+                return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.logger.adminLogger.error('unable to edit contacts info', {
                     Path: req.originalUrl,
                     Data: faqToEdit,
                     meta: Object.assign({}, error),

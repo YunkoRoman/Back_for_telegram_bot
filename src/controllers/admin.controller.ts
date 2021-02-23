@@ -7,10 +7,9 @@ import UserService from 'services/user.service';
 import UserTypesService from 'services/user.types.service';
 import { UserTypeModel } from 'sequelize/models/user.type.model';
 import UnansweredService from 'services/unanswered.service';
-import validator from 'validator';
+import { CONTACTS_FAQ_INTENT_NAME, FACULTY_FAQ_INTENT_NAME, UNIVERCITY_FAQ_INTENT_NAME } from '../types/types';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
 import { logger } from '../utils/logger';
-import { customErrors } from '../errors/customErrors';
 
 export default class AdminController {
   private faqsService: FaqsService;
@@ -66,10 +65,10 @@ export default class AdminController {
   public editUniversityInfo = async (req: Request, res: Response): Promise<Response> => {
     const faqToEdit: FaqModel = req.body;
     // University qustion id
-    faqToEdit.id = 2;
+    faqToEdit.intentName = UNIVERCITY_FAQ_INTENT_NAME;
     try {
       logger.adminLogger.info('edit university info', { Data: faqToEdit });
-      const result = await this.faqsService.updateFaqById(faqToEdit);
+      const result = await this.faqsService.updateFaqByIntentName(faqToEdit);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.adminLogger.error('unable to edit university info', {
@@ -85,13 +84,31 @@ export default class AdminController {
   public editFacultyInfo = async (req: Request, res: Response): Promise<Response> => {
     const faqToEdit: FaqModel = req.body;
     // Faculty qustion id
-    faqToEdit.id = 1;
+    faqToEdit.intentName = FACULTY_FAQ_INTENT_NAME;
     try {
       logger.adminLogger.info('edit faculty info', { Data: faqToEdit });
-      const result = await this.faqsService.updateFaqById(faqToEdit);
+      const result = await this.faqsService.updateFaqByIntentName(faqToEdit);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.adminLogger.error('unable to edit faculty info', {
+        Path: req.originalUrl,
+        Data: faqToEdit,
+        meta: { ...error },
+      });
+      logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+      return apiResponse(res, failedResponse(error.message), StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  };
+
+  public editContactsInfo = async (req: Request, res: Response): Promise<Response> => {
+    const faqToEdit: FaqModel = req.body;
+    faqToEdit.intentName = CONTACTS_FAQ_INTENT_NAME;
+    try {
+      logger.adminLogger.info('edit contacts info', { Data: faqToEdit });
+      const result = await this.faqsService.updateFaqByIntentName(faqToEdit);
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.adminLogger.error('unable to edit contacts info', {
         Path: req.originalUrl,
         Data: faqToEdit,
         meta: { ...error },

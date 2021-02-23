@@ -3,7 +3,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import DialogFlow from '../dialogflow/dialogflow';
-import { Intent } from '../types/types';
+import {
+  CONTACTS_FAQ_INTENT_NAME, FACULTY_FAQ_INTENT_NAME, Intent, UNIVERCITY_FAQ_INTENT_NAME,
+} from '../types/types';
 import { FaqModel } from '../sequelize/models/faq.model';
 import UnansweredService from '../services/unanswered.service';
 import { apiResponse, failedResponse, successResponse } from '../utils/response';
@@ -117,6 +119,27 @@ export default class FaqsController {
     }
   };
 
+  public getFaqByIntentName = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> => {
+    const { intentName } = req.params;
+    try {
+      logger.faqLogger.info('get faq by id', { Data: intentName });
+      const faqs = await this.faqsService.getFaqByIntent(intentName);
+      return apiResponse(res, successResponse(faqs), StatusCodes.OK);
+    } catch (error) {
+      logger.faqLogger.error('error while getting faq by id', {
+        requestPath: req.originalUrl,
+        Data: intentName,
+        meta: { ...error },
+      });
+      logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+      return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  };
+
   public getFaqByQuestion = async (
     req: Request,
     res: Response,
@@ -139,19 +162,38 @@ export default class FaqsController {
     }
   };
 
-  // Hardcoded info ID!!!
   public getFacultyInfo = async (
     req: Request,
     res: Response,
     next: NextFunction,
   ): Promise<Response> => {
-    const faqId = 1;
+    const faqId = FACULTY_FAQ_INTENT_NAME;
     try {
       logger.faqLogger.info('get faculty info');
-      const result = await this.faqsService.getFaqById(faqId);
+      const result = await this.faqsService.getFaqByIntent(faqId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.faqLogger.error('unable to get faculty info', {
+        requestPath: req.originalUrl,
+        meta: { ...error },
+      });
+      logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+      return apiResponse(res, failedResponse(error), StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  };
+
+  public getContactsInfo = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> => {
+    const faqId = CONTACTS_FAQ_INTENT_NAME;
+    try {
+      logger.faqLogger.info('get contacts info');
+      const result = await this.faqsService.getFaqByIntent(faqId);
+      return apiResponse(res, successResponse(result), StatusCodes.OK);
+    } catch (error) {
+      logger.faqLogger.error('unable to get contacts info', {
         requestPath: req.originalUrl,
         meta: { ...error },
       });
@@ -165,11 +207,10 @@ export default class FaqsController {
     res: Response,
     next: NextFunction,
   ): Promise<Response> => {
-    // University qustion id
-    const faqId = 2;
+    const faqId = UNIVERCITY_FAQ_INTENT_NAME;
     try {
       logger.faqLogger.info('get university info');
-      const result = await this.faqsService.getFaqById(faqId);
+      const result = await this.faqsService.getFaqByIntent(faqId);
       return apiResponse(res, successResponse(result), StatusCodes.OK);
     } catch (error) {
       logger.faqLogger.error('unable to get university info', {

@@ -28,6 +28,8 @@ function adminStats(db) {
     api.put('/faculty', middlewares_1.hasRole([user_role_model_1.Role.admin, user_role_model_1.Role.superAdmin]), adminController.editFacultyInfo);
     // Put university answer
     api.put('/university', middlewares_1.hasRole([user_role_model_1.Role.admin, user_role_model_1.Role.superAdmin]), adminController.editUniversityInfo);
+    // Put contacts answer
+    api.put('/contacts', middlewares_1.hasRole([user_role_model_1.Role.admin, user_role_model_1.Role.superAdmin]), adminController.editContactsInfo);
     // Get all categories
     api.get('/categories', middlewares_1.hasRole([user_role_model_1.Role.admin, user_role_model_1.Role.superAdmin]), adminController.getAllUserTypes);
     // Create new user category

@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_codes_1 = require("http-status-codes");
 const dialogflow_1 = __importDefault(require("../dialogflow/dialogflow"));
+const types_1 = require("../types/types");
 const response_1 = require("../utils/response");
 const logger_1 = require("../utils/logger");
 const intent_parser_1 = require("../utils/intent.parser");
@@ -98,6 +99,23 @@ class FaqsController {
                 return response_1.apiResponse(res, response_1.failedResponse(error), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
+        this.getFaqByIntentName = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { intentName } = req.params;
+            try {
+                logger_1.logger.faqLogger.info('get faq by id', { Data: intentName });
+                const faqs = yield this.faqsService.getFaqByIntent(intentName);
+                return response_1.apiResponse(res, response_1.successResponse(faqs), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.logger.faqLogger.error('error while getting faq by id', {
+                    requestPath: req.originalUrl,
+                    Data: intentName,
+                    meta: Object.assign({}, error),
+                });
+                logger_1.logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+                return response_1.apiResponse(res, response_1.failedResponse(error), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
         this.getFaqByQuestion = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const faq = req.query;
             try {
@@ -116,12 +134,11 @@ class FaqsController {
                 return response_1.apiResponse(res, response_1.failedResponse(error), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
-        // Hardcoded info ID!!!
         this.getFacultyInfo = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-            const faqId = 1;
+            const faqId = types_1.FACULTY_FAQ_INTENT_NAME;
             try {
                 logger_1.logger.faqLogger.info('get faculty info');
-                const result = yield this.faqsService.getFaqById(faqId);
+                const result = yield this.faqsService.getFaqByIntent(faqId);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {
@@ -133,12 +150,27 @@ class FaqsController {
                 return response_1.apiResponse(res, response_1.failedResponse(error), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
             }
         });
+        this.getContactsInfo = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const faqId = types_1.CONTACTS_FAQ_INTENT_NAME;
+            try {
+                logger_1.logger.faqLogger.info('get contacts info');
+                const result = yield this.faqsService.getFaqByIntent(faqId);
+                return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
+            }
+            catch (error) {
+                logger_1.logger.faqLogger.error('unable to get contacts info', {
+                    requestPath: req.originalUrl,
+                    meta: Object.assign({}, error),
+                });
+                logger_1.logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
+                return response_1.apiResponse(res, response_1.failedResponse(error), http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR);
+            }
+        });
         this.getUniversityInfo = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-            // University qustion id
-            const faqId = 2;
+            const faqId = types_1.UNIVERCITY_FAQ_INTENT_NAME;
             try {
                 logger_1.logger.faqLogger.info('get university info');
-                const result = yield this.faqsService.getFaqById(faqId);
+                const result = yield this.faqsService.getFaqByIntent(faqId);
                 return response_1.apiResponse(res, response_1.successResponse(result), http_status_codes_1.StatusCodes.OK);
             }
             catch (error) {

@@ -49,6 +49,9 @@ function initUser(sequelize) {
         typeId: {
             type: sequelize_1.DataTypes.STRING(32),
         },
+        pointer: {
+            type: sequelize_1.DataTypes.STRING(32),
+        },
     });
 }
 exports.initUser = initUser;

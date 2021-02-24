@@ -13,6 +13,7 @@ export interface UserAttributes {
   step: JSON;
   roleId: number;
   typeId: string;
+  pointer: string;
 }
 
 export interface UserModel extends Model<UserAttributes>, UserAttributes {}
@@ -42,6 +43,8 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
   public roleId!: number;
 
   public typeId!: string;
+
+  public pointer!: string;
 }
 
 export function initUser(sequelize: Sequelize) {
@@ -85,6 +88,9 @@ export function initUser(sequelize: Sequelize) {
       type: DataTypes.INTEGER,
     },
     typeId: {
+      type: DataTypes.STRING(32),
+    },
+    pointer: {
       type: DataTypes.STRING(32),
     },
   });

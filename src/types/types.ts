@@ -19,6 +19,7 @@ export interface UserAddToChat {
   step: JSON;
   roleId: number;
   typeId: string;
+  pointer: string;
 }
 
 export interface Intent {

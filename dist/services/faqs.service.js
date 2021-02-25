@@ -84,7 +84,10 @@ class FaqsService {
         });
         this.updateFaqByIntentName = (faq) => __awaiter(this, void 0, void 0, function* () {
             return this.DB.Faqs
-                .update(faq, { where: { intentName: faq.intentName } });
+                .update(faq, {
+                where: { intentName: faq.intentName },
+                returning: true,
+            });
         });
         this.deleteFaqByIntentName = (faqIntentName) => __awaiter(this, void 0, void 0, function* () {
             return this.DB.Faqs

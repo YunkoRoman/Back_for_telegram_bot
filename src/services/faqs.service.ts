@@ -74,7 +74,11 @@ export default class FaqsService {
     .create(faq);
 
   public updateFaqByIntentName = async (faq: FaqModel): Promise<FaqModel | any> => this.DB.Faqs
-    .update(faq, { where: { intentName: faq.intentName } });
+    .update(faq,
+      {
+        where: { intentName: faq.intentName },
+        returning: true,
+      });
 
   public deleteFaqByIntentName = async (faqIntentName: string): Promise<number> => this.DB.Faqs
     .destroy({ where: { intentName: faqIntentName } });

@@ -25,6 +25,10 @@ function initFaq(sequelize) {
             type: sequelize_1.DataTypes.INTEGER,
             defaultValue: 0,
         },
+        pointer: {
+            type: new sequelize_1.DataTypes.STRING(32),
+            allowNull: true,
+        },
     }, {
         indexes: [
             {

@@ -12,6 +12,7 @@ export interface FaqAttributes {
   question: string;
   answer: string;
   stats: number;
+  pointer: string;
 }
 
 export interface FaqModel extends Model<FaqAttributes>, FaqAttributes {}
@@ -34,6 +35,8 @@ export class Faq extends Model<FaqAttributes, FaqCreationAttributes>
     public answer!: string;
 
     public stats!: number;
+
+    public pointer!: string;
 }
 
 export function initFaq(sequelize: Sequelize) {
@@ -55,6 +58,10 @@ export function initFaq(sequelize: Sequelize) {
     stats: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
+    },
+    pointer: {
+      type: new DataTypes.STRING(32),
+      allowNull: true,
     },
 
   }, {

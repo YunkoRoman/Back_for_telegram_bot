@@ -13,6 +13,7 @@ export interface FaqAttributes {
   answer: string;
   stats: number;
   pointer: string;
+  step: JSON;
 }
 
 export interface FaqModel extends Model<FaqAttributes>, FaqAttributes {}
@@ -37,6 +38,8 @@ export class Faq extends Model<FaqAttributes, FaqCreationAttributes>
     public stats!: number;
 
     public pointer!: string;
+
+    public step!: JSON;
 }
 
 export function initFaq(sequelize: Sequelize) {
@@ -62,6 +65,9 @@ export function initFaq(sequelize: Sequelize) {
     pointer: {
       type: new DataTypes.STRING(32),
       allowNull: true,
+    },
+    step: {
+      type: DataTypes.JSON,
     },
 
   }, {

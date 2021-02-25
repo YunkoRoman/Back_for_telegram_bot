@@ -29,6 +29,9 @@ function initFaq(sequelize) {
             type: new sequelize_1.DataTypes.STRING(32),
             allowNull: true,
         },
+        step: {
+            type: sequelize_1.DataTypes.JSON,
+        },
     }, {
         indexes: [
             {

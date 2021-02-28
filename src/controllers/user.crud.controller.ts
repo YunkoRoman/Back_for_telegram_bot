@@ -139,12 +139,21 @@ export default class UserController {
           case 'Other':
             Other += 1;
             break;
-          default: break;
+          default:
+            break;
         }
       });
-      return apiResponse(res, successResponse({
-        Applicant, Parents, Teacher, Student, Other,
-      }), StatusCodes.OK);
+      return apiResponse(
+        res,
+        successResponse({
+          Applicant,
+          Parents,
+          Teacher,
+          Student,
+          Other,
+        }),
+        StatusCodes.OK
+      );
     } catch (error) {
       logger.userLogger.error('error while counting users type stats', { Path: req.originalUrl, meta: { ...error } });
       logger.serverLogger.error(`Server error ${error.message}  CODE ${error.code}`);
@@ -175,8 +184,7 @@ export default class UserController {
       logger.userLogger.info('delete user by id', { Data: telegramId });
       const result = await this.userService.deleteUser(telegramId);
       if (result === 0) {
-        return apiResponse(res, failedResponse(customErrors.NOT_FOUND.message),
-          StatusCodes.NOT_FOUND);
+        return apiResponse(res, failedResponse(customErrors.NOT_FOUND.message), StatusCodes.NOT_FOUND);
       }
       const deleteUser = await this.redisUserCache.deleteUser(telegramId);
       logger.redisLogger.info('User deleted from redis', { User: deleteUser });
@@ -208,10 +216,7 @@ export default class UserController {
     }
   };
 
-  public getUserByTelegramName = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response | undefined> => {
+  public getUserByTelegramName = async (req: Request, res: Response): Promise<Response | undefined> => {
     const { telegramName } = req.params;
     try {
       logger.userLogger.info('get user by telegram name', { Data: telegramName });

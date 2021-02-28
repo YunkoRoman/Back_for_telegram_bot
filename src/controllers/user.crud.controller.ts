@@ -116,28 +116,28 @@ export default class UserController {
     try {
       logger.userLogger.info('count all users types');
       const result = await this.userService.getStatsOfAllUsersByType();
-      let Applicant = 0;
-      let Parents = 0;
-      let Teacher = 0;
-      let Student = 0;
-      let Other = 0;
+      let applicant = 0;
+      let parents = 0;
+      let teacher = 0;
+      let student = 0;
+      let other = 0;
       result.forEach((user) => {
         const type = user.typeId;
         switch (type) {
-          case 'Applicant':
-            Applicant += 1;
+          case 'applicant':
+            applicant += 1;
             break;
-          case 'Parents':
-            Parents += 1;
+          case 'parents':
+            parents += 1;
             break;
-          case 'Teacher':
-            Teacher += 1;
+          case 'teacher':
+            teacher += 1;
             break;
-          case 'Student':
-            Student += 1;
+          case 'student':
+            student += 1;
             break;
-          case 'Other':
-            Other += 1;
+          case 'other':
+            other += 1;
             break;
           default:
             break;
@@ -146,11 +146,11 @@ export default class UserController {
       return apiResponse(
         res,
         successResponse({
-          Applicant,
-          Parents,
-          Teacher,
-          Student,
-          Other,
+          applicant,
+          parents,
+          teacher,
+          student,
+          other,
         }),
         StatusCodes.OK
       );

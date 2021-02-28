@@ -50,7 +50,7 @@ function initUser(sequelize) {
             type: sequelize_1.DataTypes.STRING(32),
         },
         pointer: {
-            type: sequelize_1.DataTypes.STRING(32),
+            type: sequelize_1.DataTypes.TEXT,
         },
     });
 }

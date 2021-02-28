@@ -91,7 +91,7 @@ export function initUser(sequelize: Sequelize) {
       type: DataTypes.STRING(32),
     },
     pointer: {
-      type: DataTypes.STRING(32),
+      type: DataTypes.TEXT,
     },
   });
 }
